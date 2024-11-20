@@ -27,6 +27,8 @@ const translations = {
     totalExpense: 'Toplam Gider',
     recentTransactions: 'Son İşlemler',
     refresh: 'Yenile',
+    allYears: 'Tüm Yıllar',
+    allMonths: 'Tüm Aylar'
   },
   en: {
     summary: 'Summary',
@@ -41,6 +43,8 @@ const translations = {
     totalExpense: 'Total Expense',
     recentTransactions: 'Recent Transactions',
     refresh: 'Refresh',
+    allYears: 'All Years',
+    allMonths: 'All Months'
   }
 };
 
@@ -433,10 +437,11 @@ function Dashboard() {
           </label>
           <select 
             value={filters.year}
-            onChange={(e) => setFilters({...filters, year: Number(e.target.value)})}
+            onChange={(e) => setFilters({...filters, year: Number(e.target.value) || ''})}
             className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            {[2022, 2023, 2024].map(year => (
+            <option value="">{translations[language].allYears}</option>
+            {[2024, 2023, 2022].map(year => (
               <option key={year} value={year}>{year}</option>
             ))}
           </select>
@@ -449,9 +454,10 @@ function Dashboard() {
           </label>
           <select 
             value={filters.month}
-            onChange={(e) => setFilters({...filters, month: Number(e.target.value)})}
+            onChange={(e) => setFilters({...filters, month: Number(e.target.value) || ''})}
             className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
+            <option value="">{translations[language].allMonths}</option>
             {Array.from({length: 12}, (_, i) => i + 1).map(month => (
               <option key={month} value={month}>
                 {new Date(2024, month - 1, 1).toLocaleString(language, { month: 'long' })}

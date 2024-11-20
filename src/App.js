@@ -6,15 +6,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Organizations from './components/Organizations/Organizations';
 import Settings from './components/Settings/Settings';
 import Categories from './components/Categories/Categories';
-
-const Reports = () => (
-  <div className="p-6">
-    <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Raporlar</h1>
-    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-      <p className="text-gray-500 dark:text-gray-400">Raporlama sistemi yakında eklenecek...</p>
-    </div>
-  </div>
-);
+import Reports from './components/Reports/Reports';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {

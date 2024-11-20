@@ -134,8 +134,8 @@ const Sidebar = () => {
   return (
     <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
       <div className="flex-1 flex flex-col min-h-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
-        <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-          <div className="flex items-center flex-shrink-0 px-6 mb-6">
+        <div className="flex-1 flex flex-col overflow-y-auto">
+          <div className="flex items-center flex-shrink-0 px-6 pt-8 pb-6">
             <img
               className="h-8 w-auto"
               src="/logo.png"
@@ -150,8 +150,10 @@ const Sidebar = () => {
             </span>
           </div>
 
-          <nav className="flex-1 space-y-1">
-            {menuItems.map(item => renderMenuItem(item))}
+          <nav className="flex-1 pt-6 px-3">
+            <div className="space-y-3">
+              {menuItems.map(item => renderMenuItem(item))}
+            </div>
           </nav>
         </div>
       </div>
