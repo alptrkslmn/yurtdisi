@@ -10,6 +10,7 @@ import {
 import Items from './Items';
 import LanguageSettings from './LanguageSettings';
 import GeneralSettings from './GeneralSettings';
+import Users from './Users';
 
 const Settings = () => {
   const location = useLocation();
@@ -33,11 +34,7 @@ const Settings = () => {
       name: t('settings.users.title'),
       path: 'users',
       icon: UserIcon,
-      component: () => (
-        <div className="text-gray-500 dark:text-gray-400 p-4">
-          {t('common.comingSoon')}
-        </div>
-      )
+      component: Users
     },
     {
       name: t('settings.language.title'),

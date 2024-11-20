@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dış daire -->
+  <circle cx="100" cy="100" r="95" stroke="#005C3E" stroke-width="10" fill="none"/>
+  
+  <!-- İç daire -->
+  <circle cx="100" cy="100" r="85" stroke="#005C3E" stroke-width="2" fill="none"/>
+  
+  <!-- Kubbe şekli -->
+  <path d="M100 40 
+           C60 40, 40 80, 40 120
+           L160 120
+           C160 80, 140 40, 100 40Z" 
+        fill="#005C3E"/>
+  
+  <!-- Minare -->
+  <rect x="95" y="30" width="10" height="30" fill="#005C3E"/>
+  <circle cx="100" cy="25" r="5" fill="#005C3E"/>
+  
+  <!-- Alt yazı -->
+  <text x="100" y="150" 
+        font-family="Arial, sans-serif" 
+        font-size="24" 
+        text-anchor="middle" 
+        fill="#005C3E"
+        font-weight="bold">
+    HÜDAYİ
+  </text>
+  <text x="100" y="170" 
+        font-family="Arial, sans-serif" 
+        font-size="16" 
+        text-anchor="middle" 
+        fill="#005C3E">
+    VAKFI
+  </text>
+</svg>

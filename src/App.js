@@ -44,7 +44,15 @@ function App() {
                 } 
               />
               <Route 
-                path="/countries/*" 
+                path="/countries" 
+                element={
+                  <WithPermission permission={PERMISSIONS.COUNTRY.VIEW}>
+                    <Organizations />
+                  </WithPermission>
+                } 
+              />
+              <Route 
+                path="/countries/:countryId" 
                 element={
                   <WithPermission permission={PERMISSIONS.COUNTRY.VIEW}>
                     <Organizations />

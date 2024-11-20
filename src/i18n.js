@@ -17,6 +17,12 @@ const resources = {
         comingSoon: 'Çok Yakında',
         search: 'Ara',
         turkish: 'Türkçe',
+        english: 'English',
+        profile: 'Profil',
+        settings: 'Ayarlar',
+        logout: 'Çıkış Yap',
+        darkMode: 'Gece Modu',
+        lightMode: 'Gündüz Modu',
         title: 'Genel'
       },
       navigation: {
@@ -29,9 +35,9 @@ const resources = {
       },
       countries: {
         title: 'Tüm Ülkeler',
-        turkey: 'Türkiye',
-        germany: 'Almanya',
-        netherlands: 'Hollanda',
+        TR: 'Türkiye',
+        DE: 'Almanya',
+        NL: 'Hollanda',
         branchesDescription: '{{country}} ülkesindeki tüm şube ve temsilcilikler',
         addBranch: 'Yeni Şube Ekle',
         editBranch: 'Şubeyi Düzenle',
@@ -67,7 +73,22 @@ const resources = {
         },
         users: {
           title: 'Kullanıcı Yönetimi',
-          description: 'Kullanıcıları buradan yönetebilirsiniz'
+          description: 'Kullanıcıları buradan yönetebilirsiniz',
+          addUser: 'Kullanıcı Ekle',
+          editUser: 'Kullanıcı Düzenle',
+          name: 'Ad',
+          email: 'E-posta',
+          role: 'Rol',
+          country: 'Ülke',
+          password: 'Şifre',
+          confirmPassword: 'Şifreyi Onayla',
+          namePlaceholder: 'Adı girin',
+          emailPlaceholder: 'E-posta adresini girin',
+          passwordPlaceholder: 'Şifreyi girin',
+          confirmPasswordPlaceholder: 'Şifreyi onaylayın',
+          selectRole: 'Rolü seçin',
+          selectCountry: 'Ülkeyi seçin',
+          add: 'Kullanıcı Ekle'
         },
         language: {
           title: 'Dil Ayarları',
@@ -98,6 +119,12 @@ const resources = {
         comingSoon: 'Coming Soon',
         search: 'Search translations...',
         turkish: 'Turkish',
+        english: 'English',
+        profile: 'Profile',
+        settings: 'Settings',
+        logout: 'Logout',
+        darkMode: 'Dark Mode',
+        lightMode: 'Light Mode',
         title: 'General'
       },
       navigation: {
@@ -153,8 +180,23 @@ const resources = {
           description: 'Description'
         },
         users: {
-          title: 'User Management',
-          description: 'Manage users here'
+          title: 'Users',
+          description: 'Manage users here',
+          addUser: 'Add User',
+          editUser: 'Edit User',
+          name: 'Name',
+          email: 'Email',
+          role: 'Role',
+          country: 'Country',
+          password: 'Password',
+          confirmPassword: 'Confirm Password',
+          namePlaceholder: 'Enter name',
+          emailPlaceholder: 'Enter email',
+          passwordPlaceholder: 'Enter password',
+          confirmPasswordPlaceholder: 'Confirm password',
+          selectRole: 'Select role',
+          selectCountry: 'Select country',
+          add: 'Add User'
         },
         language: {
           title: 'Language Settings',
