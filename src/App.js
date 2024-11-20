@@ -35,7 +35,14 @@ function App() {
           <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
           <main className="p-8">
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route 
+                path="/" 
+                element={
+                  <WithPermission permission={PERMISSIONS.DASHBOARD.VIEW}>
+                    <Dashboard />
+                  </WithPermission>
+                } 
+              />
               <Route 
                 path="/countries/*" 
                 element={
@@ -47,7 +54,7 @@ function App() {
               <Route 
                 path="/pre-accounting" 
                 element={
-                  <WithPermission permission={PERMISSIONS.ACCOUNTING.VIEW}>
+                  <WithPermission permission={PERMISSIONS.FINANCIAL.VIEW}>
                     <PreAccounting />
                   </WithPermission>
                 } 
@@ -63,7 +70,7 @@ function App() {
               <Route 
                 path="/settings/*" 
                 element={
-                  <WithPermission permission={PERMISSIONS.SETTINGS.VIEW}>
+                  <WithPermission permission={PERMISSIONS.DASHBOARD.VIEW}>
                     <Settings />
                   </WithPermission>
                 } 

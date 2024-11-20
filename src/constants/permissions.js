@@ -1,100 +1,148 @@
-// Yetki türleri
+// Permission types
+export const PERMISSION_TYPES = {
+  VIEW: 'VIEW',
+  CREATE: 'CREATE',
+  EDIT: 'EDIT',
+  DELETE: 'DELETE'
+};
+
+// User roles
+export const ROLES = {
+  SUPER_ADMIN: 'SUPER_ADMIN',           // Genel Merkez Yöneticisi
+  COUNTRY_COORDINATOR: 'COUNTRY_COORDINATOR', // Ülke Koordinatörü
+  FINANCIAL_MANAGER: 'FINANCIAL_MANAGER',     // Mali İşler Sorumlusu
+  BRANCH_MANAGER: 'BRANCH_MANAGER',           // Kurum Yetkilisi
+  VIEWER: 'VIEWER'                      // Görüntüleyici
+};
+
+// Module permissions
 export const PERMISSIONS = {
-  // Ülke yetkileri
+  DASHBOARD: {
+    VIEW: 'dashboard.view'
+  },
   COUNTRY: {
     VIEW: 'country.view',
     CREATE: 'country.create',
     EDIT: 'country.edit',
-    DELETE: 'country.delete',
+    DELETE: 'country.delete'
   },
-  // Gelir/Gider yetkileri
-  ACCOUNTING: {
-    VIEW: 'accounting.view',
-    CREATE: 'accounting.create',
-    EDIT: 'accounting.edit',
-    DELETE: 'accounting.delete',
+  BRANCH: {
+    VIEW: 'branch.view',
+    CREATE: 'branch.create',
+    EDIT: 'branch.edit',
+    DELETE: 'branch.delete'
   },
-  // Rapor yetkileri
-  REPORT: {
-    VIEW: 'report.view',
-    CREATE: 'report.create',
-    EXPORT: 'report.export',
+  FINANCIAL: {
+    VIEW: 'financial.view',
+    CREATE: 'financial.create',
+    EDIT: 'financial.edit',
+    DELETE: 'financial.delete',
+    APPROVE: 'financial.approve'
   },
-  // Kullanıcı yetkileri
   USER: {
     VIEW: 'user.view',
     CREATE: 'user.create',
     EDIT: 'user.edit',
-    DELETE: 'user.delete',
+    DELETE: 'user.delete'
   },
-  // Ayar yetkileri
-  SETTINGS: {
-    VIEW: 'settings.view',
-    EDIT: 'settings.edit',
+  REPORT: {
+    VIEW: 'report.view',
+    CREATE: 'report.create',
+    EXPORT: 'report.export'
   }
 };
 
-// Kullanıcı rolleri
-export const ROLES = {
-  SUPER_ADMIN: 'super_admin',     // Tüm yetkilere sahip
-  ADMIN: 'admin',                 // Belirli bir ülke/bölge için tam yetkili
-  MANAGER: 'manager',             // Belirli bir organizasyon için yetkili
-  ACCOUNTANT: 'accountant',       // Sadece muhasebe işlemleri için yetkili
-  VIEWER: 'viewer'                // Sadece görüntüleme yetkisi
-};
-
-// Her role ait varsayılan yetkiler
+// Role-based permissions
 export const ROLE_PERMISSIONS = {
   [ROLES.SUPER_ADMIN]: [
-    // Tüm yetkiler
-    ...Object.values(PERMISSIONS.COUNTRY),
-    ...Object.values(PERMISSIONS.ACCOUNTING),
-    ...Object.values(PERMISSIONS.REPORT),
-    ...Object.values(PERMISSIONS.USER),
-    ...Object.values(PERMISSIONS.SETTINGS),
-  ],
-  [ROLES.ADMIN]: [
-    // Ülke yetkileri
-    ...Object.values(PERMISSIONS.COUNTRY),
-    // Muhasebe yetkileri
-    ...Object.values(PERMISSIONS.ACCOUNTING),
-    // Rapor yetkileri
-    ...Object.values(PERMISSIONS.REPORT),
-    // Sınırlı kullanıcı yetkileri
+    // Dashboard
+    PERMISSIONS.DASHBOARD.VIEW,
+    // Country Management
+    PERMISSIONS.COUNTRY.VIEW,
+    PERMISSIONS.COUNTRY.CREATE,
+    PERMISSIONS.COUNTRY.EDIT,
+    PERMISSIONS.COUNTRY.DELETE,
+    // Branch Management
+    PERMISSIONS.BRANCH.VIEW,
+    PERMISSIONS.BRANCH.CREATE,
+    PERMISSIONS.BRANCH.EDIT,
+    PERMISSIONS.BRANCH.DELETE,
+    // Financial Management
+    PERMISSIONS.FINANCIAL.VIEW,
+    PERMISSIONS.FINANCIAL.CREATE,
+    PERMISSIONS.FINANCIAL.EDIT,
+    PERMISSIONS.FINANCIAL.DELETE,
+    PERMISSIONS.FINANCIAL.APPROVE,
+    // User Management
     PERMISSIONS.USER.VIEW,
     PERMISSIONS.USER.CREATE,
     PERMISSIONS.USER.EDIT,
-    // Sınırlı ayar yetkileri
-    PERMISSIONS.SETTINGS.VIEW,
-  ],
-  [ROLES.MANAGER]: [
-    // Sınırlı ülke yetkileri
-    PERMISSIONS.COUNTRY.VIEW,
-    PERMISSIONS.COUNTRY.EDIT,
-    // Muhasebe yetkileri
-    ...Object.values(PERMISSIONS.ACCOUNTING),
-    // Sınırlı rapor yetkileri
+    PERMISSIONS.USER.DELETE,
+    // Reports
     PERMISSIONS.REPORT.VIEW,
-    PERMISSIONS.REPORT.EXPORT,
-    // Ayarları görüntüleme
-    PERMISSIONS.SETTINGS.VIEW,
+    PERMISSIONS.REPORT.CREATE,
+    PERMISSIONS.REPORT.EXPORT
   ],
-  [ROLES.ACCOUNTANT]: [
-    // Ülke görüntüleme
+  [ROLES.COUNTRY_COORDINATOR]: [
+    // Dashboard
+    PERMISSIONS.DASHBOARD.VIEW,
+    // Country Management (limited to their country)
     PERMISSIONS.COUNTRY.VIEW,
-    // Muhasebe yetkileri
-    ...Object.values(PERMISSIONS.ACCOUNTING),
-    // Rapor yetkileri
+    // Branch Management
+    PERMISSIONS.BRANCH.VIEW,
+    PERMISSIONS.BRANCH.CREATE,
+    PERMISSIONS.BRANCH.EDIT,
+    // Financial Management
+    PERMISSIONS.FINANCIAL.VIEW,
+    PERMISSIONS.FINANCIAL.CREATE,
+    PERMISSIONS.FINANCIAL.EDIT,
+    PERMISSIONS.FINANCIAL.APPROVE,
+    // User Management (limited to their country)
+    PERMISSIONS.USER.VIEW,
+    PERMISSIONS.USER.CREATE,
+    PERMISSIONS.USER.EDIT,
+    // Reports
     PERMISSIONS.REPORT.VIEW,
-    PERMISSIONS.REPORT.EXPORT,
-    // Ayarları görüntüleme
-    PERMISSIONS.SETTINGS.VIEW,
+    PERMISSIONS.REPORT.CREATE,
+    PERMISSIONS.REPORT.EXPORT
+  ],
+  [ROLES.FINANCIAL_MANAGER]: [
+    // Dashboard
+    PERMISSIONS.DASHBOARD.VIEW,
+    // Country & Branch View
+    PERMISSIONS.COUNTRY.VIEW,
+    PERMISSIONS.BRANCH.VIEW,
+    // Financial Management
+    PERMISSIONS.FINANCIAL.VIEW,
+    PERMISSIONS.FINANCIAL.CREATE,
+    PERMISSIONS.FINANCIAL.EDIT,
+    PERMISSIONS.FINANCIAL.APPROVE,
+    // Reports
+    PERMISSIONS.REPORT.VIEW,
+    PERMISSIONS.REPORT.CREATE,
+    PERMISSIONS.REPORT.EXPORT
+  ],
+  [ROLES.BRANCH_MANAGER]: [
+    // Dashboard
+    PERMISSIONS.DASHBOARD.VIEW,
+    // Branch View (limited to their branch)
+    PERMISSIONS.BRANCH.VIEW,
+    PERMISSIONS.BRANCH.EDIT,
+    // Financial Management (limited to their branch)
+    PERMISSIONS.FINANCIAL.VIEW,
+    PERMISSIONS.FINANCIAL.CREATE,
+    PERMISSIONS.FINANCIAL.EDIT,
+    // Reports (limited to their branch)
+    PERMISSIONS.REPORT.VIEW,
+    PERMISSIONS.REPORT.CREATE
   ],
   [ROLES.VIEWER]: [
-    // Sadece görüntüleme yetkileri
+    // Dashboard
+    PERMISSIONS.DASHBOARD.VIEW,
+    // View-only permissions
     PERMISSIONS.COUNTRY.VIEW,
-    PERMISSIONS.ACCOUNTING.VIEW,
-    PERMISSIONS.REPORT.VIEW,
-    PERMISSIONS.SETTINGS.VIEW,
-  ],
+    PERMISSIONS.BRANCH.VIEW,
+    PERMISSIONS.FINANCIAL.VIEW,
+    PERMISSIONS.REPORT.VIEW
+  ]
 };

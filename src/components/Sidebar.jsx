@@ -23,9 +23,9 @@ const Sidebar = () => {
   const [expandedItems, setExpandedItems] = useState([]);
 
   const countries = [
-    { id: 'tr', name: t('countries.turkey') },
-    { id: 'de', name: t('countries.germany') },
-    { id: 'nl', name: t('countries.netherlands') },
+    { id: 'tr', name: t('countries.tr') },
+    { id: 'de', name: t('countries.de') },
+    { id: 'nl', name: t('countries.nl') },
   ];
 
   const menuItems = [
@@ -33,7 +33,7 @@ const Sidebar = () => {
       name: t('navigation.dashboard'),
       path: '/',
       icon: HomeIcon,
-      permission: null // Herkes görebilir
+      permission: PERMISSIONS.DASHBOARD.VIEW
     },
     {
       name: t('navigation.countries'),
@@ -51,7 +51,7 @@ const Sidebar = () => {
       name: t('navigation.preAccounting'),
       path: '/pre-accounting',
       icon: DocumentTextIcon,
-      permission: PERMISSIONS.ACCOUNTING.VIEW
+      permission: PERMISSIONS.FINANCIAL.VIEW
     },
     {
       name: t('navigation.reports'),
@@ -63,13 +63,13 @@ const Sidebar = () => {
       name: t('navigation.settings'),
       path: '/settings',
       icon: Cog6ToothIcon,
-      permission: PERMISSIONS.SETTINGS.VIEW,
+      permission: PERMISSIONS.DASHBOARD.VIEW,
       subItems: [
         {
           name: t('settings.language.title'),
           path: '/settings/language',
           icon: LanguageIcon,
-          permission: PERMISSIONS.SETTINGS.VIEW
+          permission: PERMISSIONS.DASHBOARD.VIEW
         },
         {
           name: t('settings.users.title'),
@@ -103,39 +103,35 @@ const Sidebar = () => {
       return null;
     }
 
-    const hasSubItems = item.subItems && item.subItems.length > 0;
     const isExpanded = expandedItems.includes(item.name);
-    const active = isActive(item.path);
+    const hasSubItems = item.subItems && item.subItems.length > 0;
     const Icon = item.icon;
-
-    const paddingLeft = depth === 0 ? 'px-4' : 'px-8';
+    const isItemActive = isActive(item.path);
 
     return (
-      <div key={item.path}>
+      <div key={item.path} className="mb-1">
         <Link
           to={hasSubItems ? '#' : item.path}
-          onClick={hasSubItems ? (e) => {
-            e.preventDefault();
-            toggleExpand(item.name);
-          } : undefined}
-          className={`flex items-center space-x-2 py-2 rounded-lg transition-colors duration-200 ${paddingLeft} ${
-            active
-              ? 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-400'
-              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-          }`}
+          onClick={hasSubItems ? () => toggleExpand(item.name) : undefined}
+          className={`
+            flex items-center px-4 py-2 text-sm font-medium rounded-md
+            ${isItemActive ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white' : 
+              'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'}
+            ${depth > 0 ? 'ml-6' : ''}
+          `}
         >
-          <Icon className="h-5 w-5 flex-shrink-0" />
+          {Icon && <Icon className="mr-3 h-5 w-5" />}
           <span className="flex-1">{item.name}</span>
           {hasSubItems && (
             isExpanded ? (
-              <ChevronDownIcon className="h-4 w-4" />
+              <ChevronDownIcon className="h-5 w-5" />
             ) : (
-              <ChevronRightIcon className="h-4 w-4" />
+              <ChevronRightIcon className="h-5 w-5" />
             )
           )}
         </Link>
         {hasSubItems && isExpanded && (
-          <div className="mt-1 space-y-1">
+          <div className="mt-1">
             {item.subItems.map(subItem => renderMenuItem(subItem, depth + 1))}
           </div>
         )}
@@ -144,18 +140,23 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="fixed inset-y-0 left-0 z-30 w-64 transform transition-transform duration-300 ease-in-out md:translate-x-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
-      <div className="flex h-16 items-center justify-between px-4 border-b border-gray-200 dark:border-gray-700">
-        <Link to="/" className="flex items-center">
-          <span className="text-xl font-semibold text-gray-900 dark:text-white">
-            {t('common.appName')}
-          </span>
-        </Link>
-      </div>
-      <div className="overflow-y-auto h-[calc(100vh-4rem)] py-4">
-        <nav className="space-y-1 px-2">
-          {menuItems.map(item => renderMenuItem(item))}
-        </nav>
+    <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+      <div className="flex-1 flex flex-col min-h-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+        <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+          <div className="flex items-center flex-shrink-0 px-4">
+            <img
+              className="h-8 w-auto"
+              src="/logo.png"
+              alt="Hudayi Logo"
+            />
+            <span className="ml-2 text-lg font-semibold text-gray-900 dark:text-white">
+              Hudayi Yurtdışı
+            </span>
+          </div>
+          <nav className="mt-5 flex-1 px-2 space-y-1">
+            {menuItems.map(item => renderMenuItem(item))}
+          </nav>
+        </div>
       </div>
     </div>
   );

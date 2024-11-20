@@ -72,6 +72,13 @@ const resources = {
         language: {
           title: 'Dil Ayarları',
           description: 'Çevirileri düzenlemek için bir dil seçin ve metinleri güncelleyin'
+        },
+        roles: {
+          SUPER_ADMIN: 'Genel Merkez Yöneticisi',
+          COUNTRY_COORDINATOR: 'Ülke Koordinatörü',
+          FINANCIAL_MANAGER: 'Mali İşler Sorumlusu',
+          BRANCH_MANAGER: 'Kurum Yetkilisi',
+          VIEWER: 'Görüntüleyici'
         }
       }
     }
@@ -152,6 +159,13 @@ const resources = {
         language: {
           title: 'Language Settings',
           description: 'Select a language and update translations'
+        },
+        roles: {
+          SUPER_ADMIN: 'General Headquarters Manager',
+          COUNTRY_COORDINATOR: 'Country Coordinator',
+          FINANCIAL_MANAGER: 'Financial Manager',
+          BRANCH_MANAGER: 'Branch Manager',
+          VIEWER: 'Viewer'
         }
       }
     }
