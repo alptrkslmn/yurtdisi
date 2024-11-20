@@ -42,3 +42,4 @@ const TransactionsPage = () => {
 };
 
 export default TransactionsPage;
+// transactions sayfasını güncelledim.

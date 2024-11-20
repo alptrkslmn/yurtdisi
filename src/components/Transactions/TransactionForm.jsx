@@ -99,8 +99,7 @@ const TransactionForm = () => {
                   onChange={(e) => setFormData(prev => ({ ...prev, amount: e.target.value }))}
                   className="input pl-10"
                   placeholder="0.00"
-                  step="0.01"
-                  min="0"
+                  required
                 />
               </div>
             </div>
@@ -109,9 +108,10 @@ const TransactionForm = () => {
               <select
                 value={formData.currency}
                 onChange={(e) => setFormData(prev => ({ ...prev, currency: e.target.value }))}
-                className="input"
+                className="select"
+                required
               >
-                {currencies.map((currency) => (
+                {currencies.map(currency => (
                   <option key={currency.code} value={currency.code}>
                     {currency.name} ({currency.symbol})
                   </option>
@@ -130,12 +130,13 @@ const TransactionForm = () => {
               <select
                 value={formData.category}
                 onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                className="input"
+                className="select"
+                required
               >
                 <option value="">Kategori Seçin</option>
                 {categories
                   .filter(cat => cat.type === formData.type)
-                  .map((category) => (
+                  .map(category => (
                     <option key={category.id} value={category.id}>
                       {category.name}
                     </option>
@@ -144,18 +145,24 @@ const TransactionForm = () => {
             </div>
             <div>
               <label className="label">Kurum</label>
-              <select
-                value={formData.institution}
-                onChange={(e) => setFormData(prev => ({ ...prev, institution: e.target.value }))}
-                className="input"
-              >
-                <option value="">Kurum Seçin</option>
-                {institutions.map((institution) => (
-                  <option key={institution.id} value={institution.id}>
-                    {institution.name} ({institution.country})
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <BuildingOfficeIcon className="h-5 w-5 text-dark-400" />
+                </div>
+                <select
+                  value={formData.institution}
+                  onChange={(e) => setFormData(prev => ({ ...prev, institution: e.target.value }))}
+                  className="select pl-10"
+                  required
+                >
+                  <option value="">Kurum Seçin</option>
+                  {institutions.map(inst => (
+                    <option key={inst.id} value={inst.id}>
+                      {inst.name} ({inst.country})
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -163,7 +170,7 @@ const TransactionForm = () => {
         {/* Tarih ve Açıklama */}
         <div className="card">
           <h2 className="text-lg font-medium mb-4">Diğer Bilgiler</h2>
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="label">Tarih</label>
               <input
@@ -171,6 +178,7 @@ const TransactionForm = () => {
                 value={formData.date}
                 onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
                 className="input"
+                required
               />
             </div>
             <div>
@@ -178,8 +186,10 @@ const TransactionForm = () => {
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                className="input h-24 resize-none"
+                className="input"
+                rows={1}
                 placeholder="İşlem açıklaması..."
+                required
               />
             </div>
           </div>
@@ -190,28 +200,42 @@ const TransactionForm = () => {
           <h2 className="text-lg font-medium mb-4">Dosya Ekleri</h2>
           <div className="space-y-4">
             <div className="flex items-center justify-center w-full">
-              <label className="w-full flex flex-col items-center px-4 py-6 bg-white dark:bg-dark-800 text-dark rounded-lg border-2 border-dashed border-dark-300 dark:border-dark-600 cursor-pointer hover:border-primary-500 dark:hover:border-primary-500">
-                <DocumentIcon className="h-12 w-12 text-dark-400" />
-                <span className="mt-2 text-sm text-dark-500">Dosya eklemek için tıklayın veya sürükleyin</span>
-                <input type="file" className="hidden" multiple onChange={handleFileChange} />
+              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-dark-50 dark:hover:bg-dark-800">
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <DocumentIcon className="w-10 h-10 mb-3 text-dark-400" />
+                  <p className="mb-2 text-sm text-dark-500">
+                    <span className="font-semibold">Dosya yüklemek için tıklayın</span>
+                  </p>
+                  <p className="text-xs text-dark-500">PDF, PNG, JPG veya DOCX</p>
+                </div>
+                <input
+                  type="file"
+                  className="hidden"
+                  multiple
+                  onChange={handleFileChange}
+                  accept=".pdf,.png,.jpg,.jpeg,.docx"
+                />
               </label>
             </div>
 
-            {/* Eklenen Dosyalar */}
+            {/* Yüklenen Dosyalar */}
             {formData.attachments.length > 0 && (
               <div className="space-y-2">
                 {formData.attachments.map((file, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between p-2 bg-dark-50 dark:bg-dark-800 rounded-lg"
+                    className="flex items-center justify-between p-2 rounded-lg bg-dark-50 dark:bg-dark-800"
                   >
-                    <span className="text-sm truncate">{file.name}</span>
+                    <div className="flex items-center space-x-2">
+                      <DocumentIcon className="h-5 w-5 text-dark-400" />
+                      <span className="text-sm">{file.name}</span>
+                    </div>
                     <button
                       type="button"
                       onClick={() => removeAttachment(index)}
-                      className="p-1 hover:text-red-600"
+                      className="p-1 hover:bg-dark-100 dark:hover:bg-dark-700 rounded-full"
                     >
-                      <XMarkIcon className="h-5 w-5" />
+                      <XMarkIcon className="h-5 w-5 text-dark-400" />
                     </button>
                   </div>
                 ))}
@@ -220,13 +244,10 @@ const TransactionForm = () => {
           </div>
         </div>
 
-        {/* Form Butonları */}
-        <div className="flex justify-end gap-2">
-          <button type="button" className="btn btn-secondary">
-            İptal
-          </button>
+        {/* Gönder Butonu */}
+        <div className="flex justify-end">
           <button type="submit" className="btn btn-primary">
-            Kaydet
+            İşlemi Kaydet
           </button>
         </div>
       </form>

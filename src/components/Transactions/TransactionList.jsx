@@ -46,8 +46,7 @@ const TransactionList = () => {
       description: 'Yıllık bağış ödemesi',
       attachments: 1,
       status: 'pending'
-    },
-    // ... Daha fazla örnek veri eklenebilir
+    }
   ];
 
   const handleSort = (key) => {
@@ -141,7 +140,7 @@ const TransactionList = () => {
             <FunnelIcon className="h-5 w-5" />
             Filtreler
           </h2>
-          <button 
+          <button
             onClick={() => setFilters({
               type: '',
               dateRange: 'all',
@@ -157,162 +156,118 @@ const TransactionList = () => {
             Sıfırla
           </button>
         </div>
-
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="label">İşlem Türü</label>
-            <select
-              value={filters.type}
-              onChange={(e) => setFilters(prev => ({ ...prev, type: e.target.value }))}
-              className="input"
-            >
-              <option value="">Tümü</option>
-              <option value="income">Gelir</option>
-              <option value="expense">Gider</option>
-              <option value="donation">Bağış</option>
-            </select>
-          </div>
+          <select
+            value={filters.type}
+            onChange={(e) => setFilters(prev => ({ ...prev, type: e.target.value }))}
+            className="select"
+          >
+            <option value="">Tüm İşlem Türleri</option>
+            <option value="income">Gelir</option>
+            <option value="expense">Gider</option>
+            <option value="donation">Bağış</option>
+          </select>
 
-          <div>
-            <label className="label">Tarih Aralığı</label>
-            <select
-              value={filters.dateRange}
-              onChange={(e) => setFilters(prev => ({ ...prev, dateRange: e.target.value }))}
-              className="input"
-            >
-              <option value="all">Tüm Zamanlar</option>
-              <option value="today">Bugün</option>
-              <option value="week">Bu Hafta</option>
-              <option value="month">Bu Ay</option>
-              <option value="year">Bu Yıl</option>
-              <option value="custom">Özel Aralık</option>
-            </select>
-          </div>
+          <select
+            value={filters.dateRange}
+            onChange={(e) => setFilters(prev => ({ ...prev, dateRange: e.target.value }))}
+            className="select"
+          >
+            <option value="all">Tüm Tarihler</option>
+            <option value="today">Bugün</option>
+            <option value="week">Bu Hafta</option>
+            <option value="month">Bu Ay</option>
+            <option value="year">Bu Yıl</option>
+          </select>
 
-          <div>
-            <label className="label">Para Birimi</label>
-            <select
-              value={filters.currency}
-              onChange={(e) => setFilters(prev => ({ ...prev, currency: e.target.value }))}
-              className="input"
-            >
-              <option value="">Tümü</option>
-              <option value="TRY">Türk Lirası (₺)</option>
-              <option value="USD">Amerikan Doları ($)</option>
-              <option value="EUR">Euro (€)</option>
-              <option value="GBP">İngiliz Sterlini (£)</option>
-            </select>
-          </div>
+          <select
+            value={filters.currency}
+            onChange={(e) => setFilters(prev => ({ ...prev, currency: e.target.value }))}
+            className="select"
+          >
+            <option value="">Tüm Para Birimleri</option>
+            <option value="TRY">Türk Lirası (₺)</option>
+            <option value="USD">Amerikan Doları ($)</option>
+            <option value="EUR">Euro (€)</option>
+            <option value="GBP">İngiliz Sterlini (£)</option>
+          </select>
         </div>
       </div>
 
       {/* İşlem Listesi */}
-      <div className="card overflow-hidden">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-medium">İşlem Listesi</h2>
-          <button className="btn btn-secondary">
-            <DocumentArrowDownIcon className="h-5 w-5" />
-            Dışa Aktar
-          </button>
-        </div>
-
+      <div className="card">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-dark-50 dark:bg-dark-800">
-                <th 
-                  className="px-4 py-2 text-left cursor-pointer hover:bg-dark-100 dark:hover:bg-dark-700"
-                  onClick={() => handleSort('date')}
-                >
-                  <div className="flex items-center gap-1">
+              <tr className="border-b border-dark-200 dark:border-dark-700">
+                <th className="py-3 px-4 text-left">
+                  <button
+                    onClick={() => handleSort('date')}
+                    className="flex items-center gap-1 font-medium"
+                  >
                     Tarih
                     {getSortIcon('date')}
-                  </div>
+                  </button>
                 </th>
-                <th 
-                  className="px-4 py-2 text-left cursor-pointer hover:bg-dark-100 dark:hover:bg-dark-700"
-                  onClick={() => handleSort('type')}
-                >
-                  <div className="flex items-center gap-1">
+                <th className="py-3 px-4 text-left">
+                  <button
+                    onClick={() => handleSort('type')}
+                    className="flex items-center gap-1 font-medium"
+                  >
                     Tür
                     {getSortIcon('type')}
-                  </div>
+                  </button>
                 </th>
-                <th 
-                  className="px-4 py-2 text-left cursor-pointer hover:bg-dark-100 dark:hover:bg-dark-700"
-                  onClick={() => handleSort('amount')}
-                >
-                  <div className="flex items-center gap-1">
+                <th className="py-3 px-4 text-left">
+                  <button
+                    onClick={() => handleSort('amount')}
+                    className="flex items-center gap-1 font-medium"
+                  >
                     Tutar
                     {getSortIcon('amount')}
-                  </div>
+                  </button>
                 </th>
-                <th 
-                  className="px-4 py-2 text-left cursor-pointer hover:bg-dark-100 dark:hover:bg-dark-700"
-                  onClick={() => handleSort('category')}
-                >
-                  <div className="flex items-center gap-1">
-                    Kategori
-                    {getSortIcon('category')}
-                  </div>
-                </th>
-                <th 
-                  className="px-4 py-2 text-left cursor-pointer hover:bg-dark-100 dark:hover:bg-dark-700"
-                  onClick={() => handleSort('institution')}
-                >
-                  <div className="flex items-center gap-1">
-                    Kurum
-                    {getSortIcon('institution')}
-                  </div>
-                </th>
-                <th 
-                  className="px-4 py-2 text-left cursor-pointer hover:bg-dark-100 dark:hover:bg-dark-700"
-                  onClick={() => handleSort('status')}
-                >
-                  <div className="flex items-center gap-1">
-                    Durum
-                    {getSortIcon('status')}
-                  </div>
-                </th>
-                <th className="px-4 py-2 text-left">
-                  İşlemler
-                </th>
+                <th className="py-3 px-4 text-left">Kategori</th>
+                <th className="py-3 px-4 text-left">Kurum</th>
+                <th className="py-3 px-4 text-left">Durum</th>
+                <th className="py-3 px-4 text-left">Ekler</th>
               </tr>
             </thead>
             <tbody>
               {transactions.map((transaction) => (
-                <tr 
+                <tr
                   key={transaction.id}
-                  className="border-b border-dark-100 dark:border-dark-700 hover:bg-dark-50 dark:hover:bg-dark-800"
+                  className="border-b border-dark-200 dark:border-dark-700 hover:bg-dark-50 dark:hover:bg-dark-800/50"
                 >
-                  <td className="px-4 py-2">
+                  <td className="py-3 px-4">
                     {formatDate(transaction.date)}
                   </td>
-                  <td className="px-4 py-2">
-                    <span className={`inline-block px-2 py-1 rounded-full text-sm ${getTypeColor(transaction.type)}`}>
+                  <td className="py-3 px-4">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTypeColor(transaction.type)}`}>
                       {getTypeText(transaction.type)}
                     </span>
                   </td>
-                  <td className="px-4 py-2">
+                  <td className="py-3 px-4 font-medium">
                     {formatAmount(transaction.amount, transaction.currency)}
                   </td>
-                  <td className="px-4 py-2">
+                  <td className="py-3 px-4">
                     {transaction.category}
                   </td>
-                  <td className="px-4 py-2">
+                  <td className="py-3 px-4">
                     {transaction.institution}
                   </td>
-                  <td className="px-4 py-2">
-                    <span className={`inline-block px-2 py-1 rounded-full text-sm ${getStatusColor(transaction.status)}`}>
+                  <td className="py-3 px-4">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(transaction.status)}`}>
                       {getStatusText(transaction.status)}
                     </span>
                   </td>
-                  <td className="px-4 py-2">
-                    <div className="flex items-center gap-2">
-                      <button className="btn btn-icon btn-ghost">
+                  <td className="py-3 px-4">
+                    {transaction.attachments > 0 && (
+                      <button className="p-1 hover:bg-dark-100 dark:hover:bg-dark-700 rounded-lg">
                         <DocumentArrowDownIcon className="h-5 w-5" />
                       </button>
-                    </div>
+                    )}
                   </td>
                 </tr>
               ))}
