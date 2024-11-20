@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import './i18n';
 
 import { AuthProvider } from './contexts/AuthContext';
 import { WithPermission } from './components/auth/WithPermission';

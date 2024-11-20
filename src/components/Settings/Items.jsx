@@ -1,208 +1,247 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import api from '../../services/api';
 
 const Items = () => {
   const { t } = useTranslation();
-  const [items, setItems] = useState([
-    { id: 1, name: 'Maaşlar', type: 'expense', description: 'Personel maaş ödemeleri' },
-    { id: 2, name: 'Bağışlar', type: 'income', description: 'Genel bağış gelirleri' },
-    { id: 3, name: 'Kira Gelirleri', type: 'income', description: 'Emlak kira gelirleri' },
-    { id: 4, name: 'Faturalar', type: 'expense', description: 'Elektrik, su, doğalgaz vb.' },
-  ]);
-
-  const [showAddModal, setShowAddModal] = useState(false);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
-  const [newItem, setNewItem] = useState({
+  const [formData, setFormData] = useState({
     name: '',
-    type: 'expense',
+    type: 'income',
     description: ''
   });
 
-  const handleAddItem = () => {
-    if (newItem.name.trim() === '') return;
+  useEffect(() => {
+    loadItems();
+  }, []);
 
-    if (editingItem) {
-      setItems(items.map(item => 
-        item.id === editingItem.id 
-          ? { ...newItem, id: item.id }
-          : item
-      ));
+  const loadItems = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get('/items');
+      setItems(response.data);
+      setError(null);
+    } catch (err) {
+      setError(t('errors.loadFailed'));
+      console.error('Error loading items:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingItem) {
+        await api.put(`/items/${editingItem.id}`, formData);
+      } else {
+        await api.post('/items', formData);
+      }
+      await loadItems();
+      setIsModalOpen(false);
       setEditingItem(null);
-    } else {
-      setItems([
-        ...items,
-        {
-          id: Math.max(...items.map(c => c.id), 0) + 1,
-          ...newItem
-        }
-      ]);
+      setFormData({ name: '', type: 'income', description: '' });
+    } catch (err) {
+      setError(t('errors.addFailed'));
+      console.error('Error adding item:', err);
     }
-
-    setNewItem({ name: '', type: 'expense', description: '' });
-    setShowAddModal(false);
   };
 
-  const handleEditItem = (item) => {
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`/items/${id}`);
+      await loadItems();
+    } catch (err) {
+      setError(t('errors.deleteFailed'));
+      console.error('Error deleting item:', err);
+    }
+  };
+
+  const handleEdit = (item) => {
     setEditingItem(item);
-    setNewItem({ ...item });
-    setShowAddModal(true);
+    setFormData({
+      name: item.name,
+      type: item.type,
+      description: item.description
+    });
+    setIsModalOpen(true);
   };
 
-  const handleDeleteItem = (itemId) => {
-    if (window.confirm(t('settings.items.deleteConfirm'))) {
-      setItems(items.filter(item => item.id !== itemId));
-    }
-  };
+  if (loading) return <div className="text-center">{t('common.loading')}</div>;
+  if (error) return <div className="text-red-500">{error}</div>;
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+    <div>
+      <div className="sm:flex sm:items-center">
+        <div className="sm:flex-auto">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white">
             {t('settings.items.title')}
-          </h2>
+          </h3>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             {t('settings.items.description')}
           </p>
         </div>
-        <button
-          onClick={() => {
-            setEditingItem(null);
-            setNewItem({ name: '', type: 'expense', description: '' });
-            setShowAddModal(true);
-          }}
-          className="flex items-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          <PlusIcon className="h-5 w-5 mr-2" />
-          {t('settings.items.addNew')}
-        </button>
+        <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+          <button
+            type="button"
+            onClick={() => {
+              setEditingItem(null);
+              setFormData({ name: '', type: 'income', description: '' });
+              setIsModalOpen(true);
+            }}
+            className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+          >
+            <PlusIcon className="-ml-1 mr-2 h-5 w-5" />
+            {t('settings.items.addNew')}
+          </button>
+        </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50 dark:bg-gray-700">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                {t('settings.items.name')}
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                {t('settings.items.type')}
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                {t('settings.items.description')}
-              </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                {t('common.actions')}
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-            {items.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                  {item.name}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                    ${item.type === 'income' 
-                      ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                      : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                    }`}
-                  >
-                    {item.type === 'income' ? t('common.income') : t('common.expense')}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
-                  {item.description}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button
-                    onClick={() => handleEditItem(item)}
-                    className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-4"
-                  >
-                    <PencilIcon className="h-5 w-5" />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteItem(item.id)}
-                    className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
-                  >
-                    <TrashIcon className="h-5 w-5" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {showAddModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div className="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">
-                  {editingItem ? t('common.edit') : t('common.add')}
-                </h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+      {/* Kategori Listesi */}
+      <div className="mt-8 flex flex-col">
+        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-300 dark:divide-gray-600">
+                <thead className="bg-gray-50 dark:bg-gray-700">
+                  <tr>
+                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-white sm:pl-6">
                       {t('settings.items.name')}
-                    </label>
-                    <input
-                      type="text"
-                      value={newItem.name}
-                      onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">
                       {t('settings.items.type')}
-                    </label>
-                    <select
-                      value={newItem.type}
-                      onChange={(e) => setNewItem({ ...newItem, type: e.target.value })}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    >
-                      <option value="expense">{t('common.expense')}</option>
-                      <option value="income">{t('common.income')}</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    </th>
+                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">
                       {t('settings.items.description')}
-                    </label>
-                    <textarea
-                      value={newItem.description}
-                      onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
-                      rows="3"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    />
+                    </th>
+                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                      <span className="sr-only">{t('common.actions')}</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-600 bg-white dark:bg-gray-800">
+                  {items.map((item) => (
+                    <tr key={item.id}>
+                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-6">
+                        {item.name}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
+                        {item.type === 'income' ? t('settings.items.income') : t('settings.items.expense')}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
+                        {item.description}
+                      </td>
+                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                        <button
+                          onClick={() => handleEdit(item)}
+                          className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-4"
+                        >
+                          <PencilIcon className="h-5 w-5" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
+                        >
+                          <TrashIcon className="h-5 w-5" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Kategori Ekleme/Düzenleme Modalı */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-50">
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <div className="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                <form onSubmit={handleSubmit}>
+                  <div>
+                    <div className="mt-3 text-center sm:mt-5">
+                      <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                        {editingItem ? t('settings.items.editItem') : t('settings.items.addNew')}
+                      </h3>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button
-                  type="button"
-                  onClick={handleAddItem}
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-                >
-                  {editingItem ? t('common.save') : t('common.add')}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowAddModal(false);
-                    setEditingItem(null);
-                    setNewItem({ name: '', type: 'expense', description: '' });
-                  }}
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-gray-600 dark:text-gray-200 dark:border-gray-500 dark:hover:bg-gray-500"
-                >
-                  {t('common.cancel')}
-                </button>
+
+                  <div className="mt-5 sm:mt-6">
+                    <div className="space-y-4">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                          {t('settings.items.name')}
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          id="name"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label htmlFor="type" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                          {t('settings.items.type')}
+                        </label>
+                        <select
+                          id="type"
+                          name="type"
+                          value={formData.type}
+                          onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        >
+                          <option value="income">{t('settings.items.income')}</option>
+                          <option value="expense">{t('settings.items.expense')}</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                          {t('settings.items.description')}
+                        </label>
+                        <textarea
+                          id="description"
+                          name="description"
+                          rows={3}
+                          value={formData.description}
+                          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                    <button
+                      type="submit"
+                      className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
+                    >
+                      {editingItem ? t('common.save') : t('settings.items.addNew')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsModalOpen(false);
+                        setEditingItem(null);
+                        setFormData({ name: '', type: 'income', description: '' });
+                      }}
+                      className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-2 text-base font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm"
+                    >
+                      {t('common.cancel')}
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

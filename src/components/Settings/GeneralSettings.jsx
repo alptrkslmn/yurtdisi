@@ -9,17 +9,20 @@ const GeneralSettings = () => {
     phone: '+90 216 428 39 60',
     address: 'Aziz Mahmut Hüdayi Mah. Türbe Kapısı Sok. No:13 Üsküdar İstanbul',
     currency: 'TRY',
-    timeZone: 'Europe/Istanbul'
+    timeZone: 'Europe/Istanbul',
+    theme: 'system',
+    emailNotifications: true,
+    pushNotifications: false,
   });
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedSettings, setEditedSettings] = useState(settings);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditedSettings(prev => ({
+    const { name, value, type, checked } = e.target;
+    setEditedSettings((prev) => ({
       ...prev,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
@@ -38,10 +41,10 @@ const GeneralSettings = () => {
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-lg font-medium text-gray-900 dark:text-white">
-            {t('settings.general.title', 'Genel Ayarlar')}
+            {t('settings.general.title')}
           </h2>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            {t('settings.general.description', 'Temel sistem ayarlarını buradan yönetebilirsiniz')}
+            {t('settings.general.description')}
           </p>
         </div>
         {!isEditing && (
@@ -49,7 +52,7 @@ const GeneralSettings = () => {
             onClick={() => setIsEditing(true)}
             className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            {t('common.edit', 'Düzenle')}
+            {t('common.edit')}
           </button>
         )}
       </div>
@@ -59,7 +62,7 @@ const GeneralSettings = () => {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('settings.general.organizationName', 'Kurum Adı')}
+                {t('settings.general.organizationName')}
               </label>
               {isEditing ? (
                 <input
@@ -76,7 +79,7 @@ const GeneralSettings = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('settings.general.email', 'E-posta')}
+                {t('settings.general.email')}
               </label>
               {isEditing ? (
                 <input
@@ -93,7 +96,7 @@ const GeneralSettings = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('settings.general.phone', 'Telefon')}
+                {t('settings.general.phone')}
               </label>
               {isEditing ? (
                 <input
@@ -110,7 +113,7 @@ const GeneralSettings = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('settings.general.currency', 'Para Birimi')}
+                {t('settings.general.currency')}
               </label>
               {isEditing ? (
                 <select
@@ -130,7 +133,7 @@ const GeneralSettings = () => {
 
             <div className="sm:col-span-2">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('settings.general.address', 'Adres')}
+                {t('settings.general.address')}
               </label>
               {isEditing ? (
                 <textarea
@@ -144,6 +147,98 @@ const GeneralSettings = () => {
                 <p className="mt-1 text-sm text-gray-900 dark:text-gray-300">{settings.address}</p>
               )}
             </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                {t('settings.general.theme')}
+              </label>
+              {isEditing ? (
+                <select
+                  name="theme"
+                  value={editedSettings.theme}
+                  onChange={handleChange}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                >
+                  <option value="light">{t('settings.general.lightTheme')}</option>
+                  <option value="dark">{t('settings.general.darkTheme')}</option>
+                  <option value="system">{t('settings.general.systemTheme')}</option>
+                </select>
+              ) : (
+                <p className="mt-1 text-sm text-gray-900 dark:text-gray-300">{settings.theme}</p>
+              )}
+            </div>
+
+            <div className="sm:col-span-2">
+              <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                {t('settings.general.notifications')}
+              </h4>
+              <div className="mt-4 space-y-4">
+                <div className="flex items-start">
+                  <div className="flex h-6 items-center">
+                    <input
+                      id="emailNotifications"
+                      name="emailNotifications"
+                      type="checkbox"
+                      checked={editedSettings.emailNotifications}
+                      onChange={handleChange}
+                      className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-600"
+                    />
+                  </div>
+                  <div className="ml-3">
+                    <label htmlFor="emailNotifications" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      {t('settings.general.emailNotifications')}
+                    </label>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {t('settings.general.emailNotificationsDescription')}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="flex h-6 items-center">
+                    <input
+                      id="pushNotifications"
+                      name="pushNotifications"
+                      type="checkbox"
+                      checked={editedSettings.pushNotifications}
+                      onChange={handleChange}
+                      className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-600"
+                    />
+                  </div>
+                  <div className="ml-3">
+                    <label htmlFor="pushNotifications" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      {t('settings.general.pushNotifications')}
+                    </label>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {t('settings.general.pushNotificationsDescription')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                {t('settings.general.timezone')}
+              </label>
+              {isEditing ? (
+                <select
+                  name="timeZone"
+                  value={editedSettings.timeZone}
+                  onChange={handleChange}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                >
+                  <option value="UTC">UTC</option>
+                  <option value="Europe/Istanbul">Europe/Istanbul</option>
+                  <option value="Europe/London">Europe/London</option>
+                  <option value="Europe/Paris">Europe/Paris</option>
+                  <option value="Europe/Berlin">Europe/Berlin</option>
+                  <option value="Europe/Amsterdam">Europe/Amsterdam</option>
+                </select>
+              ) : (
+                <p className="mt-1 text-sm text-gray-900 dark:text-gray-300">{settings.timeZone}</p>
+              )}
+            </div>
           </div>
         </div>
 
@@ -153,13 +248,13 @@ const GeneralSettings = () => {
               onClick={handleCancel}
               className="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-600 dark:text-gray-200 dark:border-gray-500 dark:hover:bg-gray-500"
             >
-              {t('common.cancel', 'İptal')}
+              {t('common.cancel')}
             </button>
             <button
               onClick={handleSave}
               className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              {t('common.save', 'Kaydet')}
+              {t('common.save')}
             </button>
           </div>
         )}

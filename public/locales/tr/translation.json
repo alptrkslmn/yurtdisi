@@ -1,0 +1,187 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "add": "Ekle",
+    "search": "Ara",
+    "settings": "Ayarlar",
+    "logout": "Çıkış Yap",
+    "back": "Geri",
+    "next": "İleri",
+    "yes": "Evet",
+    "no": "Hayır",
+    "language": {
+      "select": "Dil Seçin",
+      "default": "Varsayılan",
+      "change": "Dili Değiştir"
+    },
+    "theme": {
+      "dark": "Karanlık Mod",
+      "light": "Aydınlık Mod"
+    },
+    "menu": {
+      "user": "Kullanıcı Menüsü",
+      "language": "Dil Menüsü"
+    }
+  },
+  "navigation": {
+    "dashboard": "Gösterge Paneli",
+    "countries": "Ülkeler",
+    "organizations": "Organizasyonlar",
+    "reports": "Raporlar",
+    "settings": "Ayarlar",
+    "users": "Kullanıcılar",
+    "items": "Öğeler",
+    "preAccounting": "Ön Muhasebe"
+  },
+  "dashboard": {
+    "title": "Gösterge Paneli",
+    "summary": "Özet",
+    "filters": {
+      "title": "Filtreler",
+      "year": "Yıl",
+      "month": "Ay",
+      "country": "Ülke",
+      "institution": "Kurum",
+      "allYears": "Tüm Yıllar",
+      "allMonths": "Tüm Aylar",
+      "allCountries": "Tüm Ülkeler",
+      "allInstitutions": "Tüm Kurumlar"
+    },
+    "stats": {
+      "totalIncome": "Toplam Gelir",
+      "totalExpense": "Toplam Gider",
+      "netIncome": "Net Gelir",
+      "transactionCount": "İşlem Sayısı"
+    },
+    "recentTransactions": "Son İşlemler",
+    "actions": {
+      "refresh": "Yenile",
+      "filter": "Filtrele",
+      "export": "Dışa Aktar"
+    },
+    "export": {
+      "title": "Dışa Aktar",
+      "excel": "Excel'e Aktar",
+      "pdf": "PDF'e Aktar",
+      "report": "Hudayi Finansal Rapor",
+      "statistics": "İstatistikler"
+    },
+    "table": {
+      "institution": "KURUM",
+      "country": "ÜLKE",
+      "type": "İŞLEM TİPİ",
+      "amount": "TUTAR",
+      "status": "DURUM",
+      "date": "TARİH"
+    },
+    "status": {
+      "completed": "Tamamlandı",
+      "pending": "Beklemede",
+      "failed": "Başarısız"
+    },
+    "transactionType": {
+      "income": "Gelir",
+      "expense": "Gider"
+    }
+  },
+  "preAccounting": {
+    "title": "Ön Muhasebe",
+    "description": "Gelir ve gider işlemlerinizi bu sayfadan takip edebilirsiniz.",
+    "newTransaction": "Yeni İşlem",
+    "table": {
+      "date": "Tarih",
+      "documentNumber": "Belge No",
+      "category": "Kategori",
+      "subCategory": "Alt Kategori",
+      "description": "Açıklama",
+      "paymentMethod": "Ödeme Yöntemi",
+      "amount": "Tutar",
+      "status": "Durum",
+      "actions": "İşlemler"
+    },
+    "categories": {
+      "income": "Gelir",
+      "expense": "Gider"
+    },
+    "subCategories": {
+      "donation": "Bağış",
+      "rent": "Kira"
+    },
+    "paymentMethods": {
+      "bankTransfer": "Banka Transferi",
+      "automaticPayment": "Otomatik Ödeme"
+    },
+    "status": {
+      "completed": "Tamamlandı",
+      "pending": "Beklemede",
+      "cancelled": "İptal Edildi"
+    }
+  },
+  "countries": {
+    "title": "Ülkeler",
+    "TR": "Türkiye",
+    "DE": "Almanya",
+    "NL": "Hollanda",
+    "Germany": "Almanya",
+    "France": "Fransa",
+    "England": "İngiltere",
+    "United States": "Amerika Birleşik Devletleri"
+  },
+  "auth": {
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "forgotPassword": "Şifremi Unuttum",
+    "resetPassword": "Şifreyi Sıfırla",
+    "email": "E-posta",
+    "password": "Şifre",
+    "confirmPassword": "Şifreyi Onayla",
+    "rememberMe": "Beni Hatırla",
+    "loginButton": "Giriş Yap",
+    "registerButton": "Kayıt Ol",
+    "resetPasswordButton": "Şifreyi Sıfırla"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "general": {
+      "title": "Genel Ayarlar",
+      "description": "Genel sistem ayarlarını buradan yönetebilirsiniz.",
+      "organizationName": "Organizasyon Adı",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "address": "Adres",
+      "currency": "Para Birimi",
+      "timezone": "Saat Dilimi",
+      "theme": "Tema",
+      "notifications": "Bildirim Ayarları",
+      "emailNotifications": "E-posta Bildirimleri",
+      "emailNotificationsDescription": "E-posta bildirimleri almak istiyorum.",
+      "pushNotifications": "Anlık Bildirimler",
+      "pushNotificationsDescription": "Anlık bildirimler almak istiyorum."
+    },
+    "users": {
+      "title": "Kullanıcı Yönetimi",
+      "description": "Kullanıcıları buradan yönetebilirsiniz."
+    },
+    "items": {
+      "title": "Öğe Yönetimi",
+      "description": "Öğeleri buradan yönetebilirsiniz."
+    }
+  },
+  "errors": {
+    "required": "Bu alan zorunludur",
+    "invalidEmail": "Geçersiz e-posta adresi",
+    "passwordMismatch": "Şifreler eşleşmiyor",
+    "minimumLength": "En az {{length}} karakter olmalıdır",
+    "loadFailed": "Yükleme başarısız",
+    "saveFailed": "Kaydetme başarısız",
+    "deleteFailed": "Silme başarısız",
+    "updateFailed": "Güncelleme başarısız",
+    "addFailed": "Ekleme başarısız"
+  }
+}
