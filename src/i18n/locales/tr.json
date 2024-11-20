@@ -1,0 +1,89 @@
+{
+  "common": {
+    "appName": "Hüdayi Vakfı",
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "add": "Ekle",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "noData": "Veri bulunamadı",
+    "actions": "İşlemler"
+  },
+  "navigation": {
+    "dashboard": "Ana Sayfa",
+    "organizations": "Organizasyonlar",
+    "preAccounting": "Ön Muhasebe",
+    "reports": "Raporlar",
+    "settings": "Ayarlar"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "items": {
+      "title": "Gelir/Gider Kalemleri",
+      "income": "Gelir Kalemleri",
+      "expense": "Gider Kalemleri",
+      "addNew": "Yeni Kalem Ekle",
+      "name": "Kalem Adı",
+      "type": "Tür",
+      "description": "Açıklama"
+    },
+    "users": {
+      "title": "Kullanıcılar",
+      "addNew": "Yeni Kullanıcı Ekle",
+      "name": "Ad Soyad",
+      "email": "E-posta",
+      "role": "Rol",
+      "status": "Durum",
+      "comingSoon": "Kullanıcılar modülü yakında eklenecek..."
+    },
+    "countries": {
+      "title": "Ülkeler",
+      "addNew": "Yeni Ülke Ekle",
+      "name": "Ülke Adı",
+      "code": "Ülke Kodu",
+      "currency": "Para Birimi",
+      "comingSoon": "Ülkeler modülü yakında eklenecek..."
+    },
+    "languages": {
+      "title": "Dil Yönetimi",
+      "description": "Diğer dillerdeki çevirileri düzenleyin",
+      "turkishText": "Türkçe Metin",
+      "translation": "Çeviri",
+      "category": "Kategori",
+      "key": "Anahtar",
+      "saveSuccess": "Çeviriler başarıyla kaydedildi",
+      "saveError": "Çeviriler kaydedilirken bir hata oluştu"
+    }
+  },
+  "organizations": {
+    "title": "Organizasyonlar",
+    "addNew": "Yeni Organizasyon Ekle",
+    "name": "Organizasyon Adı",
+    "country": "Ülke",
+    "status": "Durum",
+    "contact": "İletişim Bilgileri"
+  },
+  "preAccounting": {
+    "title": "Ön Muhasebe",
+    "transactions": {
+      "title": "İşlemler",
+      "addNew": "Yeni İşlem Ekle",
+      "date": "Tarih",
+      "type": "Tür",
+      "category": "Kategori",
+      "amount": "Tutar",
+      "description": "Açıklama",
+      "status": "Durum"
+    }
+  },
+  "countries": {
+    "turkey": "Türkiye",
+    "germany": "Almanya",
+    "netherlands": "Hollanda"
+  }
+}

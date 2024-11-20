@@ -1,39 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
+import { useTranslation } from 'react-i18next';
+import './i18n';
+
+import Sidebar from './components/Sidebar.jsx';
 import Header from './components/Header.jsx';
 import Dashboard from './components/Dashboard/Dashboard';
 import Organizations from './components/Organizations/Organizations';
 import Settings from './components/Settings/Settings';
-import Categories from './components/Categories/Categories';
+import PreAccounting from './components/PreAccounting/PreAccounting.jsx';
 import Reports from './components/Reports/Reports';
 
 function App() {
+  const { t } = useTranslation();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
-    const isDark = savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    return isDark;
+    return savedTheme === 'dark';
   });
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', isDarkMode);
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   }, [isDarkMode]);
 
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
-    <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <Sidebar />
-      <div className="flex-1 flex flex-col md:pl-64">
-        <Header darkMode={isDarkMode} setDarkMode={setIsDarkMode} />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="md:pl-64 flex flex-col min-h-screen">
+        <Header darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+        <main className="flex-1 py-6">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/organizations/:countryId" element={<Organizations />} />
-              <Route path="/categories" element={<Categories />} />
-              <Route path="/items" element={<Categories items />} />
-              <Route path="/reports" element={<Reports />} />
+              <Route path="/organizations" element={<Organizations />} />
               <Route path="/settings/*" element={<Settings />} />
+              <Route path="/pre-accounting" element={<PreAccounting />} />
+              <Route path="/reports" element={<Reports />} />
             </Routes>
           </div>
         </main>
