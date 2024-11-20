@@ -331,40 +331,48 @@ function Dashboard() {
             <ArrowPathIcon className={`-ml-1 mr-2 h-5 w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
             {t('dashboard.actions.refresh')}
           </button>
-          <button
-            onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+
+          {/* Excel Butonu */}
+          <button 
+            onClick={() => handleExport('excel')}
+            disabled={isExporting}
+            className="relative inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg overflow-hidden
+              bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800
+              text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50
+              transform transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg
+              active:scale-95"
           >
-            <AdjustmentsHorizontalIcon className="-ml-1 mr-2 h-5 w-5" />
-            {t('dashboard.actions.filter')}
-          </button>
-          <div className="relative">
-            <button
-              onClick={() => setIsExporting(!isExporting)}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              <ArrowDownTrayIcon className="-ml-1 mr-2 h-5 w-5" />
-              {t('dashboard.actions.export')}
-            </button>
-            {isExporting && (
-              <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
-                <div className="py-1">
-                  <button
-                    onClick={() => handleExport('excel')}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    {t('dashboard.export.excel')}
-                  </button>
-                  <button
-                    onClick={() => handleExport('pdf')}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    {t('dashboard.export.pdf')}
-                  </button>
-                </div>
-              </div>
+            {isExporting && exportType === 'excel' ? (
+              <ArrowPathIcon className="h-5 w-5 animate-spin" />
+            ) : (
+              <ArrowDownTrayIcon className="h-5 w-5 transition-transform duration-200 group-hover:-translate-y-1" />
             )}
-          </div>
+            {t('dashboard.export.excel')}
+            {exportType === 'excel' && isExporting && (
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+            )}
+          </button>
+
+          {/* PDF Butonu */}
+          <button 
+            onClick={() => handleExport('pdf')}
+            disabled={isExporting}
+            className="relative inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg overflow-hidden
+              bg-gradient-to-r from-rose-500 to-rose-700 hover:from-rose-600 hover:to-rose-800
+              text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 disabled:opacity-50
+              transform transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg
+              active:scale-95"
+          >
+            {isExporting && exportType === 'pdf' ? (
+              <ArrowPathIcon className="h-5 w-5 animate-spin" />
+            ) : (
+              <ArrowDownTrayIcon className="h-5 w-5 transition-transform duration-200 group-hover:-translate-y-1" />
+            )}
+            {t('dashboard.export.pdf')}
+            {exportType === 'pdf' && isExporting && (
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+            )}
+          </button>
         </div>
       </div>
 
