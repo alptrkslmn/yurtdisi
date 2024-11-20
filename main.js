@@ -1,7 +1,10 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const Store = require('electron-store');
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV !== 'production';
+
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('isDev:', isDev);
 
 // Store yapılandırması
 const store = new Store();
@@ -24,29 +27,20 @@ function createWindow() {
     const win = new BrowserWindow({
         width: 1200,
         height: 800,
-        resizable: false,
         webPreferences: {
             nodeIntegration: true,
-            contextIsolation: true,
-            preload: path.join(__dirname, 'preload.js')
-        }
+            contextIsolation: false,
+        },
     });
 
-    // Development modunda
     if (isDev) {
         console.log('Development modunda çalışıyor...');
         win.loadURL('http://localhost:3000');
-    } 
-    // Production modunda
-    else {
+        win.webContents.openDevTools();
+    } else {
         console.log('Production modunda çalışıyor...');
         win.loadFile(path.join(__dirname, 'build/index.html'));
     }
-
-    // Geliştirici araçlarını gizle
-    win.webContents.on('devtools-opened', () => {
-        win.webContents.closeDevTools();
-    });
 
     // Pencere hazır olduğunda
     win.webContents.on('did-finish-load', () => {
@@ -59,29 +53,29 @@ function createWindow() {
     });
 }
 
-// IPC Handlers
-ipcMain.handle('get-user', () => {
-    console.log('Kullanıcı bilgisi istendi');
-    const user = store.get('user');
-    if (!user) {
-        console.log('Default kullanıcı döndürülüyor:', defaultUser);
-        store.set('user', defaultUser);
-        return defaultUser;
-    }
-    console.log('Mevcut kullanıcı döndürülüyor:', user);
-    return user;
-});
-
-ipcMain.handle('set-user', (event, user) => {
-    console.log('Kullanıcı bilgisi güncelleniyor:', user);
-    store.set('user', user);
-    return user;
-});
-
 // App events
 app.whenReady().then(() => {
     console.log('Uygulama başlatılıyor...');
     createWindow();
+
+    // IPC Handlers
+    ipcMain.handle('get-user', () => {
+        console.log('Kullanıcı bilgisi istendi');
+        const user = store.get('user');
+        if (!user) {
+            console.log('Default kullanıcı döndürülüyor:', defaultUser);
+            store.set('user', defaultUser);
+            return defaultUser;
+        }
+        console.log('Mevcut kullanıcı döndürülüyor:', user);
+        return user;
+    });
+
+    ipcMain.handle('set-user', (event, user) => {
+        console.log('Kullanıcı bilgisi güncelleniyor:', user);
+        store.set('user', user);
+        return user;
+    });
 
     app.on('activate', () => {
         console.log('Activate event tetiklendi');
