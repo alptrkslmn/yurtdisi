@@ -3,6 +3,10 @@ import { Routes, Route } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './i18n';
 
+import { AuthProvider } from './contexts/AuthContext';
+import { WithPermission } from './components/auth/WithPermission';
+import { PERMISSIONS } from './constants/permissions';
+
 import Sidebar from './components/Sidebar.jsx';
 import Header from './components/Header.jsx';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -19,37 +23,56 @@ function App() {
   });
 
   useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
+    document.documentElement.classList.toggle('dark', isDarkMode);
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-      <Sidebar />
-      <div className="md:pl-64 flex flex-col min-h-screen">
-        <Header darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-        <main className="flex-1 py-6">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+    <AuthProvider>
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <Sidebar />
+        <div className="md:pl-64">
+          <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+          <main className="p-8">
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/organizations" element={<Organizations />} />
-              <Route path="/settings/*" element={<Settings />} />
-              <Route path="/pre-accounting" element={<PreAccounting />} />
-              <Route path="/reports" element={<Reports />} />
+              <Route 
+                path="/countries/*" 
+                element={
+                  <WithPermission permission={PERMISSIONS.COUNTRY.VIEW}>
+                    <Organizations />
+                  </WithPermission>
+                } 
+              />
+              <Route 
+                path="/pre-accounting" 
+                element={
+                  <WithPermission permission={PERMISSIONS.ACCOUNTING.VIEW}>
+                    <PreAccounting />
+                  </WithPermission>
+                } 
+              />
+              <Route 
+                path="/reports" 
+                element={
+                  <WithPermission permission={PERMISSIONS.REPORT.VIEW}>
+                    <Reports />
+                  </WithPermission>
+                } 
+              />
+              <Route 
+                path="/settings/*" 
+                element={
+                  <WithPermission permission={PERMISSIONS.SETTINGS.VIEW}>
+                    <Settings />
+                  </WithPermission>
+                } 
+              />
             </Routes>
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
-    </div>
+    </AuthProvider>
   );
 }
 

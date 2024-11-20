@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { 
   PlusIcon, 
   PencilIcon, 
@@ -9,16 +10,13 @@ import {
   PhoneIcon,
   EnvelopeIcon
 } from '@heroicons/react/24/outline';
-
-const COUNTRY_MAP = {
-  tr: 'Türkiye',
-  de: 'Almanya',
-  nl: 'Hollanda'
-};
+import { useAuth } from '../../contexts/AuthContext';
+import { PERMISSIONS } from '../../constants/permissions';
 
 const Organizations = () => {
+  const { t } = useTranslation();
   const { countryId } = useParams();
-  console.log('Organizations component rendering for country:', countryId);
+  const { hasPermission } = useAuth();
 
   useEffect(() => {
     console.log('Organizations component mounted');
@@ -109,7 +107,7 @@ const Organizations = () => {
   };
 
   const handleDeleteOrganization = (organizationId) => {
-    if (window.confirm('Bu kurumu silmek istediğinizden emin misiniz?')) {
+    if (window.confirm(t('common.deleteConfirmation'))) {
       setOrganizations(organizations.filter(org => org.id !== organizationId));
     }
   };
@@ -119,34 +117,36 @@ const Organizations = () => {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
-            {countryId ? `${COUNTRY_MAP[countryId]} Kurumları` : 'Tüm Kurumlar'}
+            {countryId ? t(`countries.${countryId}`) : t('countries.title')}
           </h1>
           {countryId && (
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              {COUNTRY_MAP[countryId]}'deki tüm şube ve temsilcilikler
+              {t('countries.branchesDescription', { country: t(`countries.${countryId}`) })}
             </p>
           )}
         </div>
-        <button
-          onClick={() => {
-            setEditingOrganization(null);
-            setNewOrganization({
-              name: '',
-              country: countryId || '',
-              address: '',
-              phone: '',
-              email: '',
-              status: 'active'
-            });
-            setShowAddModal(true);
-          }}
-          className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-700 
-            text-white rounded-lg hover:from-blue-600 hover:to-blue-800 
-            transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
-        >
-          <PlusIcon className="h-5 w-5 mr-2" />
-          Yeni Kurum Ekle
-        </button>
+        {hasPermission(PERMISSIONS.COUNTRY.CREATE) && (
+          <button
+            onClick={() => {
+              setEditingOrganization(null);
+              setNewOrganization({
+                name: '',
+                country: countryId || '',
+                address: '',
+                phone: '',
+                email: '',
+                status: 'active'
+              });
+              setShowAddModal(true);
+            }}
+            className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-700 
+              text-white rounded-lg hover:from-blue-600 hover:to-blue-800 
+              transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+          >
+            <PlusIcon className="h-5 w-5 mr-2" />
+            {t('countries.addBranch')}
+          </button>
+        )}
       </div>
 
       {/* Kurumlar Grid */}
@@ -158,20 +158,24 @@ const Organizations = () => {
               transition-shadow duration-200 p-6 relative group"
           >
             <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <button
-                onClick={() => handleEditOrganization(organization)}
-                className="text-blue-600 hover:text-blue-700 dark:text-blue-400 
-                  dark:hover:text-blue-300 transition-colors duration-200"
-              >
-                <PencilIcon className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => handleDeleteOrganization(organization.id)}
-                className="text-red-600 hover:text-red-700 dark:text-red-400 
-                  dark:hover:text-red-300 transition-colors duration-200"
-              >
-                <TrashIcon className="h-5 w-5" />
-              </button>
+              {hasPermission(PERMISSIONS.COUNTRY.EDIT) && (
+                <button
+                  onClick={() => handleEditOrganization(organization)}
+                  className="text-blue-600 hover:text-blue-700 dark:text-blue-400 
+                    dark:hover:text-blue-300 transition-colors duration-200"
+                >
+                  <PencilIcon className="h-5 w-5" />
+                </button>
+              )}
+              {hasPermission(PERMISSIONS.COUNTRY.DELETE) && (
+                <button
+                  onClick={() => handleDeleteOrganization(organization.id)}
+                  className="text-red-600 hover:text-red-700 dark:text-red-400 
+                    dark:hover:text-red-300 transition-colors duration-200"
+                >
+                  <TrashIcon className="h-5 w-5" />
+                </button>
+              )}
             </div>
 
             <div className="flex items-start space-x-4">
@@ -185,7 +189,7 @@ const Organizations = () => {
                 <div className="mt-3 space-y-2">
                   <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
                     <GlobeAltIcon className="h-5 w-5 mr-2" />
-                    {COUNTRY_MAP[organization.country]}
+                    {t(`countries.${organization.country}`)}
                   </div>
                   <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
                     <PhoneIcon className="h-5 w-5 mr-2" />
@@ -208,7 +212,7 @@ const Organizations = () => {
           <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-lg bg-white dark:bg-gray-800">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                {editingOrganization ? 'Kurumu Düzenle' : 'Yeni Kurum Ekle'}
+                {editingOrganization ? t('countries.editBranch') : t('countries.addBranch')}
               </h3>
               <button
                 onClick={() => setShowAddModal(false)}
@@ -221,7 +225,7 @@ const Organizations = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Kurum Adı
+                  {t('countries.branchName')}
                 </label>
                 <input
                   type="text"
@@ -229,14 +233,14 @@ const Organizations = () => {
                   onChange={(e) => setNewOrganization({ ...newOrganization, name: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 
                     focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                  placeholder="Kurum adını girin"
+                  placeholder={t('countries.branchNamePlaceholder')}
                 />
               </div>
 
               {!countryId && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Ülke
+                    {t('countries.country')}
                   </label>
                   <select
                     value={newOrganization.country}
@@ -244,31 +248,31 @@ const Organizations = () => {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 
                       focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   >
-                    <option value="">Ülke seçin</option>
-                    {Object.entries(COUNTRY_MAP).map(([id, name]) => (
-                      <option key={id} value={id}>{name}</option>
-                    ))}
+                    <option value="">{t('countries.selectCountry')}</option>
+                    <option value="tr">{t('countries.tr')}</option>
+                    <option value="de">{t('countries.de')}</option>
+                    <option value="nl">{t('countries.nl')}</option>
                   </select>
                 </div>
               )}
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Adres
+                  {t('countries.address')}
                 </label>
                 <textarea
                   value={newOrganization.address}
                   onChange={(e) => setNewOrganization({ ...newOrganization, address: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 
                     focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                  placeholder="Adres girin"
+                  placeholder={t('countries.addressPlaceholder')}
                   rows="3"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Telefon
+                  {t('countries.phone')}
                 </label>
                 <input
                   type="tel"
@@ -276,13 +280,13 @@ const Organizations = () => {
                   onChange={(e) => setNewOrganization({ ...newOrganization, phone: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 
                     focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                  placeholder="Telefon numarası girin"
+                  placeholder={t('countries.phonePlaceholder')}
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  E-posta
+                  {t('countries.email')}
                 </label>
                 <input
                   type="email"
@@ -290,7 +294,7 @@ const Organizations = () => {
                   onChange={(e) => setNewOrganization({ ...newOrganization, email: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 
                     focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                  placeholder="E-posta adresini girin"
+                  placeholder={t('countries.emailPlaceholder')}
                 />
               </div>
 
@@ -300,14 +304,14 @@ const Organizations = () => {
                   className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 
                     rounded-md dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                 >
-                  İptal
+                  {t('common.cancel')}
                 </button>
                 <button
                   onClick={handleAddOrganization}
                   className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-500 
                     to-blue-700 hover:from-blue-600 hover:to-blue-800 rounded-md"
                 >
-                  {editingOrganization ? 'Güncelle' : 'Ekle'}
+                  {editingOrganization ? t('common.save') : t('common.add')}
                 </button>
               </div>
             </div>

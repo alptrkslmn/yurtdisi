@@ -15,25 +15,36 @@ const resources = {
         income: 'Gelir',
         expense: 'Gider',
         comingSoon: 'Çok Yakında',
-        search: 'Çeviri ara...',
+        search: 'Ara',
         turkish: 'Türkçe',
         title: 'Genel'
       },
       navigation: {
-        dashboard: 'Ana Sayfa',
-        organizations: 'Organizasyonlar',
+        dashboard: 'Gösterge Paneli',
+        countries: 'Ülkeler',
         preAccounting: 'Ön Muhasebe',
         reports: 'Raporlar',
         settings: 'Ayarlar',
         title: 'Navigasyon'
       },
       countries: {
+        title: 'Tüm Ülkeler',
         turkey: 'Türkiye',
         germany: 'Almanya',
-        netherlands: 'Hollanda'
-      },
-      organizations: {
-        title: 'Organizasyonlar'
+        netherlands: 'Hollanda',
+        branchesDescription: '{{country}} ülkesindeki tüm şube ve temsilcilikler',
+        addBranch: 'Yeni Şube Ekle',
+        editBranch: 'Şubeyi Düzenle',
+        branchName: 'Şube Adı',
+        branchNamePlaceholder: 'Şube adını girin',
+        country: 'Ülke',
+        selectCountry: 'Ülke seçin',
+        address: 'Adres',
+        addressPlaceholder: 'Adres girin',
+        phone: 'Telefon',
+        phonePlaceholder: 'Telefon numarası girin',
+        email: 'E-posta',
+        emailPlaceholder: 'E-posta adresini girin'
       },
       preAccounting: {
         title: 'Ön Muhasebe'
@@ -84,19 +95,36 @@ const resources = {
       },
       navigation: {
         dashboard: 'Dashboard',
-        organizations: 'Organizations',
+        countries: 'Countries',
         preAccounting: 'Pre-Accounting',
         reports: 'Reports',
         settings: 'Settings',
         title: 'Navigation'
       },
       countries: {
-        turkey: 'Turkey',
-        germany: 'Germany',
-        netherlands: 'Netherlands'
+        title: 'All Countries',
+        tr: 'Turkey',
+        de: 'Germany',
+        nl: 'Netherlands',
+        branchesDescription: 'All branches and representatives in {{country}}',
+        addBranch: 'Add New Branch',
+        editBranch: 'Edit Branch',
+        branchName: 'Branch Name',
+        branchNamePlaceholder: 'Enter branch name',
+        country: 'Country',
+        selectCountry: 'Select country',
+        address: 'Address',
+        addressPlaceholder: 'Enter address',
+        phone: 'Phone',
+        phonePlaceholder: 'Enter phone number',
+        email: 'Email',
+        emailPlaceholder: 'Enter email address'
       },
-      organizations: {
-        title: 'Organizations'
+      common: {
+        cancel: 'Cancel',
+        save: 'Save',
+        add: 'Add',
+        deleteConfirmation: 'Are you sure you want to delete this branch?'
       },
       preAccounting: {
         title: 'Pre-Accounting'
