@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
-import Header from './components/Header';
+import Header from './components/Header.jsx';
 import Dashboard from './components/Dashboard/Dashboard';
 import Countries from './components/Countries/Countries';
 import Settings from './components/Settings/Settings';
@@ -37,10 +37,13 @@ const Reports = () => (
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
-    return savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const isDark = savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    console.log('Initial dark mode:', isDark);
+    return isDark;
   });
 
   useEffect(() => {
+    console.log('Updating dark mode:', isDarkMode);
     document.documentElement.classList.toggle('dark', isDarkMode);
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
@@ -53,7 +56,7 @@ function App() {
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
+        <Header darkMode={isDarkMode} setDarkMode={setIsDarkMode} />
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900 p-6">
           <Routes>
             <Route path="/" element={<Dashboard />} />
