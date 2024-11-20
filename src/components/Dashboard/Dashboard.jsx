@@ -396,22 +396,30 @@ function Dashboard() {
           <select 
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
-            className="px-2 py-1 border rounded dark:bg-gray-700 dark:text-white"
+            className="px-4 py-2 text-sm font-medium rounded-lg
+              bg-gradient-to-r from-indigo-500 to-indigo-700 hover:from-indigo-600 hover:to-indigo-800
+              text-white border-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+              transform transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg
+              cursor-pointer appearance-none animate-gradient"
           >
-            <option value="tr">🇹🇷 Türkçe</option>
-            <option value="en">🇬🇧 English</option>
+            <option value="tr" className="bg-indigo-700">🇹🇷 Türkçe</option>
+            <option value="en" className="bg-indigo-700">🇬🇧 English</option>
           </select>
 
           {/* Para Birimi Seçici */}
           <select 
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
-            className="px-2 py-1 border rounded dark:bg-gray-700 dark:text-white"
+            className="px-4 py-2 text-sm font-medium rounded-lg
+              bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800
+              text-white border-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500
+              transform transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg
+              cursor-pointer appearance-none animate-gradient"
           >
-            <option value="TRY">₺ Türk Lirası</option>
-            <option value="USD">$ USD</option>
-            <option value="EUR">€ Euro</option>
-            <option value="GBP">£ Pound</option>
+            <option value="TRY" className="bg-purple-700">₺ Türk Lirası</option>
+            <option value="USD" className="bg-purple-700">$ USD</option>
+            <option value="EUR" className="bg-purple-700">€ Euro</option>
+            <option value="GBP" className="bg-purple-700">£ Pound</option>
           </select>
         </div>
       </div>
