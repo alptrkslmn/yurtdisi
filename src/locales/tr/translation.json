@@ -60,7 +60,8 @@
       "details": "Detaylar",
       "settings": "Ayarlar",
       "logout": "Çıkış Yap",
-      "confirm": "Onayla"
+      "confirm": "Onayla",
+      "backToHome": "Ana Sayfaya Dön"
     },
     "filters": {
       "year": "Yıl",
@@ -123,7 +124,28 @@
       "select": "Tema Seç",
       "light": "Açık",
       "dark": "Koyu",
-      "system": "Sistem"
+      "system": "Sistem",
+      "settings": {
+        "title": "Tema Ayarları",
+        "description": "Arayüz görünümünü özelleştirin",
+        "theme": {
+          "dark": {
+            "label": "Koyu Tema",
+            "description": "Koyu renk temasını kullanın"
+          },
+          "compact": {
+            "label": "Kompakt Mod",
+            "description": "Daha sıkışık bir arayüz görünümü kullanın"
+          },
+          "animations": {
+            "label": "Animasyonlar",
+            "description": "Arayüz animasyonlarını etkinleştirin"
+          }
+        }
+      }
+    },
+    "errors": {
+      "pageNotFound": "Aradığınız sayfa bulunamadı"
     }
   },
   "dashboard": {
@@ -133,18 +155,18 @@
       "refresh": "Yenile"
     },
     "filters": {
-      "year": "common.filters.year",
-      "month": "common.filters.month",
-      "country": "common.filters.country",
-      "institution": "common.filters.institution",
-      "allYears": "common.filters.allYears",
-      "allMonths": "common.filters.allMonths",
-      "allCountries": "common.filters.allCountries",
-      "allInstitutions": "common.filters.allInstitutions"
+      "year": "Yıl",
+      "month": "Ay",
+      "country": "Ülke",
+      "institution": "Kurum",
+      "allYears": "Tüm Yıllar",
+      "allMonths": "Tüm Aylar",
+      "allCountries": "Tüm Ülkeler",
+      "allInstitutions": "Tüm Kurumlar"
     },
     "export": {
-      "excel": "common.actions.export.excel",
-      "pdf": "common.actions.export.pdf",
+      "excel": "Excel Olarak İndir",
+      "pdf": "PDF Olarak İndir",
       "report": "Rapor",
       "statistics": "İstatistikler",
       "recentTransactions": "Son İşlemler"
@@ -158,13 +180,13 @@
       "monthlyReport": "Aylık Rapor"
     },
     "transactionType": {
-      "income": "common.type.income",
-      "expense": "common.type.expense"
+      "income": "Gelir",
+      "expense": "Gider"
     },
     "status": {
-      "completed": "common.status.completed",
-      "pending": "common.status.pending",
-      "failed": "common.status.failed"
+      "completed": "Tamamlandı",
+      "pending": "Beklemede",
+      "failed": "Başarısız"
     },
     "recentTransactions": "Son İşlemler",
     "transactions": {
@@ -177,6 +199,66 @@
         "amount": "Tutar",
         "status": "Durum",
         "date": "Tarih"
+      }
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "description": "Sistem ayarlarını buradan yönetebilirsiniz",
+    "tabs": {
+      "general": "Genel",
+      "notifications": "Bildirimler",
+      "security": "Güvenlik",
+      "appearance": "Görünüm",
+      "language": "Dil",
+      "about": "Hakkında"
+    },
+    "general": {
+      "title": "Genel Ayarlar",
+      "description": "Temel sistem ayarlarını buradan yapılandırabilirsiniz",
+      "language": {
+        "title": "Dil",
+        "description": "Sistem dilini değiştirin",
+        "current": "Mevcut Dil"
+      },
+      "theme": {
+        "title": "Tema",
+        "description": "Sistem temasını değiştirin",
+        "current": "Mevcut Tema"
+      },
+      "timezone": {
+        "title": "Saat Dilimi",
+        "description": "Sistem saat dilimini değiştirin",
+        "current": "Mevcut Saat Dilimi"
+      }
+    },
+    "notifications": {
+      "title": "Bildirim Ayarları",
+      "description": "Bildirim tercihlerinizi buradan yapılandırabilirsiniz",
+      "email": {
+        "title": "E-posta Bildirimleri",
+        "description": "E-posta bildirimlerini yönetin"
+      },
+      "push": {
+        "title": "Anlık Bildirimler",
+        "description": "Anlık bildirimleri yönetin"
+      }
+    },
+    "security": {
+      "title": "Güvenlik Ayarları",
+      "description": "Güvenlik ayarlarınızı buradan yapılandırabilirsiniz",
+      "password": {
+        "title": "Şifre",
+        "description": "Şifrenizi değiştirin",
+        "current": "Mevcut Şifre",
+        "new": "Yeni Şifre",
+        "confirm": "Yeni Şifre (Tekrar)"
+      },
+      "twoFactor": {
+        "title": "İki Faktörlü Doğrulama",
+        "description": "İki faktörlü doğrulamayı yapılandırın",
+        "enabled": "Etkin",
+        "disabled": "Devre Dışı"
       }
     }
   },
@@ -218,37 +300,37 @@
   "preAccounting": {
     "title": "Ön Muhasebe",
     "filters": {
-      "allYears": "common.filters.allYears",
-      "allMonths": "common.filters.allMonths",
-      "allCountries": "common.filters.allCountries",
-      "allInstitutions": "common.filters.allInstitutions"
+      "allYears": "Tüm Yıllar",
+      "allMonths": "Tüm Aylar",
+      "allCountries": "Tüm Ülkeler",
+      "allInstitutions": "Tüm Kurumlar"
     },
     "status": {
-      "pending": "common.status.pending"
+      "pending": "Beklemede"
     },
     "actions": {
-      "approve": "common.actions.approve",
-      "reject": "common.actions.reject",
-      "details": "common.actions.details"
+      "approve": "Onayla",
+      "reject": "Reddet",
+      "details": "Detaylar"
     }
   },
   "reports": {
     "title": "Raporlar",
     "filters": {
-      "year": "common.filters.year",
-      "month": "common.filters.month",
-      "country": "common.filters.country",
-      "institution": "common.filters.institution",
-      "allYears": "common.filters.allYears",
-      "allMonths": "common.filters.allMonths",
-      "allCountries": "common.filters.allCountries",
-      "allInstitutions": "common.filters.allInstitutions"
+      "year": "Yıl",
+      "month": "Ay",
+      "country": "Ülke",
+      "institution": "Kurum",
+      "allYears": "Tüm Yıllar",
+      "allMonths": "Tüm Aylar",
+      "allCountries": "Tüm Ülkeler",
+      "allInstitutions": "Tüm Kurumlar"
     },
     "actions": {
-      "refresh": "common.actions.refresh",
+      "refresh": "Yenile",
       "export": {
-        "excel": "common.actions.export.excel",
-        "pdf": "common.actions.export.pdf"
+        "excel": "Excel Olarak İndir",
+        "pdf": "PDF Olarak İndir"
       }
     },
     "income": {
@@ -269,71 +351,6 @@
       "totalIncome": "Toplam Gelir",
       "totalExpense": "Toplam Gider",
       "balance": "Devreden"
-    }
-  },
-  "settings": {
-    "title": "Ayarlar",
-    "description": "Sistem ayarlarını ve tercihlerinizi yönetin",
-    "tabs": {
-      "general": "Genel",
-      "language": "Dil",
-      "theme": "Tema",
-      "notifications": "Bildirimler"
-    },
-    "general": {
-      "title": "Genel Ayarlar",
-      "description": "Temel sistem ayarlarını yapılandırın",
-      "organizationName": "Kurum Adı",
-      "email": "E-posta",
-      "phone": "Telefon",
-      "currency": "Para Birimi",
-      "address": "Adres",
-      "theme": "Tema",
-      "notifications": "Bildirimler",
-      "emailNotifications": "E-posta Bildirimleri",
-      "emailNotificationsDescription": "Önemli güncellemeler için e-posta bildirimleri alın",
-      "pushNotifications": "Anlık Bildirimler",
-      "pushNotificationsDescription": "Önemli olaylar için anlık bildirimler alın",
-      "timezone": "Saat Dilimi"
-    },
-    "language": {
-      "title": "Dil Ayarları",
-      "description": "Sistem dilini ve yerelleştirme tercihlerini yönetin",
-      "headerInfo": "Tercih ettiğiniz dili seçin",
-      "select": "Dil Seç",
-      "tr": "Türkçe",
-      "en": "İngilizce",
-      "current": "Mevcut Dil",
-      "default": "Varsayılan Dil",
-      "format": {
-        "date": "Tarih Formatı",
-        "time": "Saat Formatı",
-        "number": "Sayı Formatı",
-        "currency": "Para Birimi Formatı"
-      }
-    },
-    "theme": {
-      "title": "Tema Ayarları",
-      "description": "Arayüz görünümünü özelleştirin",
-      "darkMode": "Koyu Tema",
-      "darkModeDescription": "Koyu renk temasını kullanın",
-      "compactMode": "Kompakt Mod",
-      "compactModeDescription": "Daha sıkışık bir arayüz görünümü kullanın",
-      "animations": "Animasyonlar",
-      "animationsDescription": "Arayüz animasyonlarını etkinleştirin"
-    },
-    "notifications": {
-      "title": "Bildirim Ayarları",
-      "description": "Bildirim tercihlerinizi yönetin",
-      "email": "E-posta Bildirimleri",
-      "emailTitle": "E-posta Bildirimleri",
-      "emailDescription": "Önemli güncellemeler için e-posta bildirimleri alın",
-      "push": "Anlık Bildirimler",
-      "pushTitle": "Anlık Bildirimler",
-      "pushDescription": "Önemli olaylar için anlık bildirimler alın",
-      "reports": "Rapor Bildirimleri",
-      "reportsTitle": "Rapor Bildirimleri",
-      "reportsDescription": "Yeni raporlar hazır olduğunda bildirim alın"
     }
   },
   "organization": {
@@ -364,6 +381,14 @@
       "USD": "${amount}",
       "EUR": "€{amount}",
       "GBP": "£{amount}"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Giriş Yap",
+      "email": "E-posta",
+      "password": "Şifre",
+      "submit": "Giriş Yap"
     }
   }
 }

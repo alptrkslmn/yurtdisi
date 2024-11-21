@@ -1,0 +1,113 @@
+/* Kompakt Mod Stilleri */
+:root {
+  --spacing-normal: 1rem;
+  --table-cell-padding: 1rem;
+}
+
+:root.compact {
+  --spacing-normal: 0.75rem;
+  --table-cell-padding: 0.5rem;
+}
+
+/* Normal Mod */
+.table-cell {
+  padding: var(--table-cell-padding);
+}
+
+.card {
+  padding: var(--spacing-normal);
+  margin-bottom: var(--spacing-normal);
+}
+
+.section {
+  margin-bottom: var(--spacing-normal);
+}
+
+/* Kompakt Mod için özel stiller */
+.compact .px-6 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.compact .py-4 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.compact .py-3 {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+.compact .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 1rem;
+}
+
+.compact .space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.75rem;
+}
+
+/* Tablo hücreleri için kompakt mod */
+.compact .table th,
+.compact .table td {
+  padding: 0.5rem;
+}
+
+/* Card ve section boşlukları için kompakt mod */
+.compact .card {
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.compact .section {
+  margin-bottom: 0.75rem;
+}
+
+/* Form elemanları için kompakt mod */
+.compact input,
+.compact select,
+.compact textarea {
+  padding: 0.375rem 0.5rem;
+}
+
+.compact .form-group {
+  margin-bottom: 0.75rem;
+}
+
+/* Liste öğeleri için kompakt mod */
+.compact .list-item {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Butonlar için kompakt mod */
+.compact .button {
+  padding: 0.375rem 0.75rem;
+}
+
+/* Modal ve dialog için kompakt mod */
+.compact .modal-content {
+  padding: 0.75rem;
+}
+
+.compact .modal-header,
+.compact .modal-footer {
+  padding: 0.5rem 0.75rem;
+}
+
+/* Dashboard kartları için kompakt mod */
+.compact .dashboard-card {
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Menü öğeleri için kompakt mod */
+.compact .menu-item {
+  padding: 0.5rem 0.75rem;
+}
+
+/* Bildirimler için kompakt mod */
+.compact .notification {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
