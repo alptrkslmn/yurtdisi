@@ -5,13 +5,11 @@ import {
   SunIcon, 
   MoonIcon,
   UserIcon,
-  GlobeAltIcon,
-  CheckIcon,
   SwatchIcon
 } from '@heroicons/react/24/outline';
 
 const Header = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { darkMode, toggleDarkMode } = useTheme();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const userMenuRef = useRef(null);
@@ -43,7 +41,7 @@ const Header = () => {
           <button
             onClick={toggleDarkMode}
             className="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-            aria-label={darkMode ? t('settings.theme.lightMode') : t('settings.theme.darkMode')}
+            aria-label={darkMode ? t('common.theme.light') : t('common.theme.dark')}
           >
             {darkMode ? (
               <SunIcon className="h-6 w-6" />
@@ -62,16 +60,27 @@ const Header = () => {
             </button>
 
             {showUserMenu && (
-              <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
-                <button
-                  onClick={() => {
-                    // Çıkış işlemi
-                    setShowUserMenu(false);
-                  }}
-                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  {t('navigation.logout')}
-                </button>
+              <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5">
+                <div className="py-1" role="menu" aria-orientation="vertical">
+                  <button
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
+                    role="menuitem"
+                  >
+                    {t('navigation.profile')}
+                  </button>
+                  <button
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
+                    role="menuitem"
+                  >
+                    {t('navigation.settings')}
+                  </button>
+                  <button
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
+                    role="menuitem"
+                  >
+                    {t('navigation.logout')}
+                  </button>
+                </div>
               </div>
             )}
           </div>

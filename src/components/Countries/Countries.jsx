@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { 
   MagnifyingGlassIcon, 
   PlusIcon, 
@@ -6,7 +7,8 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   PencilIcon,
-  TrashIcon
+  TrashIcon,
+  BuildingOfficeIcon
 } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 
@@ -19,7 +21,7 @@ const mockCountries = [
   { id: 5, name: 'İngiltere', code: 'GB', status: 'active', currency: 'GBP' },
 ];
 
-const Countries = () => {
+const CountriesList = () => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -40,76 +42,53 @@ const Countries = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentCountries = filteredCountries.slice(startIndex, endIndex);
 
-  // Sayfa değiştirme işleyicileri
-  const handlePreviousPage = () => {
-    setCurrentPage(prev => Math.max(prev - 1, 1));
-  };
-
-  const handleNextPage = () => {
-    setCurrentPage(prev => Math.min(prev + 1, totalPages));
-  };
-
-  // Ülke durumu badge'i
-  const StatusBadge = ({ status }) => {
-    const baseClasses = "px-2 py-1 text-xs font-medium rounded-full";
-    const statusClasses = {
-      active: "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400",
-      inactive: "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400"
-    };
-    
-    return (
-      <span className={`${baseClasses} ${statusClasses[status]}`}>
-        {status === 'active' ? t('countries.status.active') : t('countries.status.inactive')}
-      </span>
-    );
-  };
-
   return (
-    <div className="p-6 pt-16">
-      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+    <div>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           {t('countries.title')}
         </h1>
-        <div className="flex gap-2">
-          <button className="btn-secondary">
-            <ArrowDownTrayIcon className="h-5 w-5" />
-            {t('countries.actions.export')}
-          </button>
-          <button className="btn-primary">
-            <PlusIcon className="h-5 w-5" />
-            {t('countries.actions.addCountry')}
-          </button>
-        </div>
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          {t('countries.description')}
+        </p>
       </div>
 
-      <div className="card">
-        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex flex-col sm:flex-row gap-4">
-            {/* Arama */}
-            <div className="flex-1">
-              <div className="relative">
+      <div className="bg-white dark:bg-gray-800 shadow rounded-lg">
+        {/* Üst Toolbar */}
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col sm:flex-row justify-between gap-4">
+            {/* Arama ve Filtreler */}
+            <div className="flex flex-1 gap-4">
+              <div className="relative flex-1">
                 <input
                   type="text"
-                  className="input pl-10"
-                  placeholder={t('countries.searchPlaceholder')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder={t('common.actions.search')}
+                  className="w-full pl-10 pr-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 />
-                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <MagnifyingGlassIcon className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
               </div>
-            </div>
-
-            {/* Durum Filtresi */}
-            <div className="sm:w-48">
               <select
-                className="input"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
+                className="px-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               >
-                <option value="all">{t('countries.filters.allStatuses')}</option>
-                <option value="active">{t('countries.status.active')}</option>
-                <option value="inactive">{t('countries.status.inactive')}</option>
+                <option value="all">{t('common.filters.allStatuses')}</option>
+                <option value="active">{t('common.status.active')}</option>
+                <option value="inactive">{t('common.status.inactive')}</option>
               </select>
+            </div>
+            {/* Aksiyon Butonları */}
+            <div className="flex gap-2">
+              <button className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                <PlusIcon className="h-5 w-5 mr-2" />
+                {t('countries.management.add')}
+              </button>
+              <button className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
+                {t('common.actions.export.excel')}
+              </button>
             </div>
           </div>
         </div>
@@ -117,47 +96,68 @@ const Countries = () => {
         {/* Tablo */}
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-800/50">
+            <thead className="bg-gray-50 dark:bg-gray-800">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('countries.table.name')}
+                  {t('common.labels.name')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('countries.table.code')}
+                  {t('common.labels.code')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('countries.table.currency')}
+                  {t('common.labels.status')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('countries.table.status')}
+                  {t('common.labels.currency')}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('countries.table.actions')}
+                  {t('common.labels.actions')}
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {currentCountries.map((country) => (
-                <tr key={country.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                    {country.name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                    {country.code}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                    {country.currency}
+                <tr key={country.id}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Link
+                      to={`${country.code}`}
+                      className="text-sm font-medium text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400"
+                    >
+                      {country.name}
+                    </Link>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <StatusBadge status={country.status} />
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      {country.code}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      country.status === 'active' 
+                        ? 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100'
+                        : 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100'
+                    }`}>
+                      {t(`common.status.${country.status}`)}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    {country.currency}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300 mr-3">
-                      <PencilIcon className="h-5 w-5" />
-                    </button>
-                    <button className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                      <TrashIcon className="h-5 w-5" />
-                    </button>
+                    <div className="flex justify-end gap-2">
+                      <Link
+                        to={`${country.code}`}
+                        className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300"
+                      >
+                        <BuildingOfficeIcon className="h-5 w-5" />
+                      </Link>
+                      <button className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300">
+                        <PencilIcon className="h-5 w-5" />
+                      </button>
+                      <button className="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">
+                        <TrashIcon className="h-5 w-5" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -166,70 +166,83 @@ const Countries = () => {
         </div>
 
         {/* Sayfalama */}
-        <div className="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-gray-700">
-          <div className="flex-1 flex justify-between sm:hidden">
-            <button
-              onClick={handlePreviousPage}
-              disabled={currentPage === 1}
-              className="btn-pagination rounded-md"
-            >
-              {t('countries.pagination.previous')}
-            </button>
-            <button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className="btn-pagination rounded-md"
-            >
-              {t('countries.pagination.next')}
-            </button>
-          </div>
-          <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-            <div>
-              <p className="text-sm text-gray-700 dark:text-gray-300">
-                {t('countries.pagination.totalRecords')} <span className="font-medium">{filteredCountries.length}</span> {t('countries.pagination.records')}{' '}
-                <span className="font-medium">{startIndex + 1}</span>-
-                <span className="font-medium">
-                  {Math.min(endIndex, filteredCountries.length)}
-                </span>{' '}
-                {t('countries.pagination.showing')}
-              </p>
+        <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-gray-700 dark:text-gray-300">
+              {t('common.table.showing')} {startIndex + 1} - {Math.min(endIndex, filteredCountries.length)} {t('common.table.of')} {filteredCountries.length}
             </div>
-            <div>
-              <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-                <button
-                  onClick={handlePreviousPage}
-                  disabled={currentPage === 1}
-                  className="btn-pagination rounded-l-lg"
-                >
-                  <ChevronLeftIcon className="h-5 w-5" />
-                </button>
-                {/* Sayfa numaraları */}
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`${
-                      page === currentPage
-                        ? 'btn-pagination-active'
-                        : 'btn-pagination'
-                    }`}
-                  >
-                    {page}
-                  </button>
-                ))}
-                <button
-                  onClick={handleNextPage}
-                  disabled={currentPage === totalPages}
-                  className="btn-pagination rounded-r-lg"
-                >
-                  <ChevronRightIcon className="h-5 w-5" />
-                </button>
-              </nav>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50"
+              >
+                <ChevronLeftIcon className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50"
+              >
+                <ChevronRightIcon className="h-5 w-5" />
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  );
+};
+
+const CountryDetail = () => {
+  const { t } = useTranslation();
+  const location = useLocation();
+  const countryCode = location.pathname.split('/').pop();
+  const country = mockCountries.find(c => c.code === countryCode);
+
+  if (!country) {
+    return <div>Ülke bulunamadı</div>;
+  }
+
+  return (
+    <div>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          {country.name}
+        </h1>
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          {t('countries.management.branches.description')}
+        </p>
+      </div>
+
+      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        {/* Ülke detayları ve kurumlar listesi burada olacak */}
+        <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+          {t('countries.management.branches.title')}
+        </h2>
+        
+        <div className="flex justify-end mb-4">
+          <button className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+            <PlusIcon className="h-5 w-5 mr-2" />
+            {t('countries.management.branches.add')}
+          </button>
+        </div>
+
+        {/* Kurumlar listesi placeholder */}
+        <div className="text-sm text-gray-500 dark:text-gray-400">
+          Bu ülkedeki kurumlar burada listelenecek...
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Countries = () => {
+  return (
+    <Routes>
+      <Route index element={<CountriesList />} />
+      <Route path=":code" element={<CountryDetail />} />
+    </Routes>
   );
 };
 

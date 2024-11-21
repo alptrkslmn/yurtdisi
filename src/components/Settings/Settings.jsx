@@ -5,7 +5,8 @@ import {
   UserIcon, 
   ListBulletIcon,
   LanguageIcon,
-  Cog6ToothIcon
+  Cog6ToothIcon,
+  CurrencyDollarIcon
 } from '@heroicons/react/24/outline';
 import Items from './Items';
 import LanguageSettings from './LanguageSettings';
@@ -13,6 +14,7 @@ import GeneralSettings from './GeneralSettings';
 import Users from './Users';
 import ThemeSettings from './ThemeSettings';
 import NotificationSettings from './NotificationSettings';
+import CurrencySettings from './CurrencySettings';
 
 const Settings = () => {
   const location = useLocation();
@@ -43,11 +45,17 @@ const Settings = () => {
       path: 'notifications',
       icon: UserIcon,
       component: NotificationSettings 
+    },
+    { 
+      name: t('settings.currency'), 
+      path: 'currency',
+      icon: CurrencyDollarIcon,
+      component: CurrencySettings 
     }
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-6">
+    <div>
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           {t('settings.title')}

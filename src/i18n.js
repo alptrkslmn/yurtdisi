@@ -1,20 +1,26 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import translationTR from './locales/tr/translation.json';
-
-const resources = {
-  tr: {
-    translation: translationTR
-  }
-};
+import HttpApi from 'i18next-http-backend';
 
 i18n
+  .use(HttpApi)
   .use(initReactI18next)
   .init({
-    resources,
+    backend: {
+      loadPath: '/locales/tr/translation.json',
+    },
     lng: 'tr',
+    fallbackLng: false,
+    supportedLngs: ['tr'],
+    defaultNS: 'translation',
+    ns: ['translation'],
     interpolation: {
       escapeValue: false
+    },
+    load: 'languageOnly',
+    detection: {
+      order: [],
+      caches: []
     }
   });
 

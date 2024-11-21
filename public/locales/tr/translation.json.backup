@@ -1,0 +1,563 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "add": "Ekle",
+    "search": "Ara",
+    "settings": "Ayarlar",
+    "logout": "Çıkış Yap",
+    "back": "Geri",
+    "next": "İleri",
+    "yes": "Evet",
+    "no": "Hayır",
+    "language": {
+      "select": "Dil Seçin",
+      "default": "Varsayılan",
+      "change": "Dili Değiştir"
+    },
+    "theme": {
+      "dark": "Karanlık Mod",
+      "light": "Aydınlık Mod"
+    },
+    "currency": {
+      "title": "Para Birimi Ayarları",
+      "description": "Varsayılan para birimini ve görüntüleme seçeneklerini ayarlayın",
+      "select": "Para Birimi Seçin",
+      "default": "Varsayılan Para Birimi",
+      "format": "Para Birimi Formatı",
+      "symbol": "Sembol",
+      "position": {
+        "title": "Sembol Pozisyonu",
+        "before": "Önde",
+        "after": "Arkada"
+      },
+      "separator": {
+        "title": "Ayraç",
+        "decimal": "Ondalık Ayracı",
+        "thousand": "Binlik Ayracı"
+      },
+      "options": {
+        "TRY": "Türk Lirası (₺)",
+        "USD": "Amerikan Doları ($)",
+        "EUR": "Euro (€)",
+        "GBP": "İngiliz Sterlini (£)",
+        "SAR": "Suudi Riyali (﷼)"
+      }
+    },
+    "menu": {
+      "user": "Kullanıcı Menüsü",
+      "language": "Dil Menüsü"
+    },
+    "table": {
+      "id": "ID",
+      "date": "Tarih",
+      "type": "Tür",
+      "category": "Kategori",
+      "description": "Açıklama",
+      "amount": "Tutar",
+      "status": "Durum",
+      "actions": "İşlemler",
+      "institution": "Kurum",
+      "country": "Ülke",
+      "no": "No",
+      "indicator": "Gösterge",
+      "value": "Değer",
+      "change": "Değişim",
+      "showing": "Gösteriliyor",
+      "of": "toplam",
+      "records": "kayıt"
+    },
+    "type": {
+      "income": "Gelir",
+      "expense": "Gider"
+    },
+    "actions": {
+      "refresh": "Yenile",
+      "export": {
+        "excel": "Excel İndir",
+        "pdf": "PDF İndir"
+      },
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "save": "Kaydet",
+      "cancel": "İptal",
+      "back": "Geri",
+      "next": "İleri",
+      "filter": "Filtrele",
+      "search": "Ara",
+      "add": "Ekle",
+      "update": "Güncelle",
+      "remove": "Kaldır",
+      "select": "Seç",
+      "clear": "Temizle",
+      "close": "Kapat",
+      "open": "Aç",
+      "view": "Görüntüle",
+      "print": "Yazdır",
+      "download": "İndir",
+      "upload": "Yükle",
+      "approve": "Onayla",
+      "reject": "Reddet",
+      "details": "Detaylar",
+      "settings": "Ayarlar",
+      "logout": "Çıkış Yap",
+      "confirm": "Onayla",
+      "backToHome": "Ana Sayfaya Dön"
+    },
+    "filters": {
+      "year": "Yıl",
+      "month": "Ay",
+      "country": "Ülke",
+      "institution": "Kurum",
+      "allYears": "Tüm Yıllar",
+      "allMonths": "Tüm Aylar",
+      "allCountries": "Tüm Ülkeler",
+      "allInstitutions": "Tüm Kurumlar",
+      "status": "Durum",
+      "allStatuses": "Tüm Durumlar",
+      "region": "Bölge",
+      "allRegions": "Tüm Bölgeler"
+    },
+    "status": {
+      "active": "Aktif",
+      "inactive": "Pasif",
+      "completed": "Tamamlandı",
+      "pending": "Beklemede",
+      "failed": "Başarısız",
+      "cancelled": "İptal Edildi",
+      "processing": "İşleniyor",
+      "approved": "Onaylandı",
+      "rejected": "Reddedildi",
+      "draft": "Taslak"
+    },
+    "labels": {
+      "id": "ID",
+      "name": "İsim",
+      "code": "Kod",
+      "type": "Tür",
+      "date": "Tarih",
+      "amount": "Tutar",
+      "currency": "Para Birimi",
+      "description": "Açıklama",
+      "details": "Detaylar",
+      "actions": "İşlemler",
+      "status": "Durum",
+      "category": "Kategori",
+      "title": "Başlık",
+      "notes": "Notlar",
+      "year": "Yıl",
+      "month": "Ay",
+      "country": "Ülke",
+      "institution": "Kurum"
+    },
+    "messages": {
+      "required": "Bu alan zorunludur",
+      "invalid": "Geçersiz değer",
+      "processing": "İşleniyor...",
+      "completed": "Tamamlandı",
+      "failed": "Başarısız",
+      "noData": "Veri bulunamadı",
+      "confirmDelete": "Silmek istediğinize emin misiniz?",
+      "saved": "Kaydedildi",
+      "error": "Bir hata oluştu"
+    },
+    "theme": {
+      "select": "Tema Seç",
+      "light": "Açık",
+      "dark": "Koyu",
+      "system": "Sistem",
+      "settings": {
+        "title": "Tema Ayarları",
+        "description": "Arayüz görünümünü özelleştirin",
+        "theme": {
+          "dark": {
+            "label": "Koyu Tema",
+            "description": "Koyu renk temasını kullanın"
+          },
+          "compact": {
+            "label": "Kompakt Mod",
+            "description": "Daha sıkışık bir arayüz görünümü kullanın"
+          },
+          "animations": {
+            "label": "Animasyonlar",
+            "description": "Arayüz animasyonlarını etkinleştirin"
+          }
+        }
+      }
+    },
+    "language": {
+      "select": "Dil Seçin",
+      "default": "Varsayılan",
+      "change": "Dili Değiştir"
+    }
+  },
+  "navigation": {
+    "dashboard": "Panel",
+    "countries": "Ülkeler",
+    "preAccounting": "Ön Muhasebe",
+    "reports": "Raporlar",
+    "settings": "Ayarlar",
+    "toggleSidebar": "Menüyü Daralt/Genişlet",
+    "profile": "Profil",
+    "logout": "Çıkış Yap"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "summary": "Özet",
+    "stats": {
+      "totalIncome": "Toplam Gelir",
+      "totalExpense": "Toplam Gider",
+      "netIncome": "Net Gelir",
+      "transactionCount": "İşlem Sayısı",
+      "activeInstitutions": "Aktif Kurumlar"
+    },
+    "filters": {
+      "title": "Filtreler",
+      "year": "Yıl",
+      "month": "Ay",
+      "country": "Ülke",
+      "institution": "Kurum",
+      "allYears": "Tüm Yıllar",
+      "allMonths": "Tüm Aylar",
+      "allCountries": "Tüm Ülkeler",
+      "allInstitutions": "Tüm Kurumlar"
+    },
+    "stats": {
+      "totalIncome": "Toplam Gelir",
+      "totalExpense": "Toplam Gider",
+      "netIncome": "Net Gelir",
+      "transactionCount": "İşlem Sayısı"
+    },
+    "recentTransactions": "Son İşlemler",
+    "actions": {
+      "refresh": "Yenile",
+      "filter": "Filtrele",
+      "export": "Dışa Aktar"
+    },
+    "export": {
+      "title": "Dışa Aktar",
+      "excel": "Excel'e Aktar",
+      "pdf": "PDF'e Aktar",
+      "report": "Hudayi Finansal Rapor",
+      "statistics": "İstatistikler"
+    },
+    "table": {
+      "institution": "KURUM",
+      "country": "ÜLKE",
+      "type": "İŞLEM TİPİ",
+      "amount": "TUTAR",
+      "status": "DURUM",
+      "date": "TARİH"
+    },
+    "status": {
+      "completed": "Tamamlandı",
+      "pending": "Beklemede",
+      "failed": "Başarısız"
+    },
+    "transactionType": {
+      "income": "Gelir",
+      "expense": "Gider"
+    }
+  },
+  "preAccounting": {
+    "title": "Ön Muhasebe",
+    "description": "Finansal işlemleri yönetin",
+    "newTransaction": "Yeni İşlem",
+    "table": {
+      "date": "Tarih",
+      "type": "Tür",
+      "category": "Kategori",
+      "description": "Açıklama",
+      "amount": "Tutar",
+      "currency": "Para Birimi",
+      "status": "Durum",
+      "actions": "İşlemler"
+    },
+    "categories": {
+      "income": "Gelir",
+      "expense": "Gider"
+    },
+    "subCategories": {
+      "donation": "Bağış",
+      "rent": "Kira"
+    },
+    "paymentMethods": {
+      "bankTransfer": "Banka Transferi",
+      "automaticPayment": "Otomatik Ödeme"
+    },
+    "status": {
+      "completed": "Tamamlandı",
+      "pending": "Beklemede",
+      "cancelled": "İptal Edildi"
+    },
+    "filter": {
+      "title": "Filtreler",
+      "year": "Yıl",
+      "month": "Ay",
+      "country": "Ülke",
+      "institution": "Kurum",
+      "allYears": "Tüm Yıllar",
+      "allMonths": "Tüm Aylar",
+      "allCountries": "Tüm Ülkeler",
+      "allInstitutions": "Tüm Kurumlar",
+      "dateRange": "Tarih Aralığı",
+      "startDate": "Başlangıç Tarihi",
+      "endDate": "Bitiş Tarihi",
+      "category": "Kategori",
+      "allCategories": "Tüm Kategoriler",
+      "type": "Tür",
+      "allTypes": "Tüm Türler",
+      "status": "Durum",
+      "allStatuses": "Tüm Durumlar"
+    },
+    "table": {
+      "date": "Tarih",
+      "type": "Tür",
+      "category": "Kategori",
+      "description": "Açıklama",
+      "amount": "Tutar",
+      "currency": "Para Birimi",
+      "status": "Durum",
+      "actions": "İşlemler"
+    },
+    "actions": {
+      "add": "İşlem Ekle",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "view": "Görüntüle",
+      "export": "Dışa Aktar",
+      "print": "Yazdır"
+    }
+  },
+  "countries": {
+    "title": "Ülkeler",
+    "description": "Ülke ve kurum yönetimi",
+    "management": {
+      "add": "Ülke Ekle",
+      "edit": "Ülke Düzenle",
+      "delete": "Ülke Sil",
+      "branches": {
+        "title": "Kurumlar",
+        "description": "Bu ülkedeki tüm kurumlar ve detayları",
+        "add": "Kurum Ekle",
+        "edit": "Kurum Düzenle",
+        "delete": "Kurum Sil",
+        "details": "Kurum Detayları",
+        "list": "Kurum Listesi",
+        "empty": "Bu ülkede henüz kurum bulunmuyor"
+      }
+    },
+    "filters": {
+      "search": "Ülke veya kod ara...",
+      "status": "Durum filtrele"
+    },
+    "data": {
+      "TR": "Türkiye",
+      "DE": "Almanya",
+      "NL": "Hollanda",
+      "BE": "Belçika",
+      "FR": "Fransa",
+      "GB": "İngiltere",
+      "US": "Amerika Birleşik Devletleri"
+    }
+  },
+  "auth": {
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "forgotPassword": "Şifremi Unuttum",
+    "resetPassword": "Şifreyi Sıfırla",
+    "email": "E-posta",
+    "password": "Şifre",
+    "confirmPassword": "Şifreyi Onayla",
+    "rememberMe": "Beni Hatırla",
+    "loginButton": "Giriş Yap",
+    "registerButton": "Kayıt Ol",
+    "resetPasswordButton": "Şifreyi Sıfırla"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "description": "Sistem ayarlarını buradan yönetebilirsiniz",
+    "tabs": {
+      "general": "Genel",
+      "language": "Dil",
+      "theme": "Tema",
+      "notifications": "Bildirimler",
+      "currency": "Para Birimi"
+    },
+    "general": {
+      "title": "Genel Ayarlar",
+      "description": "Temel sistem ayarlarını ve kurum bilgilerini buradan yönetebilirsiniz",
+      "organizationName": {
+        "label": "Kurum Adı",
+        "value": "Hüdayi Vakfı"
+      },
+      "email": {
+        "label": "E-posta",
+        "value": "info@hudayi.org"
+      },
+      "phone": {
+        "label": "Telefon",
+        "value": "+90 216 428 39 60"
+      },
+      "currency": {
+        "label": "Para Birimi",
+        "value": "TRY"
+      },
+      "address": {
+        "label": "Adres",
+        "value": "Aziz Mahmut Hüdayi Mah. Türbe Kapısı Sok. No:13 Üsküdar İstanbul"
+      },
+      "theme": {
+        "label": "Tema",
+        "value": "system"
+      },
+      "notifications": {
+        "label": "Bildirimler",
+        "description": "Bildirim ayarlarını yönetin"
+      },
+      "emailNotifications": {
+        "label": "E-posta Bildirimleri",
+        "description": "Önemli güncellemeler için e-posta bildirimleri alın"
+      },
+      "pushNotifications": {
+        "label": "Anlık Bildirimler",
+        "description": "Tarayıcı üzerinden anlık bildirimler alın"
+      },
+      "timezone": {
+        "label": "Saat Dilimi",
+        "value": "Europe/Istanbul"
+      }
+    },
+    "notifications": {
+      "title": "Bildirim Ayarları",
+      "description": "Bildirim tercihlerinizi buradan yönetebilirsiniz",
+      "email": "E-posta Bildirimleri",
+      "emailDescription": "Önemli güncellemeler ve raporlar için e-posta bildirimleri alın",
+      "push": "Anlık Bildirimler",
+      "pushDescription": "Tarayıcı üzerinden anlık bildirimler alın",
+      "reports": "Rapor Bildirimleri",
+      "reportsDescription": "Haftalık ve aylık raporlar için bildirim alın",
+      "updates": "Sistem Güncellemeleri",
+      "updatesDescription": "Sistem güncellemeleri ve bakım bildirimleri alın",
+      "marketing": "Pazarlama Bildirimleri",
+      "marketingDescription": "Yeni özellikler ve kampanyalar hakkında bilgi alın",
+      "sound": "Bildirim Sesi",
+      "soundDescription": "Bildirimlerde ses çalınmasını etkinleştirin",
+      "desktop": "Masaüstü Bildirimleri",
+      "desktopDescription": "Sistem bildirimleri masaüstünde gösterilsin"
+    },
+    "theme": {
+      "title": "Tema Ayarları",
+      "description": "Sistem temasını ve görünüm tercihlerini buradan yönetebilirsiniz",
+      "darkMode": "Karanlık Mod",
+      "darkModeDescription": "Karanlık temayı etkinleştirin veya devre dışı bırakın",
+      "compactMode": "Kompakt Mod",
+      "compactModeDescription": "Daha sıkışık bir arayüz görünümü kullanın",
+      "animations": "Animasyonlar",
+      "animationsDescription": "Sistem animasyonlarını etkinleştirin veya devre dışı bırakın",
+      "preview": "Önizleme",
+      "previewDescription": "Tema değişikliklerini önizleyin",
+      "customColors": "Özel Renkler",
+      "customColorsDescription": "Tema renklerini özelleştirin",
+      "resetDefaults": "Varsayılana Dön",
+      "resetDefaultsDescription": "Tema ayarlarını varsayılan değerlere sıfırlayın"
+    },
+    "language": {
+      "title": "Dil Ayarları",
+      "description": "Sistem dilini ve dil tercihlerini buradan yönetebilirsiniz",
+      "select": "Dil Seçin",
+      "current": "Mevcut Dil",
+      "available": "Kullanılabilir Diller"
+    },
+    "currency": "Para Birimi",
+    "general": {
+      "systemTheme": "Sistem Teması",
+      "darkTheme": "Koyu Tema",
+      "lightTheme": "Açık Tema"
+    }
+  },
+  "space": "Boşluk",
+  "errors": {
+    "required": "Bu alan zorunludur",
+    "invalidEmail": "Geçersiz e-posta adresi",
+    "passwordMismatch": "Şifreler eşleşmiyor",
+    "minimumLength": "En az {{length}} karakter olmalıdır",
+    "loadFailed": "Yükleme başarısız",
+    "saveFailed": "Kaydetme başarısız",
+    "deleteFailed": "Silme başarısız",
+    "updateFailed": "Güncelleme başarısız",
+    "addFailed": "Ekleme başarısız",
+    "pageNotFound": "Sayfa Bulunamadı",
+    "unauthorized": "Yetkisiz Erişim",
+    "serverError": "Sunucu Hatası"
+  },
+  "reports": {
+    "title": "Raporlar",
+    "description": "Finansal raporları görüntüleyin ve analiz edin",
+    "filters": {
+      "title": "Filtreler",
+      "year": "Yıl",
+      "month": "Ay",
+      "country": "Ülke",
+      "institution": "Kurum",
+      "allYears": "Tüm Yıllar",
+      "allMonths": "Tüm Aylar",
+      "allCountries": "Tüm Ülkeler",
+      "allInstitutions": "Tüm Kurumlar",
+      "dateRange": "Tarih Aralığı",
+      "startDate": "Başlangıç Tarihi",
+      "endDate": "Bitiş Tarihi",
+      "category": "Kategori",
+      "allCategories": "Tüm Kategoriler",
+      "type": "Tür",
+      "allTypes": "Tüm Türler"
+    },
+    "summary": {
+      "title": "Özet",
+      "description": "Finansal durumun genel özeti",
+      "totalIncome": "Toplam Gelir",
+      "totalExpense": "Toplam Gider",
+      "balance": "Bakiye",
+      "transactions": "İşlem Sayısı",
+      "averageIncome": "Ortalama Gelir",
+      "averageExpense": "Ortalama Gider",
+      "monthlyChange": "Aylık Değişim",
+      "yearlyChange": "Yıllık Değişim"
+    },
+    "income": {
+      "title": "Gelirler",
+      "description": "Gelir detayları ve analizi",
+      "total": "Toplam Gelir",
+      "categories": "Gelir Kategorileri",
+      "topSources": "En Yüksek Gelir Kaynakları",
+      "monthlyTrend": "Aylık Gelir Trendi",
+      "yearlyTrend": "Yıllık Gelir Trendi"
+    },
+    "expense": {
+      "title": "Giderler",
+      "description": "Gider detayları ve analizi",
+      "total": "Toplam Gider",
+      "categories": "Gider Kategorileri",
+      "topExpenses": "En Yüksek Giderler",
+      "monthlyTrend": "Aylık Gider Trendi",
+      "yearlyTrend": "Yıllık Gider Trendi"
+    },
+    "charts": {
+      "incomeVsExpense": "Gelir - Gider Karşılaştırması",
+      "monthlyDistribution": "Aylık Dağılım",
+      "categoryBreakdown": "Kategori Dağılımı",
+      "trendAnalysis": "Trend Analizi"
+    },
+    "export": {
+      "title": "Dışa Aktar",
+      "excel": "Excel Olarak İndir",
+      "pdf": "PDF Olarak İndir",
+      "print": "Yazdır"
+    }
+  }
+}

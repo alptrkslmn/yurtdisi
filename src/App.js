@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './styles/theme.css';
 import { useTranslation } from 'react-i18next';
@@ -34,10 +34,10 @@ function AppContent() {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
-            <Route path="countries" element={<Countries />} />
+            <Route path="countries/*" element={<Countries />} />
             <Route path="pre-accounting" element={<PreAccounting />} />
             <Route path="reports" element={<Reports />} />
-            <Route path="settings" element={<Settings />} />
+            <Route path="settings/*" element={<Settings />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
