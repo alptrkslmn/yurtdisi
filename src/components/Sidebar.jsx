@@ -17,6 +17,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { PERMISSIONS } from '../constants/permissions';
 import hudayiLogo from '../assets/hudayi-logo.png';
+import { useThemeStyles } from '../hooks/useThemeStyles';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -24,6 +25,7 @@ const Sidebar = () => {
   const { hasPermission } = useAuth();
   const [expandedItems, setExpandedItems] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const styles = useThemeStyles();
 
   const countries = [
     { id: 'TR', name: t('countries.TR') },
@@ -87,125 +89,94 @@ const Sidebar = () => {
   };
 
   return (
-    <div className={`hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 ${isSidebarOpen ? 'md:w-64' : 'md:w-16'}`}>
+    <div className={`hidden md:flex md:flex-col md:fixed md:inset-y-0 z-50 transition-all duration-300 ease-in-out ${isSidebarOpen ? 'md:w-64' : 'md:w-16'}`}>
       <div className="flex h-screen flex-col">
-        <div className="flex min-h-0 flex-1 flex-col border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-          <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
-            <div className="flex flex-shrink-0 items-center px-6">
-              <img
-                className="h-8 w-auto"
-                src={hudayiLogo}
-                alt="Hudayi Logo"
-              />
-              <button
-                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="ml-auto rounded-md p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-700 dark:hover:text-gray-300"
-              >
-                <ChevronLeftIcon className="h-6 w-6" />
-              </button>
-            </div>
-            <nav className="mt-5 flex-1 space-y-1 px-6">
-              {menuItems.map((item, index) => {
-                if (!hasPermission(item.permission)) return null;
-
-                const ItemIcon = item.icon;
-                const isItemActive = isActive(item.path);
-                const isExpanded = expandedItems.includes(index);
-
-                return (
+        <div className={`flex min-h-0 flex-1 flex-col border-r border-gray-200 dark:border-gray-700 ${styles.gradientBg}`}>
+          {/* Logo alanı */}
+          <div className="flex h-16 flex-shrink-0 items-center justify-center px-4 bg-white dark:bg-gray-800">
+            <img
+              className={`h-8 w-auto transition-all duration-300 ease-in-out ${!isSidebarOpen ? 'scale-90' : ''}`}
+              src={hudayiLogo}
+              alt="Hudayi Logo"
+            />
+          </div>
+          <div className="flex-1 flex flex-col overflow-y-auto pt-5 pb-4">
+            <nav className="mt-5 flex-1 px-2 space-y-1">
+              {menuItems.map((item, index) => 
+                hasPermission(item.permission) && (
                   <div key={item.path}>
                     {item.subItems ? (
-                      <button
-                        onClick={() => toggleExpand(index)}
-                        className={`
-                          group flex items-center px-2 py-2 text-sm font-medium rounded-md truncate
-                          ${isItemActive
-                            ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
-                            : 'text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700'
-                          }
-                        `}
-                      >
-                        <ItemIcon
-                          className={`
-                            mr-3 flex-shrink-0 h-6 w-6
-                            ${isItemActive
-                              ? 'text-gray-500 dark:text-gray-300'
-                              : 'text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300'
-                            }
-                          `}
-                        />
-                        <span className="flex-1 truncate">{item.name}</span>
-                        {isExpanded ? (
-                          <ChevronDownIcon className="h-5 w-5 flex-shrink-0" />
-                        ) : (
-                          <ChevronRightIcon className="h-5 w-5 flex-shrink-0" />
+                      <div>
+                        <button
+                          onClick={() => toggleExpand(index)}
+                          className={`w-full group flex items-center px-2 py-2 text-sm font-medium rounded-md ${
+                            isActive(item.path)
+                              ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
+                              : 'text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700'
+                          }`}
+                        >
+                          <item.icon className="mr-3 h-5 w-5" />
+                          {isSidebarOpen && (
+                            <>
+                              <span className="flex-1 text-left">{item.name}</span>
+                              {expandedItems.includes(index) ? (
+                                <ChevronDownIcon className="h-5 w-5" />
+                              ) : (
+                                <ChevronRightIcon className="h-5 w-5" />
+                              )}
+                            </>
+                          )}
+                        </button>
+                        {isSidebarOpen && expandedItems.includes(index) && (
+                          <div className="ml-4 mt-1 space-y-1">
+                            {item.subItems.map((subItem) => (
+                              <Link
+                                key={subItem.path}
+                                to={subItem.path}
+                                className={`group flex items-center px-2 py-2 text-sm font-medium rounded-md ${
+                                  isActive(subItem.path)
+                                    ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
+                                    : 'text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700'
+                                }`}
+                              >
+                                <subItem.icon className="mr-3 h-5 w-5" />
+                                <span>{subItem.name}</span>
+                              </Link>
+                            ))}
+                          </div>
                         )}
-                      </button>
+                      </div>
                     ) : (
                       <Link
                         to={item.path}
-                        className={`
-                          w-full group flex items-center px-2 py-2 text-sm font-medium rounded-md truncate
-                          ${isItemActive
+                        className={`group flex items-center px-2 py-2 text-sm font-medium rounded-md ${
+                          isActive(item.path)
                             ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
                             : 'text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700'
-                          }
-                        `}
+                        }`}
                       >
-                        <ItemIcon
-                          className={`
-                            mr-3 flex-shrink-0 h-6 w-6
-                            ${isItemActive
-                              ? 'text-gray-500 dark:text-gray-300'
-                              : 'text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300'
-                            }
-                          `}
-                        />
-                        <span className="flex-1 truncate">{item.name}</span>
+                        <item.icon className="mr-3 h-5 w-5" />
+                        {isSidebarOpen && <span>{item.name}</span>}
                       </Link>
                     )}
-                    {item.subItems && isExpanded && (
-                      <div className="mt-1 pl-4 space-y-1">
-                        {item.subItems.map((subItem) => {
-                          if (!hasPermission(subItem.permission)) return null;
-                          
-                          const SubItemIcon = subItem.icon;
-                          const isSubItemActive = isActive(subItem.path);
-
-                          return (
-                            <Link
-                              key={subItem.path}
-                              to={subItem.path}
-                              className={`
-                                group flex items-center px-2 py-1.5 text-xs font-medium rounded-md truncate ml-2
-                                ${isSubItemActive
-                                  ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
-                                  : 'text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700'
-                                }
-                              `}
-                            >
-                              <SubItemIcon
-                                className={`
-                                  mr-3 flex-shrink-0 h-5 w-5
-                                  ${isSubItemActive
-                                    ? 'text-gray-500 dark:text-gray-300'
-                                    : 'text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300'
-                                  }
-                                `}
-                              />
-                              <span className="truncate">{subItem.name}</span>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    )}
                   </div>
-                );
-              })}
+                )
+              )}
             </nav>
           </div>
         </div>
       </div>
+      <button
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        className="absolute right-0 top-20 transform translate-x-1/2 bg-white dark:bg-gray-800 rounded-full p-1.5 border border-gray-200 dark:border-gray-700"
+        title={t('navigation.toggleSidebar')}
+      >
+        {isSidebarOpen ? (
+          <ChevronLeftIcon className="h-4 w-4 text-gray-500" />
+        ) : (
+          <ChevronRightIcon className="h-4 w-4 text-gray-500" />
+        )}
+      </button>
     </div>
   );
 };

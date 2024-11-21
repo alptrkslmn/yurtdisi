@@ -1,0 +1,369 @@
+{
+  "navigation": {
+    "dashboard": "Panel",
+    "countries": "Ülkeler",
+    "preAccounting": "Ön Muhasebe",
+    "reports": "Raporlar",
+    "settings": "Ayarlar",
+    "toggleSidebar": "Menüyü Daralt/Genişlet",
+    "profile": "Profil",
+    "logout": "Çıkış Yap"
+  },
+  "common": {
+    "table": {
+      "id": "ID",
+      "date": "Tarih",
+      "type": "Tür",
+      "category": "Kategori",
+      "description": "Açıklama",
+      "amount": "Tutar",
+      "status": "Durum",
+      "actions": "İşlemler",
+      "institution": "Kurum",
+      "country": "Ülke",
+      "no": "No",
+      "indicator": "Gösterge",
+      "value": "Değer",
+      "change": "Değişim"
+    },
+    "type": {
+      "income": "Gelir",
+      "expense": "Gider"
+    },
+    "actions": {
+      "refresh": "Yenile",
+      "export": {
+        "excel": "Excel Olarak İndir",
+        "pdf": "PDF Olarak İndir"
+      },
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "save": "Kaydet",
+      "cancel": "İptal",
+      "back": "Geri",
+      "next": "İleri",
+      "filter": "Filtrele",
+      "search": "Ara",
+      "add": "Ekle",
+      "update": "Güncelle",
+      "remove": "Kaldır",
+      "select": "Seç",
+      "clear": "Temizle",
+      "close": "Kapat",
+      "open": "Aç",
+      "view": "Görüntüle",
+      "print": "Yazdır",
+      "download": "İndir",
+      "upload": "Yükle",
+      "approve": "Onayla",
+      "reject": "Reddet",
+      "details": "Detaylar",
+      "settings": "Ayarlar",
+      "logout": "Çıkış Yap",
+      "confirm": "Onayla"
+    },
+    "filters": {
+      "year": "Yıl",
+      "month": "Ay",
+      "country": "Ülke",
+      "institution": "Kurum",
+      "allYears": "Tüm Yıllar",
+      "allMonths": "Tüm Aylar",
+      "allCountries": "Tüm Ülkeler",
+      "allInstitutions": "Tüm Kurumlar",
+      "status": "Durum",
+      "allStatuses": "Tüm Durumlar",
+      "region": "Bölge",
+      "allRegions": "Tüm Bölgeler"
+    },
+    "status": {
+      "active": "Aktif",
+      "inactive": "Pasif",
+      "completed": "Tamamlandı",
+      "pending": "Beklemede",
+      "failed": "Başarısız",
+      "cancelled": "İptal Edildi",
+      "processing": "İşleniyor",
+      "approved": "Onaylandı",
+      "rejected": "Reddedildi",
+      "draft": "Taslak"
+    },
+    "labels": {
+      "id": "ID",
+      "name": "İsim",
+      "code": "Kod",
+      "type": "Tür",
+      "date": "Tarih",
+      "amount": "Tutar",
+      "currency": "Para Birimi",
+      "description": "Açıklama",
+      "details": "Detaylar",
+      "actions": "İşlemler",
+      "status": "Durum",
+      "category": "Kategori",
+      "title": "Başlık",
+      "notes": "Notlar",
+      "year": "Yıl",
+      "month": "Ay",
+      "country": "Ülke",
+      "institution": "Kurum"
+    },
+    "messages": {
+      "required": "Bu alan zorunludur",
+      "invalid": "Geçersiz değer",
+      "processing": "İşleniyor...",
+      "completed": "Tamamlandı",
+      "failed": "Başarısız",
+      "noData": "Veri bulunamadı",
+      "confirmDelete": "Silmek istediğinize emin misiniz?",
+      "saved": "Kaydedildi",
+      "error": "Bir hata oluştu"
+    },
+    "theme": {
+      "select": "Tema Seç",
+      "light": "Açık",
+      "dark": "Koyu",
+      "system": "Sistem"
+    }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "summary": "Özet",
+    "actions": {
+      "refresh": "Yenile"
+    },
+    "filters": {
+      "year": "common.filters.year",
+      "month": "common.filters.month",
+      "country": "common.filters.country",
+      "institution": "common.filters.institution",
+      "allYears": "common.filters.allYears",
+      "allMonths": "common.filters.allMonths",
+      "allCountries": "common.filters.allCountries",
+      "allInstitutions": "common.filters.allInstitutions"
+    },
+    "export": {
+      "excel": "common.actions.export.excel",
+      "pdf": "common.actions.export.pdf",
+      "report": "Rapor",
+      "statistics": "İstatistikler",
+      "recentTransactions": "Son İşlemler"
+    },
+    "stats": {
+      "totalIncome": "Toplam Gelir",
+      "totalExpense": "Toplam Gider",
+      "netIncome": "Net Gelir",
+      "transactionCount": "İşlem Sayısı",
+      "activeInstitutions": "Aktif Kurumlar",
+      "monthlyReport": "Aylık Rapor"
+    },
+    "transactionType": {
+      "income": "common.type.income",
+      "expense": "common.type.expense"
+    },
+    "status": {
+      "completed": "common.status.completed",
+      "pending": "common.status.pending",
+      "failed": "common.status.failed"
+    },
+    "recentTransactions": "Son İşlemler",
+    "transactions": {
+      "title": "Son İşlemler",
+      "empty": "Henüz işlem bulunmuyor",
+      "headers": {
+        "institution": "Kurum",
+        "country": "Ülke",
+        "type": "Tür",
+        "amount": "Tutar",
+        "status": "Durum",
+        "date": "Tarih"
+      }
+    }
+  },
+  "countries": {
+    "TR": "Türkiye",
+    "DE": "Almanya",
+    "NL": "Hollanda",
+    "BE": "Belçika",
+    "FR": "Fransa",
+    "GB": "İngiltere",
+    "US": "Amerika Birleşik Devletleri",
+    "branchesDescription": "Bu ülkedeki tüm şubeler ve detayları",
+    "addBranch": "Şube Ekle",
+    "title": "Ülkeler",
+    "searchPlaceholder": "Ülke ara...",
+    "management": {
+      "add": "Ülke Ekle",
+      "edit": "Ülke Düzenle",
+      "delete": "Ülke Sil",
+      "branches": {
+        "title": "Şubeler",
+        "description": "Bu ülkedeki tüm şubeler ve detayları",
+        "add": "Şube Ekle",
+        "edit": "Şube Düzenle",
+        "delete": "Şube Sil",
+        "details": "Şube Detayları"
+      }
+    },
+    "data": {
+      "TR": "Türkiye",
+      "DE": "Almanya",
+      "NL": "Hollanda",
+      "BE": "Belçika",
+      "FR": "Fransa",
+      "GB": "İngiltere",
+      "US": "Amerika Birleşik Devletleri"
+    }
+  },
+  "preAccounting": {
+    "title": "Ön Muhasebe",
+    "filters": {
+      "allYears": "common.filters.allYears",
+      "allMonths": "common.filters.allMonths",
+      "allCountries": "common.filters.allCountries",
+      "allInstitutions": "common.filters.allInstitutions"
+    },
+    "status": {
+      "pending": "common.status.pending"
+    },
+    "actions": {
+      "approve": "common.actions.approve",
+      "reject": "common.actions.reject",
+      "details": "common.actions.details"
+    }
+  },
+  "reports": {
+    "title": "Raporlar",
+    "filters": {
+      "year": "common.filters.year",
+      "month": "common.filters.month",
+      "country": "common.filters.country",
+      "institution": "common.filters.institution",
+      "allYears": "common.filters.allYears",
+      "allMonths": "common.filters.allMonths",
+      "allCountries": "common.filters.allCountries",
+      "allInstitutions": "common.filters.allInstitutions"
+    },
+    "actions": {
+      "refresh": "common.actions.refresh",
+      "export": {
+        "excel": "common.actions.export.excel",
+        "pdf": "common.actions.export.pdf"
+      }
+    },
+    "income": {
+      "title": "Gelir Kalemleri",
+      "no": "No",
+      "category": "Kalem Adı",
+      "amount": "Tutar",
+      "total": "Toplam"
+    },
+    "expense": {
+      "title": "Gider Kalemleri",
+      "no": "No",
+      "category": "Kalem Adı",
+      "amount": "Tutar",
+      "total": "Toplam"
+    },
+    "summary": {
+      "totalIncome": "Toplam Gelir",
+      "totalExpense": "Toplam Gider",
+      "balance": "Devreden"
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "description": "Sistem ayarlarını ve tercihlerinizi yönetin",
+    "tabs": {
+      "general": "Genel",
+      "language": "Dil",
+      "theme": "Tema",
+      "notifications": "Bildirimler"
+    },
+    "general": {
+      "title": "Genel Ayarlar",
+      "description": "Temel sistem ayarlarını yapılandırın",
+      "organizationName": "Kurum Adı",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "currency": "Para Birimi",
+      "address": "Adres",
+      "theme": "Tema",
+      "notifications": "Bildirimler",
+      "emailNotifications": "E-posta Bildirimleri",
+      "emailNotificationsDescription": "Önemli güncellemeler için e-posta bildirimleri alın",
+      "pushNotifications": "Anlık Bildirimler",
+      "pushNotificationsDescription": "Önemli olaylar için anlık bildirimler alın",
+      "timezone": "Saat Dilimi"
+    },
+    "language": {
+      "title": "Dil Ayarları",
+      "description": "Sistem dilini ve yerelleştirme tercihlerini yönetin",
+      "headerInfo": "Tercih ettiğiniz dili seçin",
+      "select": "Dil Seç",
+      "tr": "Türkçe",
+      "en": "İngilizce",
+      "current": "Mevcut Dil",
+      "default": "Varsayılan Dil",
+      "format": {
+        "date": "Tarih Formatı",
+        "time": "Saat Formatı",
+        "number": "Sayı Formatı",
+        "currency": "Para Birimi Formatı"
+      }
+    },
+    "theme": {
+      "title": "Tema Ayarları",
+      "description": "Arayüz görünümünü özelleştirin",
+      "darkMode": "Koyu Tema",
+      "darkModeDescription": "Koyu renk temasını kullanın",
+      "compactMode": "Kompakt Mod",
+      "compactModeDescription": "Daha sıkışık bir arayüz görünümü kullanın",
+      "animations": "Animasyonlar",
+      "animationsDescription": "Arayüz animasyonlarını etkinleştirin"
+    },
+    "notifications": {
+      "title": "Bildirim Ayarları",
+      "description": "Bildirim tercihlerinizi yönetin",
+      "email": "E-posta Bildirimleri",
+      "emailTitle": "E-posta Bildirimleri",
+      "emailDescription": "Önemli güncellemeler için e-posta bildirimleri alın",
+      "push": "Anlık Bildirimler",
+      "pushTitle": "Anlık Bildirimler",
+      "pushDescription": "Önemli olaylar için anlık bildirimler alın",
+      "reports": "Rapor Bildirimleri",
+      "reportsTitle": "Rapor Bildirimleri",
+      "reportsDescription": "Yeni raporlar hazır olduğunda bildirim alın"
+    }
+  },
+  "organization": {
+    "name": "Hüdayi Vakfı",
+    "email": "info@hudayi.org",
+    "phone": "+90 216 428 39 60",
+    "address": "Aziz Mahmut Hüdayi Mah. Türbe Kapısı Sok. No:13 Üsküdar İstanbul",
+    "currency": "TRY",
+    "timezone": "Europe/Istanbul"
+  },
+  "months": {
+    "1": "Ocak",
+    "2": "Şubat",
+    "3": "Mart",
+    "4": "Nisan",
+    "5": "Mayıs",
+    "6": "Haziran",
+    "7": "Temmuz",
+    "8": "Ağustos",
+    "9": "Eylül",
+    "10": "Ekim",
+    "11": "Kasım",
+    "12": "Aralık"
+  },
+  "currency": {
+    "format": {
+      "TRY": "₺{amount}",
+      "USD": "${amount}",
+      "EUR": "€{amount}",
+      "GBP": "£{amount}"
+    }
+  }
+}

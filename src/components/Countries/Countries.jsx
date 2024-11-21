@@ -8,6 +8,7 @@ import {
   PencilIcon,
   TrashIcon
 } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
 
 // Örnek ülke verileri
 const mockCountries = [
@@ -19,6 +20,7 @@ const mockCountries = [
 ];
 
 const Countries = () => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
@@ -57,23 +59,25 @@ const Countries = () => {
     
     return (
       <span className={`${baseClasses} ${statusClasses[status]}`}>
-        {status === 'active' ? 'Aktif' : 'Pasif'}
+        {status === 'active' ? t('countries.status.active') : t('countries.status.inactive')}
       </span>
     );
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 pt-16">
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Ülkeler</h1>
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+          {t('countries.title')}
+        </h1>
         <div className="flex gap-2">
           <button className="btn-secondary">
             <ArrowDownTrayIcon className="h-5 w-5" />
-            Dışa Aktar
+            {t('countries.actions.export')}
           </button>
           <button className="btn-primary">
             <PlusIcon className="h-5 w-5" />
-            Yeni Ülke
+            {t('countries.actions.addCountry')}
           </button>
         </div>
       </div>
@@ -87,7 +91,7 @@ const Countries = () => {
                 <input
                   type="text"
                   className="input pl-10"
-                  placeholder="Ülke ara..."
+                  placeholder={t('countries.searchPlaceholder')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -102,9 +106,9 @@ const Countries = () => {
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
               >
-                <option value="all">Tüm Durumlar</option>
-                <option value="active">Aktif</option>
-                <option value="inactive">Pasif</option>
+                <option value="all">{t('countries.filters.allStatuses')}</option>
+                <option value="active">{t('countries.status.active')}</option>
+                <option value="inactive">{t('countries.status.inactive')}</option>
               </select>
             </div>
           </div>
@@ -116,19 +120,19 @@ const Countries = () => {
             <thead className="bg-gray-50 dark:bg-gray-800/50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Ülke Adı
+                  {t('countries.table.name')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Kod
+                  {t('countries.table.code')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Para Birimi
+                  {t('countries.table.currency')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Durum
+                  {t('countries.table.status')}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  İşlemler
+                  {t('countries.table.actions')}
                 </th>
               </tr>
             </thead>
@@ -169,25 +173,25 @@ const Countries = () => {
               disabled={currentPage === 1}
               className="btn-pagination rounded-md"
             >
-              Önceki
+              {t('countries.pagination.previous')}
             </button>
             <button
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
               className="btn-pagination rounded-md"
             >
-              Sonraki
+              {t('countries.pagination.next')}
             </button>
           </div>
           <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
             <div>
               <p className="text-sm text-gray-700 dark:text-gray-300">
-                Toplam <span className="font-medium">{filteredCountries.length}</span> kayıttan{' '}
+                {t('countries.pagination.totalRecords')} <span className="font-medium">{filteredCountries.length}</span> {t('countries.pagination.records')}{' '}
                 <span className="font-medium">{startIndex + 1}</span>-
                 <span className="font-medium">
                   {Math.min(endIndex, filteredCountries.length)}
                 </span>{' '}
-                arası gösteriliyor
+                {t('countries.pagination.showing')}
               </p>
             </div>
             <div>

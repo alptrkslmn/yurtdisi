@@ -80,8 +80,8 @@ function Dashboard() {
     recentTransactions: [
       {
         id: 1,
-        institution: t('countries.Germany'),
-        country: t('countries.Germany'),
+        institution: t('institutions.DE_1'),
+        country: t('countries.DE'),
         type: t('dashboard.transactionType.income'),
         amount: 12450,
         status: t('dashboard.status.completed'),
@@ -89,8 +89,8 @@ function Dashboard() {
       },
       {
         id: 2,
-        institution: t('countries.France'),
-        country: t('countries.France'),
+        institution: t('institutions.FR_1'),
+        country: t('countries.FR'),
         type: t('dashboard.transactionType.expense'),
         amount: 8720,
         status: t('dashboard.status.pending'),
@@ -98,8 +98,8 @@ function Dashboard() {
       },
       {
         id: 3,
-        institution: t('countries.England'),
-        country: t('countries.England'),
+        institution: t('institutions.GB_1'),
+        country: t('countries.GB'),
         type: t('dashboard.transactionType.income'),
         amount: 15890,
         status: t('dashboard.status.completed'),
@@ -107,8 +107,8 @@ function Dashboard() {
       },
       {
         id: 4,
-        institution: t('countries.United States'),
-        country: t('countries.United States'),
+        institution: t('institutions.US_1'),
+        country: t('countries.US'),
         type: t('dashboard.transactionType.expense'),
         amount: 22340,
         status: t('dashboard.status.failed'),
@@ -171,18 +171,18 @@ function Dashboard() {
   const exportToExcel = () => {
     // Verileri Excel formatına dönüştür
     const transactionData = filteredTransactions.map(item => ({
-      [t('dashboard.table.institution')]: item.institution,
-      [t('dashboard.table.country')]: item.country,
-      [t('dashboard.table.type')]: item.type,
-      [t('dashboard.table.amount')]: item.amount,
-      [t('dashboard.table.status')]: item.status,
-      [t('dashboard.table.date')]: new Date(item.date).toLocaleDateString('tr-TR')
+      [t('common.table.institution')]: item.institution,
+      [t('common.table.country')]: item.country,
+      [t('common.table.type')]: item.type,
+      [t('common.table.amount')]: item.amount,
+      [t('common.table.status')]: item.status,
+      [t('common.table.date')]: new Date(item.date).toLocaleDateString('tr-TR')
     }));
 
     const statsData = mockData.stats.map(item => ({
-      [t('dashboard.table.indicator')]: item.name,
-      [t('dashboard.table.value')]: item.value,
-      [t('dashboard.table.change')]: item.change
+      [t('common.table.indicator')]: item.name,
+      [t('common.table.value')]: item.value,
+      [t('common.table.change')]: item.change
     }));
 
     // İki sayfa oluştur: İstatistikler ve İşlemler
@@ -221,9 +221,9 @@ function Dashboard() {
     doc.autoTable({
       startY: 50,
       head: [[
-        t('dashboard.table.indicator'),
-        t('dashboard.table.value'),
-        t('dashboard.table.change')
+        t('common.table.indicator'),
+        t('common.table.value'),
+        t('common.table.change')
       ]],
       body: statsData,
       theme: 'grid',
@@ -239,7 +239,7 @@ function Dashboard() {
       item.institution,
       item.country,
       item.type,
-      item.amount,
+      formatCurrency(item.amount),
       item.status,
       new Date(item.date).toLocaleDateString('tr-TR')
     ]);
@@ -247,12 +247,12 @@ function Dashboard() {
     doc.autoTable({
       startY: doc.autoTable.previous.finalY + 25,
       head: [[
-        t('dashboard.table.institution'),
-        t('dashboard.table.country'),
-        t('dashboard.table.type'),
-        t('dashboard.table.amount'),
-        t('dashboard.table.status'),
-        t('dashboard.table.date')
+        t('common.table.institution'),
+        t('common.table.country'),
+        t('common.table.type'),
+        t('common.table.amount'),
+        t('common.table.status'),
+        t('common.table.date')
       ]],
       body: transactionData,
       theme: 'grid',
@@ -314,7 +314,7 @@ function Dashboard() {
     .reduce((sum, t) => sum + t.amount, 0);
 
   return (
-    <div className="p-6">
+    <div className="p-6 pt-16">
       {/* Üst Başlık ve Butonlar */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
@@ -380,7 +380,7 @@ function Dashboard() {
       <div className="mb-6 flex items-center space-x-4">
         <div>
           <label htmlFor="year" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.year')}
+            {t('common.filters.year')}
           </label>
           <select
             id="year"
@@ -388,7 +388,7 @@ function Dashboard() {
             onChange={(e) => handleFilterChange('year', e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">{t('dashboard.filters.allYears')}</option>
+            <option value="">{t('common.filters.allYears')}</option>
             {years.map(year => (
               <option key={year} value={year}>{year}</option>
             ))}
@@ -397,7 +397,7 @@ function Dashboard() {
 
         <div>
           <label htmlFor="month" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.month')}
+            {t('common.filters.month')}
           </label>
           <select
             id="month"
@@ -405,10 +405,10 @@ function Dashboard() {
             onChange={(e) => handleFilterChange('month', e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">{t('dashboard.filters.allMonths')}</option>
-            {Array.from({length: 12}, (_, i) => i + 1).map(month => (
-              <option key={month} value={month}>
-                {new Date(2024, month - 1, 1).toLocaleString('tr-TR', { month: 'long' })}
+            <option value="">{t('common.filters.allMonths')}</option>
+            {[...Array(12)].map((_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {new Date(2024, i).toLocaleString('tr-TR', { month: 'long' })}
               </option>
             ))}
           </select>
@@ -416,7 +416,7 @@ function Dashboard() {
 
         <div>
           <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.country')}
+            {t('common.filters.country')}
           </label>
           <select
             id="country"
@@ -424,16 +424,16 @@ function Dashboard() {
             onChange={(e) => handleFilterChange('country', e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">{t('dashboard.filters.allCountries')}</option>
+            <option value="">{t('common.filters.allCountries')}</option>
             {countries.map(country => (
-              <option key={country} value={country}>{country}</option>
+              <option key={country} value={country}>{t(`countries.${country}`)}</option>
             ))}
           </select>
         </div>
 
         <div>
           <label htmlFor="institution" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.institution')}
+            {t('common.filters.institution')}
           </label>
           <select
             id="institution"
@@ -441,9 +441,9 @@ function Dashboard() {
             onChange={(e) => handleFilterChange('institution', e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">{t('dashboard.filters.allInstitutions')}</option>
+            <option value="">{t('common.filters.allInstitutions')}</option>
             {institutions.map(institution => (
-              <option key={institution} value={institution}>{institution}</option>
+              <option key={institution} value={institution}>{t(`institutions.${institution}`)}</option>
             ))}
           </select>
         </div>
@@ -545,25 +545,25 @@ function Dashboard() {
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-800/50">
+            <thead>
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('dashboard.table.institution')}
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {t('common.table.institution')}
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('dashboard.table.country')}
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {t('common.table.country')}
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('dashboard.table.type')}
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {t('common.table.type')}
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('dashboard.table.amount')}
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {t('common.table.amount')}
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('dashboard.table.status')}
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {t('common.table.status')}
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('dashboard.table.date')}
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {t('common.table.date')}
                 </th>
               </tr>
             </thead>

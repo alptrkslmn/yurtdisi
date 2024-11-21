@@ -1,122 +1,238 @@
-import React from 'react';
-import { PlusIcon } from '@heroicons/react/24/outline';
+import React, { useState, useEffect } from 'react';
+import { 
+  PencilIcon, 
+  CheckIcon, 
+  XMarkIcon, 
+  ArrowPathIcon 
+} from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 
 const PreAccounting = () => {
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [filters, setFilters] = useState({
+    year: '',
+    month: '',
+    country: '',
+    institution: ''
+  });
 
-  const transactions = [
+  const years = [2022, 2023, 2024];
+  const countries = ['Almanya', 'Türkiye', 'Fransa', 'İngiltere'];
+  const institutions = ['Dernek 1', 'Dernek 2', 'Dernek 3'];
+
+  const [entries, setEntries] = useState([
     {
       id: 1,
       date: '2024-01-15',
-      documentNumber: 'DOC001',
-      category: t('preAccounting.categories.income'),
-      subCategory: t('preAccounting.subCategories.donation'),
-      description: 'Ocak ayı bağış geliri',
-      paymentMethod: t('preAccounting.paymentMethods.bankTransfer'),
-      amount: 5000,
-      status: t('preAccounting.status.completed')
+      type: 'expense',
+      category: 'Personel',
+      description: 'Ocak 2024 Personel Maaşları',
+      amount: 250000.00,
+      status: 'pending'
     },
     {
       id: 2,
-      date: '2024-01-16',
-      documentNumber: 'DOC002',
-      category: t('preAccounting.categories.expense'),
-      subCategory: t('preAccounting.subCategories.rent'),
-      description: 'Ofis kirası',
-      paymentMethod: t('preAccounting.paymentMethods.automaticPayment'),
-      amount: -2500,
-      status: t('preAccounting.status.completed')
+      date: '2024-01-10',
+      type: 'expense',
+      category: 'Operasyonel',
+      description: 'Berlin Şubesi Kira Ödemesi',
+      amount: 45000.00,
+      status: 'pending'
     }
-  ];
+  ]);
+
+  const handleFilterChange = (filterName, value) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [filterName]: value
+    }));
+  };
+
+  const handleApprove = (id) => {
+    setEntries(prevEntries => 
+      prevEntries.map(entry => 
+        entry.id === id ? { ...entry, status: 'approved' } : entry
+      )
+    );
+  };
+
+  const handleReject = (id) => {
+    setEntries(prevEntries => 
+      prevEntries.map(entry => 
+        entry.id === id ? { ...entry, status: 'rejected' } : entry
+      )
+    );
+  };
 
   return (
-    <div className="p-6">
-      <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto">
-          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
-            {t('preAccounting.title')}
-          </h1>
-          <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
-            {t('preAccounting.description')}
-          </p>
-        </div>
-        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <button
-            type="button"
-            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    <div className="p-6 pt-16">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+          {t('preAccounting.title')}
+        </h1>
+      </div>
+
+      {/* Filtre Bölümü */}
+      <div className="mb-6 flex items-center space-x-4">
+        <div>
+          <label htmlFor="year" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            {t('dashboard.filters.year')}
+          </label>
+          <select
+            id="year"
+            value={filters.year}
+            onChange={(e) => handleFilterChange('year', e.target.value)}
+            className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <PlusIcon className="inline-block h-5 w-5 mr-1" />
-            {t('preAccounting.newTransaction')}
-          </button>
+            <option value="">{t('preAccounting.filters.allYears')}</option>
+            {years.map(year => (
+              <option key={year} value={year}>{year}</option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="month" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            {t('dashboard.filters.month')}
+          </label>
+          <select
+            id="month"
+            value={filters.month}
+            onChange={(e) => handleFilterChange('month', e.target.value)}
+            className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          >
+            <option value="">{t('preAccounting.filters.allMonths')}</option>
+            {Array.from({length: 12}, (_, i) => i + 1).map(month => (
+              <option key={month} value={month}>
+                {new Date(2024, month - 1, 1).toLocaleString('tr-TR', { month: 'long' })}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            {t('dashboard.filters.country')}
+          </label>
+          <select
+            id="country"
+            value={filters.country}
+            onChange={(e) => handleFilterChange('country', e.target.value)}
+            className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          >
+            <option value="">{t('preAccounting.filters.allCountries')}</option>
+            {countries.map(country => (
+              <option key={country} value={country}>{country}</option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="institution" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            {t('dashboard.filters.institution')}
+          </label>
+          <select
+            id="institution"
+            value={filters.institution}
+            onChange={(e) => handleFilterChange('institution', e.target.value)}
+            className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          >
+            <option value="">{t('preAccounting.filters.allInstitutions')}</option>
+            {institutions.map(institution => (
+              <option key={institution} value={institution}>{institution}</option>
+            ))}
+          </select>
         </div>
       </div>
 
-      <div className="mt-8 flow-root">
-        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-300 dark:divide-gray-600">
-                <thead className="bg-gray-50 dark:bg-gray-700">
-                  <tr>
-                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-white sm:pl-6">
-                      {t('preAccounting.table.date')}
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">
-                      {t('preAccounting.table.documentNumber')}
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">
-                      {t('preAccounting.table.category')}
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">
-                      {t('preAccounting.table.subCategory')}
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">
-                      {t('preAccounting.table.description')}
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">
-                      {t('preAccounting.table.paymentMethod')}
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">
-                      {t('preAccounting.table.amount')}
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">
-                      {t('preAccounting.table.status')}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-600 bg-white dark:bg-gray-800">
-                  {transactions.map((transaction) => (
-                    <tr key={transaction.id}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 dark:text-white sm:pl-6">{transaction.date}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-900 dark:text-white">{transaction.documentNumber}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-900 dark:text-white">{transaction.category}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-900 dark:text-white">{transaction.subCategory}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-900 dark:text-white">{transaction.description}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-900 dark:text-white">{transaction.paymentMethod}</td>
-                      <td className={`whitespace-nowrap px-3 py-4 text-sm font-medium ${
-                        transaction.amount >= 0 
-                          ? 'text-green-600 dark:text-green-400' 
-                          : 'text-red-600 dark:text-red-400'
-                      }`}>
-                        {transaction.amount >= 0 ? '+' : ''}{transaction.amount} ₺
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm">
-                        <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${
-                          transaction.status === 'Tamamlandı'
-                            ? 'bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20 dark:bg-green-900/30 dark:text-green-400'
-                            : 'bg-yellow-50 text-yellow-700 ring-1 ring-inset ring-yellow-600/20 dark:bg-yellow-900/30 dark:text-yellow-400'
-                        }`}>
-                          {transaction.status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+      {/* Tablo */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead>
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {t('common.table.id')}
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {t('common.table.date')}
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {t('common.table.type')}
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {t('common.table.category')}
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {t('common.table.description')}
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {t('common.table.amount')}
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {t('common.table.status')}
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {t('common.table.actions')}
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            {entries.map((entry) => (
+              <tr key={entry.id}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  {entry.id}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  {entry.date}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  {entry.type === 'expense' ? t('common.type.expense') : t('common.type.income')}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  {entry.category}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  {entry.description}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  {new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(entry.amount)}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                  {entry.status === 'pending' && <span className="text-yellow-600">{t('preAccounting.status.pending')}</span>}
+                  {entry.status === 'approved' && <span className="text-green-600">{t('preAccounting.status.approved')}</span>}
+                  {entry.status === 'rejected' && <span className="text-red-600">{t('preAccounting.status.rejected')}</span>}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <div className="flex items-center space-x-2">
+                    <button 
+                      onClick={() => handleApprove(entry.id)}
+                      disabled={entry.status !== 'pending'}
+                      className={`text-green-600 hover:text-green-900 ${entry.status !== 'pending' ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    >
+                      <CheckIcon className="h-5 w-5" />
+                      <span className="sr-only">{t('preAccounting.actions.approve')}</span>
+                    </button>
+                    <button 
+                      onClick={() => handleReject(entry.id)}
+                      disabled={entry.status !== 'pending'}
+                      className={`text-red-600 hover:text-red-900 ${entry.status !== 'pending' ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    >
+                      <XMarkIcon className="h-5 w-5" />
+                      <span className="sr-only">{t('preAccounting.actions.reject')}</span>
+                    </button>
+                    <button 
+                      className="text-blue-600 hover:text-blue-900"
+                    >
+                      <PencilIcon className="h-5 w-5" />
+                      <span className="sr-only">{t('preAccounting.actions.details')}</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

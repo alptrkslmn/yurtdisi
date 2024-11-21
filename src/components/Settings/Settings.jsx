@@ -11,6 +11,8 @@ import Items from './Items';
 import LanguageSettings from './LanguageSettings';
 import GeneralSettings from './GeneralSettings';
 import Users from './Users';
+import ThemeSettings from './ThemeSettings';
+import NotificationSettings from './NotificationSettings';
 
 const Settings = () => {
   const location = useLocation();
@@ -18,34 +20,34 @@ const Settings = () => {
   const currentPath = location.pathname.split('/').pop();
 
   const tabs = [
-    {
-      name: t('settings.general.title'),
+    { 
+      name: t('settings.tabs.general'), 
       path: 'general',
       icon: Cog6ToothIcon,
-      component: GeneralSettings
+      component: GeneralSettings 
     },
-    {
-      name: t('settings.items.title'),
-      path: 'items',
-      icon: ListBulletIcon,
-      component: Items
-    },
-    {
-      name: t('settings.users.title'),
-      path: 'users',
-      icon: UserIcon,
-      component: Users
-    },
-    {
-      name: t('settings.language.title'),
+    { 
+      name: t('settings.tabs.language'), 
       path: 'language',
       icon: LanguageIcon,
-      component: LanguageSettings
+      component: LanguageSettings 
+    },
+    { 
+      name: t('settings.tabs.theme'), 
+      path: 'theme',
+      icon: ListBulletIcon,
+      component: ThemeSettings 
+    },
+    { 
+      name: t('settings.tabs.notifications'), 
+      path: 'notifications',
+      icon: UserIcon,
+      component: NotificationSettings 
     }
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-6">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           {t('settings.title')}

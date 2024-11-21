@@ -7,8 +7,10 @@ import {
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import { useTranslation } from 'react-i18next';
 
 const Reports = () => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({
     summaryData: {
@@ -189,20 +191,20 @@ const Reports = () => {
 
     // Özet sayfası
     const summaryData = [
-      ['Finansal Özet'],
-      ['Toplam Gelir', data.summaryData.totalIncome],
-      ['Toplam Gider', data.summaryData.totalExpense],
-      ['Devreden', data.summaryData.balance],
+      [t('reports.summary.title')],
+      [t('reports.summary.totalIncome'), data.summaryData.totalIncome],
+      [t('reports.summary.totalExpense'), data.summaryData.totalExpense],
+      [t('reports.summary.balance'), data.summaryData.balance],
       [],
-      ['Gelir Kalemleri'],
-      ['Kalem Adı', 'Tutar'],
+      [t('reports.summary.income')],
+      [t('common.table.category'), t('common.table.amount')],
       ...data.accountingEntries.filter(item => item.type === 'income').map(item => [item.description, item.amount]),
-      ['Toplam', data.summaryData.totalIncome],
+      [t('reports.summary.total'), data.summaryData.totalIncome],
       [],
-      ['Gider Kalemleri'],
-      ['Kalem Adı', 'Tutar'],
+      [t('reports.summary.expense')],
+      [t('common.table.category'), t('common.table.amount')],
       ...data.accountingEntries.filter(item => item.type === 'expense').map(item => [item.description, item.amount]),
-      ['Toplam', data.summaryData.totalExpense]
+      [t('reports.summary.total'), data.summaryData.totalExpense]
     ];
 
     const ws = XLSX.utils.aoa_to_sheet(summaryData);
@@ -223,8 +225,8 @@ const Reports = () => {
     }
 
     // Excel dosyasına ekle ve indir
-    XLSX.utils.book_append_sheet(wb, ws, 'Rapor');
-    XLSX.writeFile(wb, 'hudayi_rapor.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, t('reports.summary.title'));
+    XLSX.writeFile(wb, `${t('reports.summary.title')}.xlsx`);
   };
 
   const handlePdfExport = () => {
@@ -232,21 +234,21 @@ const Reports = () => {
     
     // Başlık
     doc.setFontSize(16);
-    doc.text('Hudayi Finansal Rapor', 14, 20);
+    doc.text(t('reports.title'), 14, 20);
     
     // Özet Tablosu
     doc.setFontSize(12);
-    doc.text('Finansal Özet', 14, 30);
+    doc.text(t('reports.summary.title'), 14, 30);
     
     const summaryTableData = [
-      ['Toplam Gelir', formatCurrency(data.summaryData.totalIncome)],
-      ['Toplam Gider', formatCurrency(data.summaryData.totalExpense)],
-      ['Devreden', formatCurrency(data.summaryData.balance)]
+      [t('reports.summary.totalIncome'), formatCurrency(data.summaryData.totalIncome)],
+      [t('reports.summary.totalExpense'), formatCurrency(data.summaryData.totalExpense)],
+      [t('reports.summary.balance'), formatCurrency(data.summaryData.balance)]
     ];
     
     doc.autoTable({
       startY: 35,
-      head: [['Başlık', 'Tutar']],
+      head: [[t('common.table.category'), t('common.table.amount')]],
       body: summaryTableData,
       theme: 'grid',
       styles: { fontSize: 10 },
@@ -254,17 +256,17 @@ const Reports = () => {
     });
     
     // Gelir Tablosu
-    doc.text('Gelir Kalemleri', 14, doc.lastAutoTable.finalY + 15);
+    doc.text(t('reports.summary.income'), 14, doc.lastAutoTable.finalY + 15);
     
     const incomeTableData = data.accountingEntries.filter(item => item.type === 'income').map(item => [
       item.description,
       formatCurrency(item.amount)
     ]);
-    incomeTableData.push(['Toplam', formatCurrency(data.summaryData.totalIncome)]);
+    incomeTableData.push([t('reports.summary.total'), formatCurrency(data.summaryData.totalIncome)]);
     
     doc.autoTable({
       startY: doc.lastAutoTable.finalY + 20,
-      head: [['Kalem Adı', 'Tutar']],
+      head: [[t('common.table.category'), t('common.table.amount')]],
       body: incomeTableData,
       theme: 'grid',
       styles: { fontSize: 10 },
@@ -272,17 +274,17 @@ const Reports = () => {
     });
     
     // Gider Tablosu
-    doc.text('Gider Kalemleri', 14, doc.lastAutoTable.finalY + 15);
+    doc.text(t('reports.summary.expense'), 14, doc.lastAutoTable.finalY + 15);
     
     const expenseTableData = data.accountingEntries.filter(item => item.type === 'expense').map(item => [
       item.description,
       formatCurrency(item.amount)
     ]);
-    expenseTableData.push(['Toplam', formatCurrency(data.summaryData.totalExpense)]);
+    expenseTableData.push([t('reports.summary.total'), formatCurrency(data.summaryData.totalExpense)]);
     
     doc.autoTable({
       startY: doc.lastAutoTable.finalY + 20,
-      head: [['Kalem Adı', 'Tutar']],
+      head: [[t('common.table.category'), t('common.table.amount')]],
       body: expenseTableData,
       theme: 'grid',
       styles: { fontSize: 10 },
@@ -290,7 +292,7 @@ const Reports = () => {
     });
     
     // PDF'i indir
-    doc.save('hudayi_rapor.pdf');
+    doc.save(`${t('reports.title')}.pdf`);
   };
 
   // Filtreler değiştiğinde verileri güncelle
@@ -299,31 +301,33 @@ const Reports = () => {
   }, [filters]);
 
   return (
-    <div className="p-6">
+    <div className="p-6 pt-16">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Raporlar</h1>
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+          {t('reports.title')}
+        </h1>
         <div className="flex space-x-2">
           <button
             onClick={handleRefresh}
             disabled={isLoading}
-            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            <ArrowPathIcon className={`h-4 w-4 mr-1 ${isLoading ? 'animate-spin' : ''}`} />
-            {isLoading ? 'Yenileniyor...' : 'Yenile'}
+            <ArrowPathIcon className={`h-5 w-5 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+            {t('common.actions.refresh')}
           </button>
           <button
             onClick={handleExcelExport}
-            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-800 transition-colors duration-200"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            <TableCellsIcon className="h-4 w-4 mr-1" />
-            Excel
+            <TableCellsIcon className="h-5 w-5 mr-2" />
+            {t('common.actions.export.excel')}
           </button>
           <button
             onClick={handlePdfExport}
-            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800 transition-colors duration-200"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            <DocumentArrowDownIcon className="h-4 w-4 mr-1" />
-            PDF
+            <DocumentArrowDownIcon className="h-5 w-5 mr-2" />
+            {t('common.actions.export.pdf')}
           </button>
         </div>
       </div>
@@ -335,7 +339,7 @@ const Reports = () => {
             {/* Yıl Seçimi */}
             <div>
               <label htmlFor="year" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Yıl
+                {t('dashboard.filters.year')}
               </label>
               <select
                 id="year"
@@ -344,7 +348,7 @@ const Reports = () => {
                 value={filters.year}
                 onChange={(e) => setFilters({ ...filters, year: e.target.value })}
               >
-                <option value="">Tüm Yıllar</option>
+                <option value="">{t('reports.filters.allYears')}</option>
                 {[2024, 2023, 2022, 2021, 2020].map((year) => (
                   <option key={year} value={year}>
                     {year}
@@ -356,7 +360,7 @@ const Reports = () => {
             {/* Ay Seçimi */}
             <div>
               <label htmlFor="month" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Ay
+                {t('dashboard.filters.month')}
               </label>
               <select
                 id="month"
@@ -365,7 +369,7 @@ const Reports = () => {
                 value={filters.month}
                 onChange={(e) => setFilters({ ...filters, month: e.target.value })}
               >
-                <option value="">Tüm Aylar</option>
+                <option value="">{t('reports.filters.allMonths')}</option>
                 {[
                   'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
                   'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
@@ -380,7 +384,7 @@ const Reports = () => {
             {/* Ülke Seçimi */}
             <div>
               <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Ülke
+                {t('dashboard.filters.country')}
               </label>
               <select
                 id="country"
@@ -389,7 +393,7 @@ const Reports = () => {
                 value={filters.country}
                 onChange={(e) => setFilters({ ...filters, country: e.target.value })}
               >
-                <option value="">Tüm Ülkeler</option>
+                <option value="">{t('reports.filters.allCountries')}</option>
                 {['Türkiye', 'Almanya', 'Fransa', 'Hollanda', 'Belçika'].map((country) => (
                   <option key={country} value={country}>
                     {country}
@@ -401,7 +405,7 @@ const Reports = () => {
             {/* Kurum Seçimi */}
             <div>
               <label htmlFor="organization" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Kurum
+                {t('dashboard.filters.institution')}
               </label>
               <select
                 id="organization"
@@ -410,7 +414,7 @@ const Reports = () => {
                 value={filters.organization}
                 onChange={(e) => setFilters({ ...filters, organization: e.target.value })}
               >
-                <option value="">Tüm Kurumlar</option>
+                <option value="">{t('reports.filters.allInstitutions')}</option>
                 {['Hudayi Vakfı', 'Hudayi Derneği', 'İnsani Yardım Derneği'].map((org) => (
                   <option key={org} value={org}>
                     {org}
@@ -428,7 +432,9 @@ const Reports = () => {
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="text-lg font-medium text-gray-900 dark:text-white">Toplam Gelir</div>
+                <div className="text-lg font-medium text-gray-900 dark:text-white">
+                  {t('reports.summary.totalIncome')}
+                </div>
                 <div className="mt-1 text-2xl font-semibold text-green-600 dark:text-green-400">
                   {formatCurrency(data.summaryData.totalIncome)}
                 </div>
@@ -441,7 +447,9 @@ const Reports = () => {
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="text-lg font-medium text-gray-900 dark:text-white">Toplam Gider</div>
+                <div className="text-lg font-medium text-gray-900 dark:text-white">
+                  {t('reports.summary.totalExpense')}
+                </div>
                 <div className="mt-1 text-2xl font-semibold text-red-600 dark:text-red-400">
                   {formatCurrency(data.summaryData.totalExpense)}
                 </div>
@@ -454,7 +462,9 @@ const Reports = () => {
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="text-lg font-medium text-gray-900 dark:text-white">Devreden</div>
+                <div className="text-lg font-medium text-gray-900 dark:text-white">
+                  {t('reports.summary.balance')}
+                </div>
                 <div className="mt-1 text-2xl font-semibold text-blue-600 dark:text-blue-400">
                   {formatCurrency(data.summaryData.balance)}
                 </div>
@@ -469,14 +479,16 @@ const Reports = () => {
         {/* Gelir Detayları */}
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg">
           <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-lg font-medium text-gray-900 dark:text-white">Gelir Kalemleri</h2>
+            <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+              {t('reports.income.title')}
+            </h2>
           </div>
           <div className="p-6">
             <div className="divide-y divide-gray-200 dark:divide-gray-700">
               <div className="grid grid-cols-[auto_1fr_auto] gap-4 py-3 font-medium text-gray-900 dark:text-white">
-                <div className="w-12">Sayı</div>
-                <div>Kalem Adı</div>
-                <div className="text-right">Tutar</div>
+                <div className="w-12">{t('common.table.no')}</div>
+                <div>{t('common.table.category')}</div>
+                <div className="text-right">{t('common.table.amount')}</div>
               </div>
               {data.accountingEntries.filter(item => item.type === 'income').map((category, index) => (
                 <div key={index} className="grid grid-cols-[auto_1fr_auto] gap-4 py-3">
@@ -489,7 +501,7 @@ const Reports = () => {
               ))}
               <div className="grid grid-cols-[auto_1fr_auto] gap-4 py-3 font-medium">
                 <div className="w-12"></div>
-                <div className="text-gray-900 dark:text-white">Toplam</div>
+                <div className="text-gray-900 dark:text-white">{t('reports.income.total')}</div>
                 <div className="text-right text-green-600 dark:text-green-400">
                   {formatCurrency(data.summaryData.totalIncome)}
                 </div>
@@ -501,14 +513,16 @@ const Reports = () => {
         {/* Gider Detayları */}
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg">
           <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-lg font-medium text-gray-900 dark:text-white">Gider Kalemleri</h2>
+            <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+              {t('reports.expense.title')}
+            </h2>
           </div>
           <div className="p-6">
             <div className="divide-y divide-gray-200 dark:divide-gray-700">
               <div className="grid grid-cols-[auto_1fr_auto] gap-4 py-3 font-medium text-gray-900 dark:text-white">
-                <div className="w-12">Sayı</div>
-                <div>Kalem Adı</div>
-                <div className="text-right">Tutar</div>
+                <div className="w-12">{t('common.table.no')}</div>
+                <div>{t('common.table.category')}</div>
+                <div className="text-right">{t('common.table.amount')}</div>
               </div>
               {data.accountingEntries.filter(item => item.type === 'expense').map((category, index) => (
                 <div key={index} className="grid grid-cols-[auto_1fr_auto] gap-4 py-3">
@@ -521,7 +535,7 @@ const Reports = () => {
               ))}
               <div className="grid grid-cols-[auto_1fr_auto] gap-4 py-3 font-medium">
                 <div className="w-12"></div>
-                <div className="text-gray-900 dark:text-white">Toplam</div>
+                <div className="text-gray-900 dark:text-white">{t('reports.expense.total')}</div>
                 <div className="text-right text-red-600 dark:text-red-400">
                   {formatCurrency(data.summaryData.totalExpense)}
                 </div>
