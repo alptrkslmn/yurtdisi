@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MagnifyingGlassIcon, XMarkIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, XMarkIcon, PlusIcon, CheckIcon } from '@heroicons/react/24/outline';
 
 const CurrencySettings = () => {
   const { t } = useTranslation();
   const [selectedCurrency, setSelectedCurrency] = useState('TRY');
+  const [defaultCurrency, setDefaultCurrency] = useState('TRY');
   const [symbolPosition, setSymbolPosition] = useState('before');
   const [decimalSeparator, setDecimalSeparator] = useState(',');
   const [thousandSeparator, setThousandSeparator] = useState('.');
@@ -123,19 +124,39 @@ const CurrencySettings = () => {
             <label htmlFor="currency" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {t('settings.currencySettings.baseCurrency')}
             </label>
-            <select
-              id="currency"
-              name="currency"
-              className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white sm:text-sm"
-              value={selectedCurrency}
-              onChange={(e) => setSelectedCurrency(e.target.value)}
-            >
-              {activeCurrencies.map((currency) => (
-                <option key={currency.code} value={currency.code}>
-                  {currency.symbol} - {currency.name} ({currency.code})
-                </option>
-              ))}
-            </select>
+            <div className="flex items-center space-x-4">
+              <select
+                id="currency"
+                name="currency"
+                className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white sm:text-sm"
+                value={selectedCurrency}
+                onChange={(e) => setSelectedCurrency(e.target.value)}
+              >
+                {activeCurrencies.map((currency) => (
+                  <option key={currency.code} value={currency.code}>
+                    {currency.symbol} - {currency.name} ({currency.code})
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={() => setDefaultCurrency(selectedCurrency)}
+                className={`px-3 py-2 text-sm font-medium rounded-md ${
+                  defaultCurrency === selectedCurrency
+                    ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300'
+                    : 'bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+                } border border-gray-300 dark:border-gray-600`}
+              >
+                {defaultCurrency === selectedCurrency ? (
+                  <span className="flex items-center space-x-1">
+                    <CheckIcon className="h-4 w-4" />
+                    <span>{t('common.default')}</span>
+                  </span>
+                ) : (
+                  t('common.setAsDefault')
+                )}
+              </button>
+            </div>
           </div>
         </div>
 

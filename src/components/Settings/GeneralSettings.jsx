@@ -8,15 +8,46 @@ const GeneralSettings = () => {
     email: 'info@hudayi.org',
     phone: '+90 216 428 39 60',
     address: 'Aziz Mahmut Hüdayi Mah. Türbe Kapısı Sok. No:13 Üsküdar İstanbul',
-    currency: 'TRY',
-    timeZone: 'Europe/Istanbul',
     theme: 'system',
     emailNotifications: true,
     pushNotifications: false,
+    timezone: 'UTC+3',
   });
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedSettings, setEditedSettings] = useState(settings);
+
+  const timezones = [
+    { id: 'UTC-12', name: 'Baker Island', offset: '-12:00' },
+    { id: 'UTC-11', name: 'Pago Pago', offset: '-11:00' },
+    { id: 'UTC-10', name: 'Honolulu', offset: '-10:00' },
+    { id: 'UTC-9', name: 'Anchorage', offset: '-09:00' },
+    { id: 'UTC-8', name: 'Los Angeles', offset: '-08:00' },
+    { id: 'UTC-7', name: 'Phoenix', offset: '-07:00' },
+    { id: 'UTC-6', name: 'Chicago', offset: '-06:00' },
+    { id: 'UTC-5', name: 'New York', offset: '-05:00' },
+    { id: 'UTC-4', name: 'Santiago', offset: '-04:00' },
+    { id: 'UTC-3', name: 'São Paulo', offset: '-03:00' },
+    { id: 'UTC-2', name: 'Fernando de Noronha', offset: '-02:00' },
+    { id: 'UTC-1', name: 'Ponta Delgada', offset: '-01:00' },
+    { id: 'UTC+0', name: 'London', offset: '+00:00' },
+    { id: 'UTC+1', name: 'Paris', offset: '+01:00' },
+    { id: 'UTC+2', name: 'Cairo', offset: '+02:00' },
+    { id: 'UTC+3', name: 'Istanbul', offset: '+03:00' },
+    { id: 'UTC+4', name: 'Dubai', offset: '+04:00' },
+    { id: 'UTC+5', name: 'Karachi', offset: '+05:00' },
+    { id: 'UTC+5:30', name: 'Mumbai', offset: '+05:30' },
+    { id: 'UTC+6', name: 'Dhaka', offset: '+06:00' },
+    { id: 'UTC+7', name: 'Bangkok', offset: '+07:00' },
+    { id: 'UTC+8', name: 'Singapore', offset: '+08:00' },
+    { id: 'UTC+9', name: 'Tokyo', offset: '+09:00' },
+    { id: 'UTC+9:30', name: 'Adelaide', offset: '+09:30' },
+    { id: 'UTC+10', name: 'Sydney', offset: '+10:00' },
+    { id: 'UTC+11', name: 'Noumea', offset: '+11:00' },
+    { id: 'UTC+12', name: 'Auckland', offset: '+12:00' },
+    { id: 'UTC+13', name: 'Apia', offset: '+13:00' },
+    { id: 'UTC+14', name: 'Kiritimati', offset: '+14:00' }
+  ];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -108,26 +139,6 @@ const GeneralSettings = () => {
                 />
               ) : (
                 <p className="mt-1 text-sm text-gray-900 dark:text-gray-300">{settings.phone}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('settings.general.currency')}
-              </label>
-              {isEditing ? (
-                <select
-                  name="currency"
-                  value={editedSettings.currency}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                >
-                  <option value="TRY">TRY - Türk Lirası</option>
-                  <option value="USD">USD - Amerikan Doları</option>
-                  <option value="EUR">EUR - Euro</option>
-                </select>
-              ) : (
-                <p className="mt-1 text-sm text-gray-900 dark:text-gray-300">{settings.currency}</p>
               )}
             </div>
 
@@ -223,20 +234,19 @@ const GeneralSettings = () => {
               </label>
               {isEditing ? (
                 <select
-                  name="timeZone"
-                  value={editedSettings.timeZone}
+                  name="timezone"
+                  value={editedSettings.timezone}
                   onChange={handleChange}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 >
-                  <option value="UTC">UTC</option>
-                  <option value="Europe/Istanbul">Europe/Istanbul</option>
-                  <option value="Europe/London">Europe/London</option>
-                  <option value="Europe/Paris">Europe/Paris</option>
-                  <option value="Europe/Berlin">Europe/Berlin</option>
-                  <option value="Europe/Amsterdam">Europe/Amsterdam</option>
+                  {timezones.map((tz) => (
+                    <option key={tz.id} value={tz.id}>
+                      {tz.id} ({tz.offset}) - {tz.name}
+                    </option>
+                  ))}
                 </select>
               ) : (
-                <p className="mt-1 text-sm text-gray-900 dark:text-gray-300">{settings.timeZone}</p>
+                <p className="mt-1 text-sm text-gray-900 dark:text-gray-300">{settings.timezone}</p>
               )}
             </div>
           </div>

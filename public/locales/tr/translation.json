@@ -1,24 +1,27 @@
 {
   "common": {
-    "loading": "Yükleniyor...",
-    "error": "Hata",
-    "success": "Başarılı",
     "save": "Kaydet",
     "cancel": "İptal",
     "delete": "Sil",
     "edit": "Düzenle",
     "add": "Ekle",
+    "remove": "Kaldır",
     "search": "Ara",
-    "settings": "Ayarlar",
-    "logout": "Çıkış Yap",
+    "filter": "Filtrele",
+    "clear": "Temizle",
+    "close": "Kapat",
     "back": "Geri",
     "next": "İleri",
     "yes": "Evet",
     "no": "Hayır",
     "space": "Boşluk",
+    "default": "Varsayılan",
+    "setAsDefault": "Varsayılan Yap",
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
     "language": {
       "select": "Dil Seçin",
-      "default": "Varsayılan",
       "change": "Dili Değiştir"
     },
     "theme": {
@@ -89,9 +92,9 @@
           "name": "Japon Yeni",
           "symbol": "¥"
         },
-        "CHF": {
-          "name": "İsviçre Frangı",
-          "symbol": "CHF"
+        "CNY": {
+          "name": "Çin Yuanı",
+          "symbol": "¥"
         },
         "AUD": {
           "name": "Avustralya Doları",
@@ -101,13 +104,13 @@
           "name": "Kanada Doları",
           "symbol": "C$"
         },
-        "CNY": {
-          "name": "Çin Yuanı",
-          "symbol": "¥"
+        "CHF": {
+          "name": "İsviçre Frangı",
+          "symbol": "CHF"
         },
-        "INR": {
-          "name": "Hint Rupisi",
-          "symbol": "₹"
+        "HKD": {
+          "name": "Hong Kong Doları",
+          "symbol": "HK$"
         },
         "NZD": {
           "name": "Yeni Zelanda Doları",
@@ -117,17 +120,73 @@
           "name": "İsveç Kronu",
           "symbol": "kr"
         },
+        "KRW": {
+          "name": "Güney Kore Wonu",
+          "symbol": "₩"
+        },
         "SGD": {
           "name": "Singapur Doları",
           "symbol": "S$"
         },
-        "HKD": {
-          "name": "Hong Kong Doları",
-          "symbol": "HK$"
+        "NOK": {
+          "name": "Norveç Kronu",
+          "symbol": "kr"
         },
-        "KRW": {
-          "name": "Güney Kore Wonu",
-          "symbol": "₩"
+        "MXN": {
+          "name": "Meksika Pesosu",
+          "symbol": "$"
+        },
+        "INR": {
+          "name": "Hint Rupisi",
+          "symbol": "₹"
+        },
+        "RUB": {
+          "name": "Rus Rublesi",
+          "symbol": "₽"
+        },
+        "ZAR": {
+          "name": "Güney Afrika Randı",
+          "symbol": "R"
+        },
+        "BRL": {
+          "name": "Brezilya Reali",
+          "symbol": "R$"
+        },
+        "NGN": {
+          "name": "Nijerya Nairası",
+          "symbol": "₦"
+        },
+        "EGP": {
+          "name": "Mısır Lirası",
+          "symbol": "E£"
+        },
+        "GHS": {
+          "name": "Gana Sedisi",
+          "symbol": "₵"
+        },
+        "KES": {
+          "name": "Kenya Şilini",
+          "symbol": "KSh"
+        },
+        "MAD": {
+          "name": "Fas Dirhemi",
+          "symbol": "MAD"
+        },
+        "TND": {
+          "name": "Tunus Dinarı",
+          "symbol": "DT"
+        },
+        "UGX": {
+          "name": "Uganda Şilini",
+          "symbol": "USh"
+        },
+        "XOF": {
+          "name": "Batı Afrika CFA Frangı",
+          "symbol": "CFA"
+        },
+        "DZD": {
+          "name": "Cezayir Dinarı",
+          "symbol": "DA"
         }
       }
     },
@@ -265,6 +324,33 @@
       "confirmDelete": "Silmek istediğinize emin misiniz?",
       "saved": "Kaydedildi",
       "error": "Bir hata oluştu"
+    },
+    "timezones": {
+      "UTC": "Eşgüdümlü Evrensel Zaman",
+      "UTC+1": "Orta Avrupa Zamanı",
+      "UTC+2": "Doğu Avrupa Zamanı",
+      "UTC+3": "Türkiye Saati",
+      "UTC+4": "Samara Zamanı",
+      "UTC+5": "Pakistan Zamanı",
+      "UTC+6": "Bangladeş Zamanı",
+      "UTC+7": "Vietnam Zamanı",
+      "UTC+8": "Çin Zamanı",
+      "UTC+9": "Japonya Zamanı",
+      "UTC+10": "Doğu Avustralya Zamanı",
+      "UTC+11": "Solomon Adaları Zamanı",
+      "UTC+12": "Yeni Zelanda Zamanı",
+      "UTC-1": "Azor Adaları Zamanı",
+      "UTC-2": "Fernando de Noronha Zamanı",
+      "UTC-3": "Buenos Aires Zamanı",
+      "UTC-4": "Santiago Zamanı",
+      "UTC-5": "Doğu Amerika Zamanı",
+      "UTC-6": "Orta Amerika Zamanı",
+      "UTC-7": "Dağ Amerika Zamanı",
+      "UTC-8": "Pasifik Amerika Zamanı",
+      "UTC-9": "Alaska Zamanı",
+      "UTC-10": "Hawaii Zamanı",
+      "UTC-11": "Samoa Zamanı",
+      "UTC-12": "Baker Adası Zamanı"
     }
   },
   "navigation": {
