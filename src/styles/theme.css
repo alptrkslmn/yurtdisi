@@ -24,6 +24,18 @@
   --warning: theme('colors.amber.500');
   --error: theme('colors.red.500');
   --info: theme('colors.blue.500');
+  
+  /* Default theme colors */
+  --color-primary-50: rgb(239 246 255);
+  --color-primary-100: rgb(219 234 254);
+  --color-primary-200: rgb(191 219 254);
+  --color-primary-300: rgb(147 197 253);
+  --color-primary-400: rgb(96 165 250);
+  --color-primary-500: rgb(59 130 246);
+  --color-primary-600: rgb(37 99 235);
+  --color-primary-700: rgb(29 78 216);
+  --color-primary-800: rgb(30 64 175);
+  --color-primary-900: rgb(30 58 138);
 }
 
 /* Dark mode renkleri */
@@ -49,6 +61,17 @@
   --primary: theme('colors.blue.500');
   --primary-light: theme('colors.blue.400');
   --primary-dark: theme('colors.blue.600');
+  
+  --color-primary-50: rgb(239 246 255);
+  --color-primary-100: rgb(219 234 254);
+  --color-primary-200: rgb(191 219 254);
+  --color-primary-300: rgb(147 197 253);
+  --color-primary-400: rgb(96 165 250);
+  --color-primary-500: rgb(59 130 246);
+  --color-primary-600: rgb(37 99 235);
+  --color-primary-700: rgb(29 78 216);
+  --color-primary-800: rgb(30 64 175);
+  --color-primary-900: rgb(30 58 138);
 }
 
 .theme-indigo {
@@ -73,6 +96,17 @@
   --primary: theme('colors.purple.500');
   --primary-light: theme('colors.purple.400');
   --primary-dark: theme('colors.purple.600');
+  
+  --color-primary-50: rgb(250 245 255);
+  --color-primary-100: rgb(243 232 255);
+  --color-primary-200: rgb(233 213 255);
+  --color-primary-300: rgb(216 180 254);
+  --color-primary-400: rgb(192 132 252);
+  --color-primary-500: rgb(168 85 247);
+  --color-primary-600: rgb(147 51 234);
+  --color-primary-700: rgb(126 34 206);
+  --color-primary-800: rgb(107 33 168);
+  --color-primary-900: rgb(88 28 135);
 }
 
 .theme-fuchsia {
@@ -91,6 +125,58 @@
   --primary: theme('colors.amber.500');
   --primary-light: theme('colors.amber.400');
   --primary-dark: theme('colors.amber.600');
+}
+
+.theme-green {
+  --color-primary-50: rgb(240 253 244);
+  --color-primary-100: rgb(220 252 231);
+  --color-primary-200: rgb(187 247 208);
+  --color-primary-300: rgb(134 239 172);
+  --color-primary-400: rgb(74 222 128);
+  --color-primary-500: rgb(34 197 94);
+  --color-primary-600: rgb(22 163 74);
+  --color-primary-700: rgb(21 128 61);
+  --color-primary-800: rgb(22 101 52);
+  --color-primary-900: rgb(20 83 45);
+}
+
+.theme-red {
+  --color-primary-50: rgb(254 242 242);
+  --color-primary-100: rgb(254 226 226);
+  --color-primary-200: rgb(254 202 202);
+  --color-primary-300: rgb(252 165 165);
+  --color-primary-400: rgb(248 113 113);
+  --color-primary-500: rgb(239 68 68);
+  --color-primary-600: rgb(220 38 38);
+  --color-primary-700: rgb(185 28 28);
+  --color-primary-800: rgb(153 27 27);
+  --color-primary-900: rgb(127 29 29);
+}
+
+.theme-orange {
+  --color-primary-50: rgb(255 247 237);
+  --color-primary-100: rgb(255 237 213);
+  --color-primary-200: rgb(254 215 170);
+  --color-primary-300: rgb(253 186 116);
+  --color-primary-400: rgb(251 146 60);
+  --color-primary-500: rgb(249 115 22);
+  --color-primary-600: rgb(234 88 12);
+  --color-primary-700: rgb(194 65 12);
+  --color-primary-800: rgb(154 52 18);
+  --color-primary-900: rgb(124 45 18);
+}
+
+.theme-indigo {
+  --color-primary-50: rgb(238 242 255);
+  --color-primary-100: rgb(224 231 255);
+  --color-primary-200: rgb(199 210 254);
+  --color-primary-300: rgb(165 180 252);
+  --color-primary-400: rgb(129 140 248);
+  --color-primary-500: rgb(99 102 241);
+  --color-primary-600: rgb(79 70 229);
+  --color-primary-700: rgb(67 56 202);
+  --color-primary-800: rgb(55 48 163);
+  --color-primary-900: rgb(49 46 129);
 }
 
 /* Kompakt Mod Stilleri */
@@ -235,13 +321,4 @@
 
 .sidebar-item-inactive {
   @apply text-gray-600 hover:bg-gray-100 hover:bg-opacity-80 hover:text-primary-dark dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:bg-opacity-50 dark:hover:text-primary-light;
-}
-
-/* Sidebar Group */
-.sidebar-group {
-  @apply space-y-1 px-3;
-}
-
-.sidebar-group-title {
-  @apply px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider;
 }

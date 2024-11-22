@@ -2,20 +2,27 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext();
 
+const THEME_COLORS = ['blue', 'green', 'red', 'purple', 'orange', 'indigo'];
+
 export const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [currentColor, setCurrentColor] = useState('#3B82F6'); // Default blue color
+  const [currentColor, setCurrentColor] = useState('blue'); // Default theme color
 
   useEffect(() => {
     // Check local storage for saved theme preferences
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
-    const savedColor = localStorage.getItem('themeColor') || '#3B82F6';
+    const savedColor = localStorage.getItem('themeColor') || 'blue';
     
     setIsDarkMode(savedDarkMode);
     setCurrentColor(savedColor);
     
     if (savedDarkMode) {
       document.documentElement.classList.add('dark');
+    }
+
+    // Apply saved theme color
+    if (savedColor && THEME_COLORS.includes(savedColor)) {
+      document.documentElement.classList.add(`theme-${savedColor}`);
     }
   }, []);
 
@@ -34,30 +41,31 @@ export const ThemeProvider = ({ children }) => {
     });
   };
 
-  const changeColor = (color) => {
+  const setThemeColor = (color) => {
+    if (!THEME_COLORS.includes(color)) return;
+    
     setCurrentColor(color);
     localStorage.setItem('themeColor', color);
     
-    // Update CSS variables
-    document.documentElement.style.setProperty('--color-primary-50', `${color}10`);
-    document.documentElement.style.setProperty('--color-primary-100', `${color}20`);
-    document.documentElement.style.setProperty('--color-primary-200', `${color}30`);
-    document.documentElement.style.setProperty('--color-primary-300', `${color}40`);
-    document.documentElement.style.setProperty('--color-primary-400', `${color}50`);
-    document.documentElement.style.setProperty('--color-primary-500', color);
-    document.documentElement.style.setProperty('--color-primary-600', `${color}D0`);
-    document.documentElement.style.setProperty('--color-primary-700', `${color}B0`);
-    document.documentElement.style.setProperty('--color-primary-800', `${color}90`);
-    document.documentElement.style.setProperty('--color-primary-900', `${color}70`);
+    // Remove all existing theme color classes
+    const root = document.documentElement;
+    THEME_COLORS.forEach(c => {
+      root.classList.remove(`theme-${c}`);
+    });
+    
+    // Add new theme color class
+    root.classList.add(`theme-${color}`);
   };
 
   return (
-    <ThemeContext.Provider value={{
-      isDarkMode,
-      toggleDarkMode,
-      currentColor,
-      changeColor
-    }}>
+    <ThemeContext.Provider 
+      value={{ 
+        isDarkMode, 
+        toggleDarkMode,
+        currentColor,
+        setThemeColor
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );
@@ -70,3 +78,5 @@ export const useTheme = () => {
   }
   return context;
 };
+
+export default ThemeContext;

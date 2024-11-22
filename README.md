@@ -1,110 +1,202 @@
-# Hudayi Yurtdışı Muhasebe Uygulaması
+# Hüdayi Yurtdışı Web Uygulaması
 
-Electron.js ile geliştirilmiş, çok platformlu bir muhasebe uygulaması.
+Modern ve kullanıcı dostu bir arayüze sahip, React tabanlı web uygulaması.
 
 ## Özellikler
 
-- Çoklu platform desteği (macOS ve Windows)
-- Gerçek zamanlı döviz kuru hesaplamaları
-- Gelir ve gider takibi
-- Kullanıcı rolleri (Admin ve Standart kullanıcı)
-- Detaylı raporlama ve grafikler
-- Platform özel özellikler (macOS menü çubuğu, Windows sistem tepsisi)
+### Dinamik Tema Sistemi
+- **Karanlık/Aydınlık Mod**
+  - Otomatik mod geçişi
+  - Animasyonlu geçiş efektleri
+  - LocalStorage ile tercih saklama
 
-## Gereksinimler
+- **Tema Renkleri**
+  - 6 farklı tema rengi (Mavi, Yeşil, Kırmızı, Mor, Turuncu, Indigo)
+  - Anlık renk değişimi
+  - Tüm UI elementlerinde tutarlı renk kullanımı
+  - LocalStorage ile renk tercihi saklama
 
-- Node.js (>= 14.0.0)
-- npm veya yarn
+### Modern UI/UX
+- **Header Bileşeni**
+  - Responsive tasarım
+  - Temiz ve minimal arayüz
+  - Tutarlı ikon boyutları ve aralıklar
+  - Smooth hover efektleri
+  - Bildirim sistemi entegrasyonu
+  - Kullanıcı profil yönetimi
+
+- **Dropdown Menüler**
+  - Animasyonlu açılış/kapanış
+  - Click-outside ile otomatik kapanma
+  - Modern görünüm ve hissiyat
+  - Responsive davranış
+
+### Teknik Özellikler
+- **State Yönetimi**
+  - Context API kullanımı
+  - Özel hooks (useTheme, useAuth, useSidebar)
+  - Etkin state yönetimi
+
+- **Performans Optimizasyonu**
+  - Lazy loading
+  - Memoization
+  - Optimize edilmiş render döngüleri
+
+- **Erişilebilirlik**
+  - ARIA etiketleri
+  - Klavye navigasyonu
+  - Screen reader uyumluluğu
+
+## Teknolojiler
+
+- **Frontend Framework**
+  - React 18
+  - React Router v6
+
+- **Styling**
+  - Tailwind CSS
+  - CSS Variables
+  - PostCSS
+
+- **State Management**
+  - React Context API
+  - Custom Hooks
+
+- **Internationalization**
+  - i18next
+  - React-i18next
+
+- **Icons & UI Components**
+  - Heroicons
+  - Custom Components
 
 ## Kurulum
 
-1. Projeyi klonlayın:
+1. Repoyu klonlayın:
 \`\`\`bash
-git clone https://github.com/yourusername/hudayi-yurtdisi.git
-cd hudayi-yurtdisi
+git clone [repo-url]
 \`\`\`
 
 2. Bağımlılıkları yükleyin:
 \`\`\`bash
 npm install
-# veya
-yarn install
 \`\`\`
 
-3. Geliştirme modunda çalıştırın:
+3. Geliştirme sunucusunu başlatın:
 \`\`\`bash
-npm run dev
-# veya
-yarn dev
+npm start
 \`\`\`
 
-4. Uygulamayı paketleyin:
-\`\`\`bash
-npm run build
-# veya
-yarn build
-\`\`\`
-
-## Kullanım
-
-### Demo Hesapları
-
-- Admin: admin/admin
-- Kullanıcı: user/user
-
-### Özellikler
-
-1. Dashboard
-   - Gelir/gider özeti
-   - Döviz kurları
-   - Son işlemler
-
-2. İşlemler
-   - Yeni işlem ekleme
-   - İşlem geçmişi görüntüleme
-   - İşlem düzenleme/silme
-
-3. Raporlar
-   - Dönemsel raporlar
-   - Grafik görünümleri
-   - Döviz bazlı raporlar
-
-4. Ayarlar (Sadece Admin)
-   - Kullanıcı yönetimi
-   - Sistem ayarları
-   - Yedekleme/geri yükleme
-
-## Geliştirme
-
-### Proje Yapısı
+## Proje Yapısı
 
 \`\`\`
-hudayi-yurtdisi/
-├── src/
-│   ├── components/     # Yeniden kullanılabilir bileşenler
-│   ├── pages/         # Sayfa bileşenleri
-│   ├── utils/         # Yardımcı fonksiyonlar
-│   ├── services/      # API servisleri
-│   └── styles/        # CSS dosyaları
-├── assets/           # Statik dosyalar
-├── dist/            # Derlenen dosyalar
-└── public/          # Statik web dosyaları
+src/
+├── components/
+│   ├── layout/
+│   │   ├── header/
+│   │   ├── sidebar/
+│   │   └── footer/
+│   ├── common/
+│   └── pages/
+├── contexts/
+│   ├── themeContext.jsx
+│   ├── authContext.jsx
+│   └── sidebarContext.jsx
+├── styles/
+│   ├── index.css
+│   └── theme.css
+├── hooks/
+├── utils/
+├── services/
+└── App.jsx
 \`\`\`
 
-### Teknolojiler
+## Tema Sistemi
 
-- Electron.js
-- React
-- TailwindCSS
-- Chart.js
-- SQLite (Yerel veritabanı)
-- Electron Store (Ayarlar için)
+### Tema Renkleri
+- **Mavi (Varsayılan)**
+  - Primary: #3B82F6
+  - Hover: #2563EB
+  
+- **Yeşil**
+  - Primary: #22C55E
+  - Hover: #16A34A
+
+- **Kırmızı**
+  - Primary: #EF4444
+  - Hover: #DC2626
+
+- **Mor**
+  - Primary: #A855F7
+  - Hover: #9333EA
+
+- **Turuncu**
+  - Primary: #F97316
+  - Hover: #EA580C
+
+- **Indigo**
+  - Primary: #6366F1
+  - Hover: #4F46E5
+
+### Tema Değiştirme
+\`\`\`javascript
+// Tema rengi değiştirme
+const { setThemeColor } = useTheme();
+setThemeColor('blue');
+
+// Karanlık/Aydınlık mod değiştirme
+const { toggleDarkMode } = useTheme();
+toggleDarkMode();
+\`\`\`
+
+## Güvenlik
+
+- JWT tabanlı kimlik doğrulama
+- Güvenli rota yönetimi
+- XSS koruması
+- CSRF koruması
+
+## API Entegrasyonu
+
+- RESTful API desteği
+- Axios ile HTTP istekleri
+- Error handling
+- Loading states
+
+## Responsive Tasarım
+
+- Mobile-first yaklaşım
+- Breakpoint sistemi
+- Fluid typography
+- Adaptive layouts
+
+## Performance
+
+- Code splitting
+- Tree shaking
+- Asset optimization
+- Caching strategies
+
+## Testing
+
+- Jest test framework
+- React Testing Library
+- E2E tests with Cypress
+- Unit & Integration tests
+
+## Geliştirici Kılavuzu
+
+### Yeni Tema Rengi Ekleme
+1. \`themeContext.jsx\`'te \`THEME_COLORS\` dizisine yeni renk ekleyin
+2. \`theme.css\`'te yeni renk için CSS değişkenlerini tanımlayın
+3. \`tailwind.config.js\`'de renk paletini güncelleyin
+
+### Yeni Bileşen Ekleme
+1. İlgili klasörde bileşen dosyasını oluşturun
+2. Tailwind class'larını kullanarak stillendirin
+3. Tema sistemine uyumlu olduğundan emin olun
+4. Gerekli prop-types ve JSDoc ekleyin
 
 ## Lisans
 
-MIT
-
-## İletişim
-
-- Website: [your-website.com](https://your-website.com)
-- Email: your.email@example.com
+MIT License - Detaylar için LICENSE dosyasına bakın.
