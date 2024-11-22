@@ -4,12 +4,14 @@
   "description": "Hudayi Yurtdışı Muhasebe Uygulaması",
   "main": "main.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run tailwind:watch\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron .",
-    "dev": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron .\""
+    "dev": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron .\"",
+    "tailwind:build": "tailwindcss -i ./src/styles/index.css -o ./public/output.css",
+    "tailwind:watch": "tailwindcss -i ./src/styles/index.css -o ./public/output.css --watch"
   },
   "build": {
     "appId": "com.hudayi.yurtdisi",
@@ -87,5 +89,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "author": "Hüdayi Vakfı",
+  "license": "ISC"
 }
