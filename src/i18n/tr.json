@@ -1,0 +1,70 @@
+{
+  "common": {
+    "add": "Ekle",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "back": "Geri",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "status": "Durum",
+    "actions": "İşlemler",
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "backToHome": "Ana Sayfaya Dön",
+    "loading": "Yükleniyor..."
+  },
+  "auth": {
+    "signIn": "Giriş Yap",
+    "signOut": "Çıkış Yap",
+    "username": "Kullanıcı Adı",
+    "password": "Şifre",
+    "rememberMe": "Beni Hatırla"
+  },
+  "errors": {
+    "pageNotFound": "Sayfa Bulunamadı",
+    "pageNotFoundDescription": "Aradığınız sayfa bulunamadı veya taşınmış olabilir.",
+    "invalidCredentials": "Geçersiz kullanıcı adı veya şifre",
+    "somethingWentWrong": "Bir şeyler yanlış gitti"
+  },
+  "navigation": {
+    "menu": "Menü",
+    "dashboard": "Gösterge Paneli",
+    "countries": "Ülkeler",
+    "organizations": "Kurumlar",
+    "preAccounting": "Ön Muhasebe",
+    "reports": "Raporlar",
+    "settings": "Ayarlar"
+  },
+  "settings": {
+    "countries": {
+      "title": "Ülke Ayarları",
+      "description": "Ülke bilgilerini görüntüleyin ve yönetin",
+      "name": "Ülke Adı",
+      "code": "Ülke Kodu",
+      "currency": "Para Birimi"
+    },
+    "organizations": {
+      "title": "Kurum Ayarları",
+      "description": "Kurum bilgilerini görüntüleyin ve yönetin",
+      "name": "Kurum Adı",
+      "country": "Ülke",
+      "type": "Kurum Tipi"
+    },
+    "users": {
+      "title": "Kullanıcı Ayarları",
+      "description": "Kullanıcı bilgilerini görüntüleyin ve yönetin",
+      "name": "Ad Soyad",
+      "email": "E-posta",
+      "role": "Rol"
+    }
+  },
+  "countries": {
+    "TR": "Türkiye",
+    "DE": "Almanya",
+    "FR": "Fransa",
+    "NL": "Hollanda",
+    "BE": "Belçika"
+  }
+}
