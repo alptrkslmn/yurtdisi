@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -10,6 +10,8 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
   DocumentTextIcon,
   UserIcon,
   LanguageIcon
@@ -24,7 +26,7 @@ const Sidebar = () => {
   const { t } = useTranslation();
   const { hasPermission } = useAuth();
   const [expandedItems, setExpandedItems] = useState([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const { isDarkMode } = useTheme();
 
   const countries = [
@@ -79,107 +81,130 @@ const Sidebar = () => {
     }
   ];
 
-  const toggleExpand = (path) => {
+  const toggleExpand = useCallback((path) => {
     setExpandedItems(prev =>
       prev.includes(path)
         ? prev.filter(item => item !== path)
         : [...prev, path]
     );
-  };
+  }, []);
 
-  const isActiveItem = (path) => {
+  const isActiveItem = useCallback((path) => {
     if (path === '/') {
       return location.pathname === '/';
     }
     return location.pathname.startsWith(path);
+  }, [location.pathname]);
+
+  const toggleCollapse = () => {
+    setIsCollapsed(prev => !prev);
   };
 
-  return (
-    <>
-      <div className={`fixed inset-y-0 left-0 z-30 w-64 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:translate-x-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700`}>
-        {/* Logo */}
-        <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex items-center">
-            <img src={hudayiLogo} alt="Hüdayi Vakfı" className="h-8 w-auto" />
-            <span className="ml-2 text-lg font-semibold text-gray-900 dark:text-white">Hüdayi</span>
+  const renderMenuItem = useCallback(({ item, level = 0 }) => {
+    const Icon = item.icon;
+    const hasSubItems = item.items && item.items.length > 0;
+    const isExpanded = expandedItems.includes(item.path);
+    const isItemActive = isActiveItem(item.path);
+    
+    return (
+      <div key={item.path} className={`transition-all duration-200 ease-in-out ${level > 0 ? 'ml-4' : ''}`}>
+        <Link
+          to={hasSubItems ? '#' : item.path}
+          onClick={hasSubItems ? (e) => {
+            e.preventDefault();
+            !isCollapsed && toggleExpand(item.path);
+          } : undefined}
+          className={`sidebar-item group ${isItemActive ? 'sidebar-item-active' : 'sidebar-item-inactive'} ${
+            isCollapsed ? 'justify-center' : ''
+          }`}
+          title={isCollapsed ? t(item.name) : undefined}
+        >
+          {Icon && (
+            <Icon className={`h-5 w-5 ${!isCollapsed && 'mr-3'} flex-shrink-0 transition-colors duration-200 
+              ${isItemActive ? 'text-primary-600 dark:text-primary-400' : 'text-gray-400 group-hover:text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-300'}`}
+            />
+          )}
+          {!isCollapsed && (
+            <>
+              <span className="flex-1 transition-colors duration-200">{t(item.name)}</span>
+              {hasSubItems && (
+                <div className="transition-transform duration-200">
+                  {isExpanded ? (
+                    <ChevronDownIcon className="h-5 w-5" />
+                  ) : (
+                    <ChevronRightIcon className="h-5 w-5" />
+                  )}
+                </div>
+              )}
+            </>
+          )}
+        </Link>
+        
+        {hasSubItems && isExpanded && !isCollapsed && (
+          <div className="mt-1 space-y-1">
+            {item.items.map((subItem) => renderMenuItem({ item: subItem, level: level + 1 }))}
           </div>
-          <button
-            onClick={() => setIsSidebarOpen(false)}
-            className="md:hidden p-2 rounded-md text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-          >
-            <ChevronLeftIcon className="h-5 w-5" />
-          </button>
-        </div>
+        )}
+      </div>
+    );
+  }, [expandedItems, isActiveItem, t, toggleExpand, isCollapsed]);
 
-        {/* Navigation */}
-        <nav className="flex-1 space-y-1 px-3">
-          {menuItems.map((group) => (
-            <div key={group.title} className="sidebar-group">
-              <h3 className="sidebar-group-title">{t(group.title)}</h3>
-              {group.items.map((item) => {
-                const Icon = item.icon;
-                const hasSubItems = item.items && item.items.length > 0;
-                const isExpanded = expandedItems.includes(item.path);
-                const isItemActive = isActiveItem(item.path);
-                
-                return (
-                  <div key={item.path}>
-                    <Link
-                      to={hasSubItems ? '#' : item.path}
-                      onClick={hasSubItems ? (e) => {
-                        e.preventDefault();
-                        toggleExpand(item.path);
-                      } : undefined}
-                      className={`sidebar-item ${isItemActive ? 'sidebar-item-active' : 'sidebar-item-inactive'}`}
-                    >
-                      {Icon && <Icon className="h-5 w-5 mr-3 flex-shrink-0" />}
-                      <span className="flex-1">{t(item.name)}</span>
-                      {hasSubItems && (
-                        isExpanded ? (
-                          <ChevronDownIcon className="h-5 w-5" />
-                        ) : (
-                          <ChevronRightIcon className="h-5 w-5" />
-                        )
-                      )}
-                    </Link>
-                    
-                    {/* Alt menü öğeleri */}
-                    {hasSubItems && isExpanded && (
-                      <div className="mt-1 space-y-1 pl-11">
-                        {item.items.map((subItem) => (
-                          <Link
-                            key={subItem.path}
-                            to={subItem.path}
-                            className={`sidebar-item ${
-                              isActiveItem(subItem.path) ? 'sidebar-item-active' : 'sidebar-item-inactive'
-                            }`}
-                          >
-                            <span>{t(subItem.name)}</span>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          ))}
-        </nav>
+  return (
+    <div 
+      className={`fixed inset-y-0 left-0 z-30 transform transition-all duration-300 ease-in-out 
+        ${isCollapsed ? 'w-16' : 'w-64'}
+        bg-white/80 dark:bg-gray-800/80
+        backdrop-blur-[8px]
+        border-r border-gray-200/80 dark:border-gray-700/80
+        shadow-lg`}
+    >
+      {/* Logo */}
+      <div className="h-16 flex items-center px-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center">
+          <img src={hudayiLogo} alt="Hüdayi Vakfı" className={`h-8 w-auto transition-all duration-300 ${isCollapsed ? 'mr-0' : 'mr-2'}`} />
+          {!isCollapsed && (
+            <span className="text-lg font-semibold text-gray-900 dark:text-white transition-colors duration-200">
+              Hüdayi
+            </span>
+          )}
+        </div>
       </div>
 
-      {/* Mobil görünüm için overlay */}
-      {!isSidebarOpen && (
-        <div className="fixed inset-0 z-20 bg-black bg-opacity-50 md:hidden">
-          <button
-            onClick={() => setIsSidebarOpen(true)}
-            className="absolute top-4 left-4 p-2 rounded-md bg-white dark:bg-gray-800 text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-          >
-            <ChevronRightIcon className="h-5 w-5" />
-          </button>
-        </div>
-      )}
-    </>
+      {/* Collapse Toggle Button */}
+      <button
+        onClick={toggleCollapse}
+        className={`absolute top-1/2 -translate-y-1/2 -right-4 w-8 h-8 
+          bg-white dark:bg-gray-800 
+          border border-gray-200 dark:border-gray-700
+          rounded-full shadow-md 
+          flex items-center justify-center
+          text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300
+          transition-all duration-200 
+          hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500
+          group z-50`}
+      >
+        <ChevronLeftIcon 
+          className={`h-5 w-5 transition-transform duration-200 
+            ${isCollapsed ? 'rotate-180' : ''} 
+            group-hover:scale-110`} 
+        />
+      </button>
+
+      {/* Navigation */}
+      <nav className={`flex-1 space-y-1 px-3 py-4 overflow-y-auto ${isCollapsed ? 'px-2' : 'px-3'}`}>
+        {menuItems.map((group) => (
+          <div key={group.title} className="sidebar-group">
+            {!isCollapsed && (
+              <h3 className="sidebar-group-title text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+                {t(group.title)}
+              </h3>
+            )}
+            {group.items.map((item) => renderMenuItem({ item }))}
+          </div>
+        ))}
+      </nav>
+    </div>
   );
 };
 
-export default Sidebar;
+export default memo(Sidebar);
