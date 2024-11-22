@@ -29,6 +29,18 @@
       "light": "Açık",
       "dark": "Koyu",
       "system": "Sistem",
+      "colors": {
+        "title": "Tema Rengi",
+        "description": "Arayüz renklerini özelleştirin",
+        "blue": "Mavi",
+        "indigo": "İndigo",
+        "emerald": "Zümrüt",
+        "teal": "Turkuaz",
+        "purple": "Mor",
+        "fuchsia": "Fuşya",
+        "rose": "Gül",
+        "amber": "Amber"
+      },
       "settings": {
         "title": "Tema Ayarları",
         "description": "Arayüz görünümünü özelleştirin",

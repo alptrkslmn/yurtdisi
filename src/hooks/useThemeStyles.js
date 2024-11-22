@@ -1,4 +1,4 @@
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 export const useThemeStyles = () => {
   const { currentTheme, themes } = useTheme();

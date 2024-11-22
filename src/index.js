@@ -8,7 +8,7 @@ import '@fontsource/ubuntu/500.css';
 import '@fontsource/ubuntu/700.css';
 import './i18n';
 import App from './App';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 const container = document.getElementById('root');
 const root = createRoot(container);

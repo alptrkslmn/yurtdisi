@@ -1,0 +1,99 @@
+/* Dark mode toggle */
+.peer:checked ~ label {
+    background-color: #3B82F6;
+}
+
+.peer:checked {
+    transform: translateX(2rem);
+    border-color: #3B82F6;
+}
+
+.toggle-label {
+    transition: background-color 0.2s ease-in;
+}
+
+/* Hover animations */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.setting-card {
+    transition: all 0.3s ease;
+}
+
+.setting-card:hover {
+    animation: float 2s ease-in-out infinite;
+    transform: translateY(-2px);
+}
+
+/* Focus styles */
+.setting-input:focus, .setting-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* Transitions */
+.transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* Custom scrollbar for select */
+select {
+    scrollbar-width: thin;
+    scrollbar-color: #3B82F6 #E5E7EB;
+}
+
+select::-webkit-scrollbar {
+    width: 8px;
+}
+
+select::-webkit-scrollbar-track {
+    background: #E5E7EB;
+    border-radius: 4px;
+}
+
+select::-webkit-scrollbar-thumb {
+    background: #3B82F6;
+    border-radius: 4px;
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Dark mode specific styles */
+@media (prefers-color-scheme: dark) {
+    select {
+        scrollbar-color: #60A5FA #374151;
+    }
+    
+    select::-webkit-scrollbar-track {
+        background: #374151;
+    }
+    
+    select::-webkit-scrollbar-thumb {
+        background: #60A5FA;
+    }
+}

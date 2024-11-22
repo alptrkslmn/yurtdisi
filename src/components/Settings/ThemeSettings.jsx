@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Switch } from '@headlessui/react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const ThemeSettings = () => {
   const { t } = useTranslation();
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  });
+  const { darkMode, toggleDarkMode } = useTheme();
   const [compactMode, setCompactMode] = useState(() => localStorage.getItem('compactMode') === 'true');
   const [animations, setAnimations] = useState(() => localStorage.getItem('animations') !== 'false');
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [darkMode]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -60,88 +48,91 @@ const ThemeSettings = () => {
   }, [compactMode]);
 
   useEffect(() => {
-    if (animations) {
-      document.documentElement.classList.remove('no-animations');
-    } else {
-      document.documentElement.classList.add('no-animations');
-    }
+    document.documentElement.classList.toggle('disable-animations', !animations);
     localStorage.setItem('animations', animations);
   }, [animations]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+      {/* Karanlık Mod */}
       <div>
-        <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
-          {t('settings.theme.title')}
-        </h3>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          {t('settings.theme.description')}
-        </p>
+        <Switch.Group>
+          <div className="flex items-center justify-between">
+            <Switch.Label className="text-base font-medium text-gray-900 dark:text-white">
+              {t('common.theme.settings.theme.dark.label')}
+            </Switch.Label>
+            <Switch
+              checked={darkMode}
+              onChange={toggleDarkMode}
+              className={`${
+                darkMode ? 'bg-blue-600' : 'bg-gray-200'
+              } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+            >
+              <span
+                className={`${
+                  darkMode ? 'translate-x-6' : 'translate-x-1'
+                } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
+              />
+            </Switch>
+          </div>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            {t('common.theme.settings.theme.dark.description')}
+          </p>
+        </Switch.Group>
       </div>
 
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h4 className="text-sm font-medium text-gray-900 dark:text-white">
-              {t('settings.theme.darkMode')}
-            </h4>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {t('settings.theme.darkModeDescription')}
-            </p>
+      {/* Kompakt Mod */}
+      <div>
+        <Switch.Group>
+          <div className="flex items-center justify-between">
+            <Switch.Label className="text-base font-medium text-gray-900 dark:text-white">
+              {t('common.theme.settings.theme.compact.label')}
+            </Switch.Label>
+            <Switch
+              checked={compactMode}
+              onChange={setCompactMode}
+              className={`${
+                compactMode ? 'bg-blue-600' : 'bg-gray-200'
+              } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+            >
+              <span
+                className={`${
+                  compactMode ? 'translate-x-6' : 'translate-x-1'
+                } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
+              />
+            </Switch>
           </div>
-          <Switch
-            checked={darkMode}
-            onChange={setDarkMode}
-            className={`${darkMode ? 'bg-blue-600' : 'bg-gray-200'} relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
-          >
-            <span className="sr-only">{t('settings.theme.darkMode')}</span>
-            <span
-              className={`${darkMode ? 'translate-x-6' : 'translate-x-1'} inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`}
-            />
-          </Switch>
-        </div>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            {t('common.theme.settings.theme.compact.description')}
+          </p>
+        </Switch.Group>
+      </div>
 
-        <div className="flex items-center justify-between">
-          <div>
-            <h4 className="text-sm font-medium text-gray-900 dark:text-white">
-              {t('settings.theme.compactMode')}
-            </h4>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {t('settings.theme.compactModeDescription')}
-            </p>
+      {/* Animasyonlar */}
+      <div>
+        <Switch.Group>
+          <div className="flex items-center justify-between">
+            <Switch.Label className="text-base font-medium text-gray-900 dark:text-white">
+              {t('common.theme.settings.theme.animations.label')}
+            </Switch.Label>
+            <Switch
+              checked={animations}
+              onChange={setAnimations}
+              className={`${
+                animations ? 'bg-blue-600' : 'bg-gray-200'
+              } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+            >
+              <span
+                className={`${
+                  animations ? 'translate-x-6' : 'translate-x-1'
+                } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
+              />
+            </Switch>
           </div>
-          <Switch
-            checked={compactMode}
-            onChange={setCompactMode}
-            className={`${compactMode ? 'bg-blue-600' : 'bg-gray-200'} relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
-          >
-            <span className="sr-only">{t('settings.theme.compactMode')}</span>
-            <span
-              className={`${compactMode ? 'translate-x-6' : 'translate-x-1'} inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`}
-            />
-          </Switch>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div>
-            <h4 className="text-sm font-medium text-gray-900 dark:text-white">
-              {t('settings.theme.animations')}
-            </h4>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {t('settings.theme.animationsDescription')}
-            </p>
-          </div>
-          <Switch
-            checked={animations}
-            onChange={setAnimations}
-            className={`${animations ? 'bg-blue-600' : 'bg-gray-200'} relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
-          >
-            <span className="sr-only">{t('settings.theme.animations')}</span>
-            <span
-              className={`${animations ? 'translate-x-6' : 'translate-x-1'} inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`}
-            />
-          </Switch>
-        </div>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            {t('common.theme.settings.theme.animations.description')}
+          </p>
+        </Switch.Group>
       </div>
     </div>
   );
