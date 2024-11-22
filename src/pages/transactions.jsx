@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import TransactionModal from '../components/TransactionModal';
+import TransactionModal from '../components/Transactions/TransactionModal';
 
 function Transactions() {
     const { t } = useTranslation();
