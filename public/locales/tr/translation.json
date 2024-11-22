@@ -707,10 +707,16 @@
     "description": "Sistem ayarlarını buradan yönetebilirsiniz",
     "tabs": {
       "general": "Genel",
-      "language": "Dil",
-      "theme": "Tema",
+      "users": "Kullanıcılar",
+      "roles": "Roller",
+      "permissions": "İzinler",
       "notifications": "Bildirimler",
-      "currency": "Para Birimi"
+      "dashboard": "Panel",
+      "preAccounting": "Ön Muhasebe",
+      "reports": "Raporlar",
+      "settings": "Ayarlar",
+      "countries": "Ülkeler",
+      "institutions": "Kurumlar"
     },
     "general": {
       "title": "Genel Ayarlar",

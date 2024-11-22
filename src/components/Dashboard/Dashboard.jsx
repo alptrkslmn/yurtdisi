@@ -386,75 +386,81 @@ function Dashboard() {
       </div>
 
       {/* Filtre Bölümü */}
-      <div className="mb-6 flex items-center space-x-4">
-        <div>
-          <label htmlFor="year" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.year')}
-          </label>
-          <select
-            id="year"
-            value={filters.year}
-            onChange={(e) => handleFilterChange('year', e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-          >
-            <option value="">{t('dashboard.filters.allYears')}</option>
-            {years.map(year => (
-              <option key={year} value={year}>{year}</option>
-            ))}
-          </select>
-        </div>
+      <div className="mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Yıl Seçimi */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+            <label htmlFor="year" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t('dashboard.filters.year')}
+            </label>
+            <select
+              id="year"
+              value={filters.year}
+              onChange={(e) => handleFilterChange('year', e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            >
+              <option value="">{t('dashboard.filters.allYears')}</option>
+              {years.map(year => (
+                <option key={year} value={year}>{year}</option>
+              ))}
+            </select>
+          </div>
 
-        <div>
-          <label htmlFor="month" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.month')}
-          </label>
-          <select
-            id="month"
-            value={filters.month}
-            onChange={(e) => handleFilterChange('month', e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-          >
-            <option value="">{t('dashboard.filters.allMonths')}</option>
-            {[...Array(12)].map((_, i) => (
-              <option key={i + 1} value={i + 1}>
-                {new Date(2024, i).toLocaleString('tr-TR', { month: 'long' })}
-              </option>
-            ))}
-          </select>
-        </div>
+          {/* Ay Seçimi */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+            <label htmlFor="month" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t('dashboard.filters.month')}
+            </label>
+            <select
+              id="month"
+              value={filters.month}
+              onChange={(e) => handleFilterChange('month', e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            >
+              <option value="">{t('dashboard.filters.allMonths')}</option>
+              {[...Array(12)].map((_, i) => (
+                <option key={i + 1} value={i + 1}>
+                  {new Date(2024, i).toLocaleString('tr-TR', { month: 'long' })}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div>
-          <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.country')}
-          </label>
-          <select
-            id="country"
-            value={filters.country}
-            onChange={(e) => handleFilterChange('country', e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-          >
-            <option value="">{t('dashboard.filters.allCountries')}</option>
-            {countries.map(country => (
-              <option key={country} value={country}>{t(`countries.${country}`)}</option>
-            ))}
-          </select>
-        </div>
+          {/* Ülke Seçimi */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+            <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t('dashboard.filters.country')}
+            </label>
+            <select
+              id="country"
+              value={filters.country}
+              onChange={(e) => handleFilterChange('country', e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            >
+              <option value="">{t('dashboard.filters.allCountries')}</option>
+              {countries.map(country => (
+                <option key={country} value={country}>{t(`countries.${country}`)}</option>
+              ))}
+            </select>
+          </div>
 
-        <div>
-          <label htmlFor="institution" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.institution')}
-          </label>
-          <select
-            id="institution"
-            value={filters.institution}
-            onChange={(e) => handleFilterChange('institution', e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-          >
-            <option value="">{t('dashboard.filters.allInstitutions')}</option>
-            {institutions.map(institution => (
-              <option key={institution} value={institution}>{t(`institutions.${institution}`)}</option>
-            ))}
-          </select>
+          {/* Kurum Seçimi */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+            <label htmlFor="institution" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              {t('dashboard.filters.institution')}
+            </label>
+            <select
+              id="institution"
+              value={filters.institution}
+              onChange={(e) => handleFilterChange('institution', e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            >
+              <option value="">{t('dashboard.filters.allInstitutions')}</option>
+              {institutions.map(institution => (
+                <option key={institution} value={institution}>{t(`institutions.${institution}`)}</option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
