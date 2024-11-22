@@ -535,9 +535,9 @@
       "edit": "Ülke Düzenle",
       "delete": "Ülke Sil",
       "branches": {
-        "title": "Şubeler",
-        "description": "Ülke şubeleri",
-        "add": "Yeni Şube Ekle"
+        "title": "Kurumlar",
+        "description": "Ülke Kurumları",
+        "add": "Yeni Kurum Ekle"
       }
     },
     "TR": "Türkiye",
@@ -716,7 +716,9 @@
       "reports": "Raporlar",
       "settings": "Ayarlar",
       "countries": "Ülkeler",
-      "institutions": "Kurumlar"
+      "institutions": "Kurumlar",
+      "language": "Dil",
+      "theme": "Tema"
     },
     "general": {
       "title": "Genel Ayarlar",
