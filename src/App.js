@@ -20,7 +20,7 @@ import NotFound from './components/NotFound';
 
 function AppContent() {
   const { t } = useTranslation();
-  const { darkMode } = useTheme();
+  const { isDarkMode, currentTheme } = useTheme();
 
   useEffect(() => {
     // Sadece Türkçe dil desteği
@@ -28,7 +28,7 @@ function AppContent() {
   }, []);
 
   return (
-    <div className={darkMode ? 'dark' : ''}>
+    <div className={`${isDarkMode ? 'dark' : ''} theme-${currentTheme}`}>
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<Login />} />

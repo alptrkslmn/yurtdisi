@@ -10,7 +10,7 @@ import ThemeCustomizer from './Header/ThemeCustomizer';
 
 const Header = () => {
   const { t } = useTranslation();
-  const { darkMode, toggleDarkMode } = useTheme();
+  const { isDarkMode, toggleDarkMode } = useTheme();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const userMenuRef = useRef(null);
 
@@ -43,42 +43,60 @@ const Header = () => {
           {/* Tema Değiştirme */}
           <button
             onClick={toggleDarkMode}
-            className="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-            aria-label={darkMode ? t('common.theme.light') : t('common.theme.dark')}
+            className="header-button"
+            aria-label={isDarkMode ? t('common.theme.light') : t('common.theme.dark')}
           >
-            {darkMode ? (
-              <SunIcon className="h-6 w-6" />
-            ) : (
-              <MoonIcon className="h-6 w-6" />
-            )}
+            <div className="relative w-6 h-6">
+              <div className={`absolute inset-0 transform transition-transform duration-500 ${isDarkMode ? 'rotate-0' : '-rotate-90 opacity-0'}`}>
+                <MoonIcon className="h-6 w-6" />
+              </div>
+              <div className={`absolute inset-0 transform transition-transform duration-500 ${isDarkMode ? 'rotate-90 opacity-0' : 'rotate-0'}`}>
+                <SunIcon className="h-6 w-6" />
+              </div>
+            </div>
           </button>
 
           {/* Kullanıcı Menüsü */}
           <div className="relative" ref={userMenuRef}>
             <button
               onClick={() => setShowUserMenu(!showUserMenu)}
-              className="flex items-center p-2 text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+              className="header-button"
+              id="user-menu"
+              aria-haspopup="true"
+              aria-expanded={showUserMenu}
             >
-              <UserIcon className="h-6 w-6" />
+              <span className="sr-only">{t('header.openUserMenu')}</span>
+              <div className="user-avatar">
+                <span className="text-sm font-medium">AÖ</span>
+              </div>
             </button>
 
+            {/* Dropdown menu */}
             {showUserMenu && (
-              <div className="absolute right-0 mt-2 w-48 py-2 bg-white rounded-lg shadow-xl dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+              <div
+                className="dropdown-menu"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="user-menu"
+              >
                 <a
                   href="#profile"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                  className="dropdown-item"
+                  role="menuitem"
                 >
                   {t('header.profile')}
                 </a>
                 <a
                   href="#settings"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                  className="dropdown-item"
+                  role="menuitem"
                 >
                   {t('header.settings')}
                 </a>
                 <a
-                  href="#logout"
-                  className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-700"
+                  href="#signout"
+                  className="dropdown-item"
+                  role="menuitem"
                 >
                   {t('header.logout')}
                 </a>

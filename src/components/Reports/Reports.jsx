@@ -194,17 +194,17 @@ const Reports = () => {
       [t('reports.summary.title')],
       [t('reports.summary.totalIncome'), data.summaryData.totalIncome],
       [t('reports.summary.totalExpense'), data.summaryData.totalExpense],
-      [t('reports.summary.balance'), data.summaryData.balance],
+      [t('reports.summary.netIncome'), data.summaryData.balance],
       [],
       [t('reports.summary.income')],
-      [t('common.table.category'), t('common.table.amount')],
+      [t('reports.table.headers.category'), t('reports.table.headers.amount')],
       ...data.accountingEntries.filter(item => item.type === 'income').map(item => [item.description, item.amount]),
-      [t('reports.summary.total'), data.summaryData.totalIncome],
+      [t('reports.summary.yearlyTotal'), data.summaryData.totalIncome],
       [],
       [t('reports.summary.expense')],
-      [t('common.table.category'), t('common.table.amount')],
+      [t('reports.table.headers.category'), t('reports.table.headers.amount')],
       ...data.accountingEntries.filter(item => item.type === 'expense').map(item => [item.description, item.amount]),
-      [t('reports.summary.total'), data.summaryData.totalExpense]
+      [t('reports.summary.yearlyTotal'), data.summaryData.totalExpense]
     ];
 
     const ws = XLSX.utils.aoa_to_sheet(summaryData);
@@ -243,12 +243,12 @@ const Reports = () => {
     const summaryTableData = [
       [t('reports.summary.totalIncome'), formatCurrency(data.summaryData.totalIncome)],
       [t('reports.summary.totalExpense'), formatCurrency(data.summaryData.totalExpense)],
-      [t('reports.summary.balance'), formatCurrency(data.summaryData.balance)]
+      [t('reports.summary.netIncome'), formatCurrency(data.summaryData.balance)]
     ];
     
     doc.autoTable({
       startY: 35,
-      head: [[t('common.table.category'), t('common.table.amount')]],
+      head: [[t('reports.table.headers.category'), t('reports.table.headers.amount')]],
       body: summaryTableData,
       theme: 'grid',
       styles: { fontSize: 10 },
@@ -262,11 +262,11 @@ const Reports = () => {
       item.description,
       formatCurrency(item.amount)
     ]);
-    incomeTableData.push([t('reports.summary.total'), formatCurrency(data.summaryData.totalIncome)]);
+    incomeTableData.push([t('reports.summary.yearlyTotal'), formatCurrency(data.summaryData.totalIncome)]);
     
     doc.autoTable({
       startY: doc.lastAutoTable.finalY + 20,
-      head: [[t('common.table.category'), t('common.table.amount')]],
+      head: [[t('reports.table.headers.category'), t('reports.table.headers.amount')]],
       body: incomeTableData,
       theme: 'grid',
       styles: { fontSize: 10 },
@@ -280,11 +280,11 @@ const Reports = () => {
       item.description,
       formatCurrency(item.amount)
     ]);
-    expenseTableData.push([t('reports.summary.total'), formatCurrency(data.summaryData.totalExpense)]);
+    expenseTableData.push([t('reports.summary.yearlyTotal'), formatCurrency(data.summaryData.totalExpense)]);
     
     doc.autoTable({
       startY: doc.lastAutoTable.finalY + 20,
-      head: [[t('common.table.category'), t('common.table.amount')]],
+      head: [[t('reports.table.headers.category'), t('reports.table.headers.amount')]],
       body: expenseTableData,
       theme: 'grid',
       styles: { fontSize: 10 },
@@ -395,9 +395,7 @@ const Reports = () => {
               >
                 <option value="">{t('reports.filters.allCountries')}</option>
                 {['Türkiye', 'Almanya', 'Fransa', 'Hollanda', 'Belçika'].map((country) => (
-                  <option key={country} value={country}>
-                    {country}
-                  </option>
+                  <option key={country} value={country}>{t(`countries.data.${country}`)}</option>
                 ))}
               </select>
             </div>
@@ -416,9 +414,7 @@ const Reports = () => {
               >
                 <option value="">{t('reports.filters.allInstitutions')}</option>
                 {['Hudayi Vakfı', 'Hudayi Derneği', 'İnsani Yardım Derneği'].map((org) => (
-                  <option key={org} value={org}>
-                    {org}
-                  </option>
+                  <option key={org} value={org}>{org}</option>
                 ))}
               </select>
             </div>
@@ -463,7 +459,7 @@ const Reports = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="text-lg font-medium text-gray-900 dark:text-white">
-                  {t('reports.summary.balance')}
+                  {t('reports.summary.netIncome')}
                 </div>
                 <div className="mt-1 text-2xl font-semibold text-blue-600 dark:text-blue-400">
                   {formatCurrency(data.summaryData.balance)}
@@ -478,17 +474,17 @@ const Reports = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Gelir Detayları */}
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg">
-          <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+          <div className="border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-white p-6">
               {t('reports.income.title')}
             </h2>
           </div>
           <div className="p-6">
             <div className="divide-y divide-gray-200 dark:divide-gray-700">
               <div className="grid grid-cols-[auto_1fr_auto] gap-4 py-3 font-medium text-gray-900 dark:text-white">
-                <div className="w-12">{t('common.table.no')}</div>
-                <div>{t('common.table.category')}</div>
-                <div className="text-right">{t('common.table.amount')}</div>
+                <div className="w-12">{t('reports.table.headers.no')}</div>
+                <div>{t('reports.table.headers.category')}</div>
+                <div className="text-right">{t('reports.table.headers.amount')}</div>
               </div>
               {data.accountingEntries.filter(item => item.type === 'income').map((category, index) => (
                 <div key={index} className="grid grid-cols-[auto_1fr_auto] gap-4 py-3">
@@ -501,7 +497,7 @@ const Reports = () => {
               ))}
               <div className="grid grid-cols-[auto_1fr_auto] gap-4 py-3 font-medium">
                 <div className="w-12"></div>
-                <div className="text-gray-900 dark:text-white">{t('reports.income.total')}</div>
+                <div className="text-gray-900 dark:text-white">{t('reports.summary.yearlyTotal')}</div>
                 <div className="text-right text-green-600 dark:text-green-400">
                   {formatCurrency(data.summaryData.totalIncome)}
                 </div>
@@ -512,17 +508,17 @@ const Reports = () => {
 
         {/* Gider Detayları */}
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg">
-          <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+          <div className="border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-white p-6">
               {t('reports.expense.title')}
             </h2>
           </div>
           <div className="p-6">
             <div className="divide-y divide-gray-200 dark:divide-gray-700">
               <div className="grid grid-cols-[auto_1fr_auto] gap-4 py-3 font-medium text-gray-900 dark:text-white">
-                <div className="w-12">{t('common.table.no')}</div>
-                <div>{t('common.table.category')}</div>
-                <div className="text-right">{t('common.table.amount')}</div>
+                <div className="w-12">{t('reports.table.headers.no')}</div>
+                <div>{t('reports.table.headers.category')}</div>
+                <div className="text-right">{t('reports.table.headers.amount')}</div>
               </div>
               {data.accountingEntries.filter(item => item.type === 'expense').map((category, index) => (
                 <div key={index} className="grid grid-cols-[auto_1fr_auto] gap-4 py-3">
@@ -535,7 +531,7 @@ const Reports = () => {
               ))}
               <div className="grid grid-cols-[auto_1fr_auto] gap-4 py-3 font-medium">
                 <div className="w-12"></div>
-                <div className="text-gray-900 dark:text-white">{t('reports.expense.total')}</div>
+                <div className="text-gray-900 dark:text-white">{t('reports.summary.yearlyTotal')}</div>
                 <div className="text-right text-red-600 dark:text-red-400">
                   {formatCurrency(data.summaryData.totalExpense)}
                 </div>

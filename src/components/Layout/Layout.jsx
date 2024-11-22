@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../Header';
 import Sidebar from '../Sidebar';
+import { useTheme } from '../../contexts/ThemeContext';
 
 /**
  * Layout bileşenini Header ve Sidebar ile uyumlu hale getirdim
@@ -10,8 +11,10 @@ import Sidebar from '../Sidebar';
  * Layout yapısını basitleştirdim ve gereksiz z-index'leri kaldırdım
  */
 const Layout = () => {
+  const { isDarkMode } = useTheme();
+
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className={`min-h-screen ${isDarkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       {/* Sidebar - Fixed position */}
       <Sidebar />
       

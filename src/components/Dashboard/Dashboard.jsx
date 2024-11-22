@@ -82,7 +82,7 @@ function Dashboard() {
         id: 1,
         institution: t('institutions.DE_1'),
         country: t('countries.DE'),
-        type: t('dashboard.transactionType.income'),
+        type: t('common.type.income'),
         amount: 12450,
         status: t('dashboard.status.completed'),
         date: '2024-03-21'
@@ -91,7 +91,7 @@ function Dashboard() {
         id: 2,
         institution: t('institutions.FR_1'),
         country: t('countries.FR'),
-        type: t('dashboard.transactionType.expense'),
+        type: t('common.type.expense'),
         amount: 8720,
         status: t('dashboard.status.pending'),
         date: '2024-03-20'
@@ -100,7 +100,7 @@ function Dashboard() {
         id: 3,
         institution: t('institutions.GB_1'),
         country: t('countries.GB'),
-        type: t('dashboard.transactionType.income'),
+        type: t('common.type.income'),
         amount: 15890,
         status: t('dashboard.status.completed'),
         date: '2024-03-19'
@@ -109,7 +109,7 @@ function Dashboard() {
         id: 4,
         institution: t('institutions.US_1'),
         country: t('countries.US'),
-        type: t('dashboard.transactionType.expense'),
+        type: t('common.type.expense'),
         amount: 22340,
         status: t('dashboard.status.failed'),
         date: '2024-03-18'
@@ -133,11 +133,11 @@ function Dashboard() {
   // Filtrelenmiş toplam gelir ve gider hesaplaması
   const filteredSummary = useMemo(() => {
     const income = filteredTransactions
-      .filter(t => t.type === t('dashboard.transactionType.income'))
+      .filter(t => t.type === t('common.type.income'))
       .reduce((sum, t) => sum + t.amount, 0);
     
     const expense = filteredTransactions
-      .filter(t => t.type === t('dashboard.transactionType.expense'))
+      .filter(t => t.type === t('common.type.expense'))
       .reduce((sum, t) => sum + t.amount, 0);
     
     return { income, expense };
@@ -306,11 +306,11 @@ function Dashboard() {
   const institutions = [...new Set(mockData.recentTransactions.map(t => t.institution))];
 
   const totalIncome = filteredTransactions
-    .filter(t => t.type === t('dashboard.transactionType.income'))
+    .filter(t => t.type === t('common.type.income'))
     .reduce((sum, t) => sum + t.amount, 0);
 
   const totalExpense = filteredTransactions
-    .filter(t => t.type === t('dashboard.transactionType.expense'))
+    .filter(t => t.type === t('common.type.expense'))
     .reduce((sum, t) => sum + t.amount, 0);
 
   return (
@@ -380,7 +380,7 @@ function Dashboard() {
       <div className="mb-6 flex items-center space-x-4">
         <div>
           <label htmlFor="year" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('common.filters.year')}
+            {t('dashboard.filters.year')}
           </label>
           <select
             id="year"
@@ -388,7 +388,7 @@ function Dashboard() {
             onChange={(e) => handleFilterChange('year', e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">{t('common.filters.allYears')}</option>
+            <option value="">{t('dashboard.filters.allYears')}</option>
             {years.map(year => (
               <option key={year} value={year}>{year}</option>
             ))}
@@ -397,7 +397,7 @@ function Dashboard() {
 
         <div>
           <label htmlFor="month" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('common.filters.month')}
+            {t('dashboard.filters.month')}
           </label>
           <select
             id="month"
@@ -405,7 +405,7 @@ function Dashboard() {
             onChange={(e) => handleFilterChange('month', e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">{t('common.filters.allMonths')}</option>
+            <option value="">{t('dashboard.filters.allMonths')}</option>
             {[...Array(12)].map((_, i) => (
               <option key={i + 1} value={i + 1}>
                 {new Date(2024, i).toLocaleString('tr-TR', { month: 'long' })}
@@ -416,7 +416,7 @@ function Dashboard() {
 
         <div>
           <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('common.filters.country')}
+            {t('dashboard.filters.country')}
           </label>
           <select
             id="country"
@@ -424,7 +424,7 @@ function Dashboard() {
             onChange={(e) => handleFilterChange('country', e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">{t('common.filters.allCountries')}</option>
+            <option value="">{t('dashboard.filters.allCountries')}</option>
             {countries.map(country => (
               <option key={country} value={country}>{t(`countries.${country}`)}</option>
             ))}
@@ -433,7 +433,7 @@ function Dashboard() {
 
         <div>
           <label htmlFor="institution" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('common.filters.institution')}
+            {t('dashboard.filters.institution')}
           </label>
           <select
             id="institution"
@@ -441,9 +441,9 @@ function Dashboard() {
             onChange={(e) => handleFilterChange('institution', e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">{t('common.filters.allInstitutions')}</option>
+            <option value="">{t('dashboard.filters.allInstitutions')}</option>
             {institutions.map(institution => (
-              <option key={institution} value={institution}>{t(`institutions.${institution}`)}</option>
+              <option key={institution} value={institution}>{institution}</option>
             ))}
           </select>
         </div>

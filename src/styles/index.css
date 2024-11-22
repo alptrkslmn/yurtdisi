@@ -7,51 +7,42 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
 @layer base {
   :root {
     /* Tema renkleri */
     --blue-400: #60a5fa;
     --blue-500: #3b82f6;
     --blue-600: #2563eb;
-    --blue-700: #1d4ed8;
-
+    
     --indigo-400: #818cf8;
     --indigo-500: #6366f1;
     --indigo-600: #4f46e5;
-    --indigo-700: #4338ca;
-
+    
     --emerald-400: #34d399;
     --emerald-500: #10b981;
     --emerald-600: #059669;
-    --emerald-700: #047857;
-
+    
     --teal-400: #2dd4bf;
     --teal-500: #14b8a6;
     --teal-600: #0d9488;
-    --teal-700: #0f766e;
-
+    
     --purple-400: #c084fc;
     --purple-500: #a855f7;
     --purple-600: #9333ea;
-    --purple-700: #7e22ce;
-
+    
     --fuchsia-400: #e879f9;
     --fuchsia-500: #d946ef;
     --fuchsia-600: #c026d3;
-    --fuchsia-700: #a21caf;
-
+    
     --rose-400: #fb7185;
     --rose-500: #f43f5e;
     --rose-600: #e11d48;
-    --rose-700: #be123c;
-
+    
     --amber-400: #fbbf24;
     --amber-500: #f59e0b;
     --amber-600: #d97706;
-    --amber-700: #b45309;
 
-    /* Aktif tema rengi */
+    /* Varsayılan tema (mavi) */
     --primary-color: var(--blue-500);
     --primary-color-light: var(--blue-400);
     --primary-color-dark: var(--blue-600);
@@ -71,43 +62,51 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors;
+    @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 ease-in-out;
   }
 
   .btn-primary {
-    @apply btn bg-gradient-to-br from-primary-light to-primary hover:from-primary hover:to-primary-dark text-white shadow-sm;
+    @apply bg-primary text-white hover:bg-primary-dark shadow-sm;
   }
 
   .btn-secondary {
-    @apply btn bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm;
+    @apply bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600;
   }
 
-  .btn-danger {
-    @apply btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
-  }
-
-  .btn-pagination {
-    @apply relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700;
-  }
-
-  .btn-pagination-active {
-    @apply btn-pagination z-10 bg-primary/10 border-primary text-primary dark:bg-primary/20 dark:border-primary dark:text-primary-light;
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-white dark:text-primary-light dark:border-primary-light dark:hover:bg-primary-light dark:hover:text-gray-900;
   }
 
   .input {
-    @apply block w-full px-3 py-2 text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm placeholder-gray-400 dark:placeholder-gray-500 
-    focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary
-    disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-700 dark:text-white;
+  }
+
+  .link {
+    @apply text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary;
   }
 
   .card {
     @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700;
   }
 
-  .label {
-    @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
+  /* Form elemanları */
+  .form-input {
+    @apply block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-700 dark:text-white;
   }
 
+  .form-select {
+    @apply block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-700 dark:text-white;
+  }
+
+  .form-checkbox {
+    @apply rounded border-gray-300 text-primary focus:ring focus:ring-primary focus:ring-opacity-50 dark:border-gray-700;
+  }
+
+  .form-radio {
+    @apply border-gray-300 text-primary focus:ring focus:ring-primary focus:ring-opacity-50 dark:border-gray-700;
+  }
+
+  /* Tablo stilleri */
   .table {
     @apply min-w-full divide-y divide-gray-200 dark:divide-gray-700;
   }
@@ -127,35 +126,72 @@
   .table tr:nth-child(even) {
     @apply bg-gray-50 dark:bg-gray-700;
   }
+
+  /* Navigasyon */
+  .nav-link {
+    @apply flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors;
+  }
+
+  .nav-link.active {
+    @apply bg-primary bg-opacity-10 text-primary dark:bg-opacity-20 dark:text-primary-light;
+  }
+}
+
+/* Tema sınıfları */
+.theme-blue {
+  --primary: theme(colors.blue.500);
+  --primary-light: theme(colors.blue.400);
+  --primary-dark: theme(colors.blue.600);
+}
+
+.theme-indigo {
+  --primary: theme(colors.indigo.500);
+  --primary-light: theme(colors.indigo.400);
+  --primary-dark: theme(colors.indigo.600);
+}
+
+.theme-emerald {
+  --primary: theme(colors.emerald.500);
+  --primary-light: theme(colors.emerald.400);
+  --primary-dark: theme(colors.emerald.600);
+}
+
+.theme-teal {
+  --primary: theme(colors.teal.500);
+  --primary-light: theme(colors.teal.400);
+  --primary-dark: theme(colors.teal.600);
+}
+
+.theme-purple {
+  --primary: theme(colors.purple.500);
+  --primary-light: theme(colors.purple.400);
+  --primary-dark: theme(colors.purple.600);
+}
+
+.theme-fuchsia {
+  --primary: theme(colors.fuchsia.500);
+  --primary-light: theme(colors.fuchsia.400);
+  --primary-dark: theme(colors.fuchsia.600);
+}
+
+.theme-rose {
+  --primary: theme(colors.rose.500);
+  --primary-light: theme(colors.rose.400);
+  --primary-dark: theme(colors.rose.600);
+}
+
+.theme-amber {
+  --primary: theme(colors.amber.500);
+  --primary-light: theme(colors.amber.400);
+  --primary-dark: theme(colors.amber.600);
 }
 
 /* Animasyonlar */
 @keyframes shimmer {
   0% {
-    transform: translateX(-100%);
+    background-position: -200% 0;
   }
   100% {
-    transform: translateX(100%);
+    background-position: 200% 0;
   }
-}
-
-.animate-shimmer {
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes gradientFlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradientFlow 3s ease infinite;
 }

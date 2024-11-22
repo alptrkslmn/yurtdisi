@@ -1,3 +1,98 @@
+/* Tema Renkleri */
+:root {
+  /* Varsayılan tema rengi (blue) */
+  --primary: theme('colors.blue.500');
+  --primary-light: theme('colors.blue.400');
+  --primary-dark: theme('colors.blue.600');
+  
+  /* Metin renkleri */
+  --text-primary: theme('colors.gray.900');
+  --text-secondary: theme('colors.gray.600');
+  --text-disabled: theme('colors.gray.400');
+  
+  /* Arka plan renkleri */
+  --bg-primary: theme('colors.white');
+  --bg-secondary: theme('colors.gray.50');
+  --bg-tertiary: theme('colors.gray.100');
+  
+  /* Kenar çizgisi renkleri */
+  --border-primary: theme('colors.gray.200');
+  --border-secondary: theme('colors.gray.300');
+  
+  /* Durum renkleri */
+  --success: theme('colors.emerald.500');
+  --warning: theme('colors.amber.500');
+  --error: theme('colors.red.500');
+  --info: theme('colors.blue.500');
+}
+
+/* Dark mode renkleri */
+.dark {
+  --primary: theme('colors.blue.400');
+  --primary-light: theme('colors.blue.300');
+  --primary-dark: theme('colors.blue.500');
+  
+  --text-primary: theme('colors.gray.100');
+  --text-secondary: theme('colors.gray.300');
+  --text-disabled: theme('colors.gray.500');
+  
+  --bg-primary: theme('colors.gray.900');
+  --bg-secondary: theme('colors.gray.800');
+  --bg-tertiary: theme('colors.gray.700');
+  
+  --border-primary: theme('colors.gray.700');
+  --border-secondary: theme('colors.gray.600');
+}
+
+/* Tema renk varyasyonları */
+.theme-blue {
+  --primary: theme('colors.blue.500');
+  --primary-light: theme('colors.blue.400');
+  --primary-dark: theme('colors.blue.600');
+}
+
+.theme-indigo {
+  --primary: theme('colors.indigo.500');
+  --primary-light: theme('colors.indigo.400');
+  --primary-dark: theme('colors.indigo.600');
+}
+
+.theme-emerald {
+  --primary: theme('colors.emerald.500');
+  --primary-light: theme('colors.emerald.400');
+  --primary-dark: theme('colors.emerald.600');
+}
+
+.theme-teal {
+  --primary: theme('colors.teal.500');
+  --primary-light: theme('colors.teal.400');
+  --primary-dark: theme('colors.teal.600');
+}
+
+.theme-purple {
+  --primary: theme('colors.purple.500');
+  --primary-light: theme('colors.purple.400');
+  --primary-dark: theme('colors.purple.600');
+}
+
+.theme-fuchsia {
+  --primary: theme('colors.fuchsia.500');
+  --primary-light: theme('colors.fuchsia.400');
+  --primary-dark: theme('colors.fuchsia.600');
+}
+
+.theme-rose {
+  --primary: theme('colors.rose.500');
+  --primary-light: theme('colors.rose.400');
+  --primary-dark: theme('colors.rose.600');
+}
+
+.theme-amber {
+  --primary: theme('colors.amber.500');
+  --primary-light: theme('colors.amber.400');
+  --primary-dark: theme('colors.amber.600');
+}
+
 /* Kompakt Mod Stilleri */
 :root {
   --spacing-normal: 1rem;
@@ -110,4 +205,43 @@
 .compact .notification {
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+/* Header Styles */
+.header-button {
+  @apply relative p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 focus:ring-offset-2 rounded-lg transition-colors;
+}
+
+.user-avatar {
+  @apply h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary-dark transition-colors;
+}
+
+.dropdown-menu {
+  @apply absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none;
+}
+
+.dropdown-item {
+  @apply block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white transition-colors;
+}
+
+/* Sidebar Styles */
+.sidebar-item {
+  @apply flex items-center px-4 py-2 text-sm rounded-lg transition-colors;
+}
+
+.sidebar-item-active {
+  @apply bg-primary bg-opacity-10 text-primary-dark font-medium dark:text-primary-light dark:bg-primary dark:bg-opacity-20;
+}
+
+.sidebar-item-inactive {
+  @apply text-gray-600 hover:bg-gray-100 hover:bg-opacity-80 hover:text-primary-dark dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:bg-opacity-50 dark:hover:text-primary-light;
+}
+
+/* Sidebar Group */
+.sidebar-group {
+  @apply space-y-1 px-3;
+}
+
+.sidebar-group-title {
+  @apply px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider;
 }

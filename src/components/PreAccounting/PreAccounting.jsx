@@ -18,6 +18,7 @@ const PreAccounting = () => {
   });
 
   const years = [2022, 2023, 2024];
+  const months = Array.from({length: 12}, (_, i) => i);
   const countries = ['Almanya', 'Türkiye', 'Fransa', 'İngiltere'];
   const institutions = ['Dernek 1', 'Dernek 2', 'Dernek 3'];
 
@@ -77,7 +78,7 @@ const PreAccounting = () => {
       <div className="mb-6 flex items-center space-x-4">
         <div>
           <label htmlFor="year" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.year')}
+            {t('preAccounting.filters.year')}
           </label>
           <select
             id="year"
@@ -94,7 +95,7 @@ const PreAccounting = () => {
 
         <div>
           <label htmlFor="month" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.month')}
+            {t('preAccounting.filters.month')}
           </label>
           <select
             id="month"
@@ -103,9 +104,9 @@ const PreAccounting = () => {
             className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
             <option value="">{t('preAccounting.filters.allMonths')}</option>
-            {Array.from({length: 12}, (_, i) => i + 1).map(month => (
-              <option key={month} value={month}>
-                {new Date(2024, month - 1, 1).toLocaleString('tr-TR', { month: 'long' })}
+            {months.map((month, index) => (
+              <option key={index + 1} value={index + 1}>
+                {new Date(2024, index).toLocaleString('tr-TR', { month: 'long' })}
               </option>
             ))}
           </select>
@@ -113,7 +114,7 @@ const PreAccounting = () => {
 
         <div>
           <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.country')}
+            {t('preAccounting.filters.country')}
           </label>
           <select
             id="country"
@@ -123,14 +124,14 @@ const PreAccounting = () => {
           >
             <option value="">{t('preAccounting.filters.allCountries')}</option>
             {countries.map(country => (
-              <option key={country} value={country}>{country}</option>
+              <option key={country} value={country}>{t(`countries.data.${country}`)}</option>
             ))}
           </select>
         </div>
 
         <div>
           <label htmlFor="institution" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            {t('dashboard.filters.institution')}
+            {t('preAccounting.filters.institution')}
           </label>
           <select
             id="institution"

@@ -51,7 +51,7 @@
           },
           "compact": {
             "label": "Kompakt Mod",
-            "description": "Daha sıkışık bir arayüz görünümü kullanın"
+            "description": "Daha sıkışık bir arayüz kullanın"
           },
           "animations": {
             "label": "Animasyonlar",
@@ -101,7 +101,7 @@
           "symbol": "£"
         },
         "JPY": {
-          "name": "Japon Yeni",
+          "name": "Japonya Yeni",
           "symbol": "¥"
         },
         "CNY": {
@@ -363,9 +363,46 @@
       "UTC-10": "Hawaii Zamanı",
       "UTC-11": "Samoa Zamanı",
       "UTC-12": "Baker Adası Zamanı"
+    },
+    "type": {
+      "income": "Gelir",
+      "expense": "Gider",
+      "transfer": "Transfer",
+      "investment": "Yatırım"
+    },
+    "category": {
+      "donation": "Bağış",
+      "rent": "Kira",
+      "salary": "Maaş",
+      "utility": "Fatura",
+      "food": "Gıda",
+      "transportation": "Ulaşım",
+      "education": "Eğitim",
+      "health": "Sağlık",
+      "other": "Diğer"
+    },
+    "status": {
+      "active": "Aktif",
+      "passive": "Pasif",
+      "pending": "Beklemede",
+      "completed": "Tamamlandı",
+      "cancelled": "İptal Edildi",
+      "failed": "Başarısız",
+      "approved": "Onaylandı",
+      "rejected": "Reddedildi",
+      "draft": "Taslak",
+      "processing": "İşleniyor"
     }
   },
+  "header": {
+    "profile": "Profil",
+    "settings": "Ayarlar",
+    "logout": "Çıkış Yap",
+    "openUserMenu": "Kullanıcı Menüsünü Aç",
+    "closeUserMenu": "Kullanıcı Menüsünü Kapat"
+  },
   "navigation": {
+    "menu": "Menü",
     "dashboard": "Panel",
     "countries": "Ülkeler",
     "preAccounting": "Ön Muhasebe",
@@ -377,7 +414,22 @@
   },
   "dashboard": {
     "title": "Panel",
+    "description": "Genel bakış ve özet bilgiler",
     "summary": "Özet",
+    "recentTransactions": "Son İşlemler",
+    "transactionDetails": {
+      "title": "Son İşlemler",
+      "description": "Son yapılan finansal işlemler",
+      "empty": "Henüz işlem bulunmuyor",
+      "viewAll": "Tümünü Görüntüle",
+      "headers": {
+        "date": "Tarih",
+        "type": "İşlem Tipi",
+        "category": "Kategori",
+        "amount": "Tutar",
+        "status": "Durum"
+      }
+    },
     "stats": {
       "totalIncome": "Toplam Gelir",
       "totalExpense": "Toplam Gider",
@@ -396,35 +448,23 @@
       "allCountries": "Tüm Ülkeler",
       "allInstitutions": "Tüm Kurumlar"
     },
-    "recentTransactions": "Son İşlemler",
-    "actions": {
-      "refresh": "Yenile",
-      "filter": "Filtrele",
-      "export": "Dışa Aktar"
-    },
-    "export": {
-      "title": "Dışa Aktar",
-      "excel": "Excel'e Aktar",
-      "pdf": "PDF'e Aktar",
-      "report": "Hudayi Finansal Rapor",
-      "statistics": "İstatistikler"
-    },
-    "table": {
-      "institution": "KURUM",
-      "country": "ÜLKE",
-      "type": "İŞLEM TİPİ",
-      "amount": "TUTAR",
-      "status": "DURUM",
-      "date": "TARİH"
-    },
     "status": {
       "completed": "Tamamlandı",
       "pending": "Beklemede",
       "failed": "Başarısız"
     },
-    "transactionType": {
-      "income": "Gelir",
-      "expense": "Gider"
+    "actions": {
+      "refresh": "Yenile",
+      "filter": "Filtrele",
+      "search": "Ara",
+      "export": "Dışa Aktar",
+      "print": "Yazdır"
+    },
+    "export": {
+      "title": "Dışa Aktar",
+      "excel": "Excel Olarak İndir",
+      "pdf": "PDF Olarak İndir",
+      "print": "Yazdır"
     }
   },
   "preAccounting": {
@@ -450,14 +490,14 @@
     },
     "filters": {
       "title": "Filtreler",
-      "allYears": "Tüm Yıllar",
-      "allMonths": "Tüm Aylar",
-      "allCountries": "Tüm Ülkeler",
-      "allInstitutions": "Tüm Kurumlar",
       "year": "Yıl",
       "month": "Ay",
       "country": "Ülke",
       "institution": "Kurum",
+      "allYears": "Tüm Yıllar",
+      "allMonths": "Tüm Aylar",
+      "allCountries": "Tüm Ülkeler",
+      "allInstitutions": "Tüm Kurumlar",
       "dateRange": "Tarih Aralığı",
       "startDate": "Başlangıç Tarihi",
       "endDate": "Bitiş Tarihi",
@@ -516,7 +556,106 @@
       "BE": "Belçika",
       "FR": "Fransa",
       "GB": "İngiltere",
-      "US": "Amerika Birleşik Devletleri"
+      "US": "Amerika Birleşik Devletleri",
+      "Türkiye": "Türkiye",
+      "Almanya": "Almanya",
+      "Fransa": "Fransa",
+      "Hollanda": "Hollanda",
+      "Belçika": "Belçika",
+      "İngiltere": "İngiltere"
+    }
+  },
+  "reports": {
+    "title": "Raporlar",
+    "description": "Finansal raporları görüntüleyin",
+    "income": {
+      "title": "Gelir Detayları",
+      "description": "Tüm gelir kaynaklarının detaylı dökümü",
+      "regularDonation": "Düzenli Bağış Ödemeleri",
+      "rentIncome": "Kira Gelirleri"
+    },
+    "expense": {
+      "title": "Gider Detayları",
+      "description": "Tüm gider kaynaklarının detaylı dökümü"
+    },
+    "filters": {
+      "title": "Filtreler",
+      "year": "Yıl",
+      "month": "Ay",
+      "country": "Ülke",
+      "institution": "Kurum",
+      "allYears": "Tüm Yıllar",
+      "allMonths": "Tüm Aylar",
+      "allCountries": "Tüm Ülkeler",
+      "allInstitutions": "Tüm Kurumlar"
+    },
+    "summary": {
+      "title": "Finansal Özet",
+      "totalIncome": "Toplam Gelir",
+      "totalExpense": "Toplam Gider",
+      "netIncome": "Net Gelir",
+      "transactionCount": "İşlem Sayısı",
+      "averageTransaction": "Ortalama İşlem",
+      "monthlyAverage": "Aylık Ortalama",
+      "yearlyTotal": "Yıllık Toplam",
+      "comparisonTitle": "Önceki Dönem Karşılaştırması",
+      "percentageChange": "Değişim Yüzdesi"
+    },
+    "table": {
+      "title": "İşlem Detayları",
+      "headers": {
+        "no": "No",
+        "date": "Tarih",
+        "type": "İşlem Tipi",
+        "category": "Kategori",
+        "institution": "Kurum",
+        "country": "Ülke",
+        "amount": "Tutar",
+        "status": "Durum",
+        "description": "Açıklama"
+      },
+      "empty": "İşlem bulunamadı",
+      "showing": "Gösterilen",
+      "of": "/",
+      "entries": "kayıt"
+    },
+    "export": {
+      "title": "Dışa Aktar",
+      "excel": "Excel Olarak İndir",
+      "pdf": "PDF Olarak İndir",
+      "print": "Yazdır",
+      "options": {
+        "title": "Dışa Aktarma Seçenekleri",
+        "includeDetails": "Detayları Dahil Et",
+        "includeSummary": "Özeti Dahil Et",
+        "dateRange": "Tarih Aralığı",
+        "format": "Dosya Formatı"
+      }
+    },
+    "chart": {
+      "income": "Gelir",
+      "expense": "Gider",
+      "net": "Net",
+      "monthly": "Aylık Dağılım",
+      "yearly": "Yıllık Dağılım",
+      "byCategory": "Kategoriye Göre",
+      "byCountry": "Ülkeye Göre",
+      "byInstitution": "Kuruma Göre"
+    },
+    "period": {
+      "daily": "Günlük",
+      "weekly": "Haftalık",
+      "monthly": "Aylık",
+      "quarterly": "3 Aylık",
+      "yearly": "Yıllık",
+      "custom": "Özel"
+    },
+    "actions": {
+      "refresh": "Yenile",
+      "filter": "Filtrele",
+      "search": "Ara",
+      "export": "Dışa Aktar",
+      "print": "Yazdır"
     }
   },
   "auth": {
