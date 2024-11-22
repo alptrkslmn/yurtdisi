@@ -80,8 +80,8 @@ function Dashboard() {
     recentTransactions: [
       {
         id: 1,
-        institution: t('institutions.DE_1'),
-        country: t('countries.DE'),
+        institution: 'TR_1',
+        country: 'TR',
         type: t('common.type.income'),
         amount: 12450,
         status: t('dashboard.status.completed'),
@@ -89,8 +89,8 @@ function Dashboard() {
       },
       {
         id: 2,
-        institution: t('institutions.FR_1'),
-        country: t('countries.FR'),
+        institution: 'DE_1',
+        country: 'DE',
         type: t('common.type.expense'),
         amount: 8720,
         status: t('dashboard.status.pending'),
@@ -98,8 +98,8 @@ function Dashboard() {
       },
       {
         id: 3,
-        institution: t('institutions.GB_1'),
-        country: t('countries.GB'),
+        institution: 'FR_1',
+        country: 'FR',
         type: t('common.type.income'),
         amount: 15890,
         status: t('dashboard.status.completed'),
@@ -107,13 +107,22 @@ function Dashboard() {
       },
       {
         id: 4,
-        institution: t('institutions.US_1'),
-        country: t('countries.US'),
+        institution: 'NL_1',
+        country: 'NL',
         type: t('common.type.expense'),
         amount: 22340,
         status: t('dashboard.status.failed'),
         date: '2024-03-18'
       },
+      {
+        id: 5,
+        institution: 'BE_1',
+        country: 'BE',
+        type: t('common.type.income'),
+        amount: 9870,
+        status: t('dashboard.status.completed'),
+        date: '2024-03-17'
+      }
     ]
   };
 
@@ -303,7 +312,7 @@ function Dashboard() {
 
   const years = Array.from({length: 5}, (_, i) => new Date().getFullYear() - i);
   const countries = [...new Set(mockData.recentTransactions.map(t => t.country))];
-  const institutions = [...new Set(mockData.recentTransactions.map(t => t.institution))];
+  const institutions = ['TR_1', 'TR_2', 'TR_3', 'DE_1', 'DE_2', 'DE_3', 'FR_1', 'FR_2', 'NL_1', 'NL_2', 'BE_1', 'BE_2'];
 
   const totalIncome = filteredTransactions
     .filter(t => t.type === t('common.type.income'))
@@ -443,7 +452,7 @@ function Dashboard() {
           >
             <option value="">{t('dashboard.filters.allInstitutions')}</option>
             {institutions.map(institution => (
-              <option key={institution} value={institution}>{institution}</option>
+              <option key={institution} value={institution}>{t(`institutions.${institution}`)}</option>
             ))}
           </select>
         </div>
@@ -571,10 +580,10 @@ function Dashboard() {
               {filteredTransactions.map((transaction) => (
                 <tr key={transaction.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                    {transaction.institution}
+                    {t(`institutions.${transaction.institution}`)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                    {transaction.country}
+                    {t(`countries.${transaction.country}`)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                     {transaction.type}

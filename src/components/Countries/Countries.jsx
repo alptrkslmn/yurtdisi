@@ -14,11 +14,41 @@ import { useTranslation } from 'react-i18next';
 
 // Örnek ülke verileri
 const mockCountries = [
-  { id: 1, name: 'Türkiye', code: 'TR', status: 'active', currency: 'TRY' },
-  { id: 2, name: 'Amerika Birleşik Devletleri', code: 'US', status: 'active', currency: 'USD' },
-  { id: 3, name: 'Almanya', code: 'DE', status: 'inactive', currency: 'EUR' },
-  { id: 4, name: 'Fransa', code: 'FR', status: 'active', currency: 'EUR' },
-  { id: 5, name: 'İngiltere', code: 'GB', status: 'active', currency: 'GBP' },
+  {
+    code: 'TR',
+    name: 'Türkiye',
+    status: 'active',
+    branches: 5,
+    lastUpdate: '2023-12-01'
+  },
+  {
+    code: 'DE',
+    name: 'Almanya',
+    status: 'active',
+    branches: 3,
+    lastUpdate: '2023-11-28'
+  },
+  {
+    code: 'FR',
+    name: 'Fransa',
+    status: 'active',
+    branches: 2,
+    lastUpdate: '2023-11-25'
+  },
+  {
+    code: 'NL',
+    name: 'Hollanda',
+    status: 'active',
+    branches: 1,
+    lastUpdate: '2023-11-20'
+  },
+  {
+    code: 'BE',
+    name: 'Belçika',
+    status: 'active',
+    branches: 1,
+    lastUpdate: '2023-11-15'
+  }
 ];
 
 const CountriesList = () => {
@@ -108,7 +138,10 @@ const CountriesList = () => {
                   {t('common.labels.status')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {t('common.labels.currency')}
+                  {t('common.labels.branches')}
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  {t('common.labels.lastUpdate')}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {t('common.labels.actions')}
@@ -117,7 +150,7 @@ const CountriesList = () => {
             </thead>
             <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {currentCountries.map((country) => (
-                <tr key={country.id}>
+                <tr key={country.code}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <Link
                       to={`${country.code}`}
@@ -141,7 +174,10 @@ const CountriesList = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                    {country.currency}
+                    {country.branches}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    {country.lastUpdate}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex justify-end gap-2">

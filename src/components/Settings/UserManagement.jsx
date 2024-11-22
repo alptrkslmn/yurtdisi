@@ -35,12 +35,7 @@ const UserManagement = () => {
     { id: 'institution_manager', name: 'Kurum Sorumlusu' }
   ];
 
-  const countries = [
-    { id: 'tr', name: 'Türkiye' },
-    { id: 'az', name: 'Azerbaycan' },
-    { id: 'de', name: 'Almanya' },
-    { id: 'us', name: 'Amerika' }
-  ];
+  const countries = ['TR', 'DE', 'FR', 'NL', 'BE'];
 
   return (
     <div className="space-y-6">
@@ -161,7 +156,7 @@ const UserManagement = () => {
                   <label className="label">Ülkeler</label>
                   <select multiple className="input h-32">
                     {countries.map((country) => (
-                      <option key={country.id} value={country.id}>{country.name}</option>
+                      <option key={country} value={country}>{country}</option>
                     ))}
                   </select>
                   <p className="mt-1 text-sm text-dark-500">

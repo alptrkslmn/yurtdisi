@@ -30,7 +30,9 @@ const Sidebar = () => {
   const countries = [
     { id: 'TR', name: t('countries.TR') },
     { id: 'DE', name: t('countries.DE') },
+    { id: 'FR', name: t('countries.FR') },
     { id: 'NL', name: t('countries.NL') },
+    { id: 'BE', name: t('countries.BE') }
   ];
 
   const menuItems = [

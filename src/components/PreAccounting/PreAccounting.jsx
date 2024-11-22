@@ -19,8 +19,8 @@ const PreAccounting = () => {
 
   const years = [2022, 2023, 2024];
   const months = Array.from({length: 12}, (_, i) => i);
-  const countries = ['Almanya', 'Türkiye', 'Fransa', 'İngiltere'];
-  const institutions = ['Dernek 1', 'Dernek 2', 'Dernek 3'];
+  const countries = ['TR', 'DE', 'FR', 'NL', 'BE'];
+  const institutions = ['TR_1', 'TR_2', 'TR_3', 'DE_1', 'DE_2', 'DE_3', 'FR_1', 'FR_2', 'NL_1', 'NL_2', 'BE_1', 'BE_2'];
 
   const [entries, setEntries] = useState([
     {
@@ -124,7 +124,7 @@ const PreAccounting = () => {
           >
             <option value="">{t('preAccounting.filters.allCountries')}</option>
             {countries.map(country => (
-              <option key={country} value={country}>{t(`countries.data.${country}`)}</option>
+              <option key={country} value={country}>{t(`countries.${country}`)}</option>
             ))}
           </select>
         </div>
@@ -141,7 +141,7 @@ const PreAccounting = () => {
           >
             <option value="">{t('preAccounting.filters.allInstitutions')}</option>
             {institutions.map(institution => (
-              <option key={institution} value={institution}>{institution}</option>
+              <option key={institution} value={institution}>{t(`institutions.${institution}`)}</option>
             ))}
           </select>
         </div>

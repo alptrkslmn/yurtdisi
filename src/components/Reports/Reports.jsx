@@ -300,6 +300,8 @@ const Reports = () => {
     handleRefresh();
   }, [filters]);
 
+  const institutions = ['TR_1', 'TR_2', 'TR_3', 'DE_1', 'DE_2', 'DE_3', 'FR_1', 'FR_2', 'NL_1', 'NL_2', 'BE_1', 'BE_2'];
+
   return (
     <div className="p-6 pt-16">
       <div className="flex justify-between items-center mb-6">
@@ -394,8 +396,8 @@ const Reports = () => {
                 onChange={(e) => setFilters({ ...filters, country: e.target.value })}
               >
                 <option value="">{t('reports.filters.allCountries')}</option>
-                {['Türkiye', 'Almanya', 'Fransa', 'Hollanda', 'Belçika'].map((country) => (
-                  <option key={country} value={country}>{t(`countries.data.${country}`)}</option>
+                {['TR', 'DE', 'FR', 'NL', 'BE'].map((country) => (
+                  <option key={country} value={country}>{t(`countries.${country}`)}</option>
                 ))}
               </select>
             </div>
@@ -413,8 +415,8 @@ const Reports = () => {
                 onChange={(e) => setFilters({ ...filters, organization: e.target.value })}
               >
                 <option value="">{t('reports.filters.allInstitutions')}</option>
-                {['Hudayi Vakfı', 'Hudayi Derneği', 'İnsani Yardım Derneği'].map((org) => (
-                  <option key={org} value={org}>{org}</option>
+                {institutions.map(institution => (
+                  <option key={institution} value={institution}>{t(`institutions.${institution}`)}</option>
                 ))}
               </select>
             </div>

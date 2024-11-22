@@ -20,7 +20,7 @@ const Users = () => {
       name: 'Ahmet Yılmaz',
       email: 'ahmet@example.com',
       role: ROLES.COUNTRY_COORDINATOR,
-      country: 'tr',
+      country: 'TR',
       status: 'active'
     },
     {
@@ -28,7 +28,7 @@ const Users = () => {
       name: 'Mehmet Demir',
       email: 'mehmet@example.com',
       role: ROLES.FINANCIAL_MANAGER,
-      country: 'tr',
+      country: 'TR',
       status: 'active'
     },
     {
@@ -36,7 +36,7 @@ const Users = () => {
       name: 'Hans Schmidt',
       email: 'hans@example.com',
       role: ROLES.BRANCH_MANAGER,
-      country: 'de',
+      country: 'DE',
       status: 'active'
     }
   ]);
@@ -273,9 +273,9 @@ const Users = () => {
                     focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 >
                   <option value="">{t('users.selectCountry')}</option>
-                  <option value="tr">{t('countries.tr')}</option>
-                  <option value="de">{t('countries.de')}</option>
-                  <option value="nl">{t('countries.nl')}</option>
+                  <option value="TR">{t('countries.TR')}</option>
+                  <option value="DE">{t('countries.DE')}</option>
+                  <option value="NL">{t('countries.NL')}</option>
                 </select>
               </div>
 

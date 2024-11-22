@@ -27,7 +27,7 @@ const Organizations = () => {
     { 
       id: 1, 
       name: 'Üsküdar Şubesi', 
-      country: 'tr',
+      country: 'TR',
       address: 'Aziz Mahmut Hüdayi Mah. Aziz Mahmut Efendi Sok. No:2 Üsküdar/İstanbul',
       phone: '+90 216 553 33 33',
       email: 'uskudar@hudayi.org',
@@ -36,7 +36,7 @@ const Organizations = () => {
     { 
       id: 2, 
       name: 'Berlin Şubesi', 
-      country: 'de',
+      country: 'DE',
       address: 'Kolonnenstraße 30, 10829 Berlin, Germany',
       phone: '+49 30 12345678',
       email: 'berlin@hudayi.org',
@@ -45,7 +45,7 @@ const Organizations = () => {
     { 
       id: 3, 
       name: 'Amsterdam Şubesi', 
-      country: 'nl',
+      country: 'NL',
       address: 'Bijlmerdreef 1289, 1103 TV Amsterdam, Netherlands',
       phone: '+31 20 123 4567',
       email: 'amsterdam@hudayi.org',
@@ -249,9 +249,9 @@ const Organizations = () => {
                       focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   >
                     <option value="">{t('countries.selectCountry')}</option>
-                    <option value="tr">{t('countries.tr')}</option>
-                    <option value="de">{t('countries.de')}</option>
-                    <option value="nl">{t('countries.nl')}</option>
+                    <option value="TR">{t('countries.TR')}</option>
+                    <option value="DE">{t('countries.DE')}</option>
+                    <option value="NL">{t('countries.NL')}</option>
                   </select>
                 </div>
               )}
