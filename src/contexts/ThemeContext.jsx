@@ -1,88 +1,72 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext();
 
-const THEME_COLOR_KEY = 'theme-color';
-const THEME_MODE_KEY = 'theme-mode';
-const DEFAULT_THEME = 'blue';
+export const ThemeProvider = ({ children }) => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [currentColor, setCurrentColor] = useState('#3B82F6'); // Default blue color
 
-export const AVAILABLE_THEMES = [
-  { name: 'blue', icon: '🌊' },
-  { name: 'indigo', icon: '💫' },
-  { name: 'emerald', icon: '💚' },
-  { name: 'teal', icon: '🌿' },
-  { name: 'purple', icon: '💜' },
-  { name: 'fuchsia', icon: '🌸' },
-  { name: 'rose', icon: '🌹' },
-  { name: 'amber', icon: '🌟' }
-];
-
-export function ThemeProvider({ children }) {
-  // Tema rengi
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    return localStorage.getItem(THEME_COLOR_KEY) || DEFAULT_THEME;
-  });
-
-  // Karanlık/Aydınlık mod
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem(THEME_MODE_KEY);
-    return savedMode === 'dark' || (!savedMode && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  });
-
-  // Sistem teması değişikliğini takip et
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e) => {
-      if (!localStorage.getItem(THEME_MODE_KEY)) {
-        setIsDarkMode(e.matches);
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    // Check local storage for saved theme preferences
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    const savedColor = localStorage.getItem('themeColor') || '#3B82F6';
+    
+    setIsDarkMode(savedDarkMode);
+    setCurrentColor(savedColor);
+    
+    if (savedDarkMode) {
+      document.documentElement.classList.add('dark');
+    }
   }, []);
 
-  // Dark mode değişikliklerini uygula
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem(THEME_MODE_KEY, 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem(THEME_MODE_KEY, 'light');
-    }
-  }, [isDarkMode]);
-
-  // Tema rengi değişikliklerini uygula
-  useEffect(() => {
-    // Önceki tema sınıflarını kaldır
-    AVAILABLE_THEMES.forEach(theme => {
-      document.documentElement.classList.remove(`theme-${theme.name}`);
-    });
-    // Yeni tema sınıfını ekle
-    document.documentElement.classList.add(`theme-${currentTheme}`);
-    localStorage.setItem(THEME_COLOR_KEY, currentTheme);
-  }, [currentTheme]);
-
   const toggleDarkMode = () => {
-    setIsDarkMode(prev => !prev);
+    setIsDarkMode(prev => {
+      const newValue = !prev;
+      localStorage.setItem('darkMode', newValue);
+      
+      if (newValue) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      
+      return newValue;
+    });
   };
 
-  const setThemeColor = (color) => {
-    setCurrentTheme(color);
+  const changeColor = (color) => {
+    setCurrentColor(color);
+    localStorage.setItem('themeColor', color);
+    
+    // Update CSS variables
+    document.documentElement.style.setProperty('--color-primary-50', `${color}10`);
+    document.documentElement.style.setProperty('--color-primary-100', `${color}20`);
+    document.documentElement.style.setProperty('--color-primary-200', `${color}30`);
+    document.documentElement.style.setProperty('--color-primary-300', `${color}40`);
+    document.documentElement.style.setProperty('--color-primary-400', `${color}50`);
+    document.documentElement.style.setProperty('--color-primary-500', color);
+    document.documentElement.style.setProperty('--color-primary-600', `${color}D0`);
+    document.documentElement.style.setProperty('--color-primary-700', `${color}B0`);
+    document.documentElement.style.setProperty('--color-primary-800', `${color}90`);
+    document.documentElement.style.setProperty('--color-primary-900', `${color}70`);
   };
 
   return (
-    <ThemeContext.Provider value={{ currentTheme, isDarkMode, toggleDarkMode, setThemeColor }}>
+    <ThemeContext.Provider value={{
+      isDarkMode,
+      toggleDarkMode,
+      currentColor,
+      changeColor
+    }}>
       {children}
     </ThemeContext.Provider>
   );
-}
+};
 
-export function useTheme() {
+export const useTheme = () => {
   const context = useContext(ThemeContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
-}
+};

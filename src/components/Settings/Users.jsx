@@ -6,7 +6,7 @@ import {
   TrashIcon,
   PlusIcon 
 } from '@heroicons/react/24/outline';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/authContext';
 import { ROLES, PERMISSIONS } from '../../constants/permissions';
 
 const Users = () => {

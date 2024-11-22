@@ -1,10 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '../contexts/ThemeContext';
-import { Outlet } from 'react-router-dom';
-import '../styles/settings.css';
 
-const { getCategories, addCategory, deleteCategory, getCurrencies } = window.electron.database;
+// Contexts
+import { useTheme } from '../../contexts/themeContext';
+
+// Styles
+import '../../styles/settings.css';
+
+import { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+
+// Development ortamında mock data kullanıyoruz
+const isDevelopment = process.env.NODE_ENV === 'development';
+const mockDatabase = {
+    getCategories: async () => [],
+    addCategory: async () => {},
+    deleteCategory: async () => {},
+    getCurrencies: async () => []
+};
+
+const database = isDevelopment ? mockDatabase : window.electron.database;
+const { getCategories, addCategory, deleteCategory, getCurrencies } = database;
 
 function Settings() {
     const { t } = useTranslation();

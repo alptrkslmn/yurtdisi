@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../contexts/AuthContext';
+
+// Contexts
+import { useAuth } from '../../../contexts/authContext';
 
 const Login = () => {
   const navigate = useNavigate();

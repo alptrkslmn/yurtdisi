@@ -8,13 +8,13 @@ import {
   Cog6ToothIcon,
   CurrencyDollarIcon
 } from '@heroicons/react/24/outline';
-import Items from './Items';
-import LanguageSettings from './LanguageSettings';
-import GeneralSettings from './GeneralSettings';
-import Users from './Users';
-import ThemeSettings from './ThemeSettings';
-import NotificationSettings from './NotificationSettings';
-import CurrencySettings from './CurrencySettings';
+import Items from './items';
+import LanguageSettings from './languageSettings';
+import GeneralSettings from './generalSettings';
+import Users from './users';
+import NotificationSettings from './notificationSettings';
+import CurrencySettings from './currencySettings';
+import ThemeSettings from '../features/settings/ThemeSettings/themeSettings';
 
 const Settings = () => {
   const location = useLocation();

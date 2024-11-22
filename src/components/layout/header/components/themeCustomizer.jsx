@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { useTranslation } from 'react-i18next'
-import { useTheme, AVAILABLE_THEMES } from '../../contexts/ThemeContext'
+import { useTheme } from '../../../../contexts/themeContext'
 import { SwatchIcon } from '@heroicons/react/24/outline'
 
 export default function ThemeCustomizer() {
@@ -31,14 +31,14 @@ export default function ThemeCustomizer() {
         <Popover.Panel className="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="p-2">
             <div className="grid grid-cols-4 gap-2">
-              {AVAILABLE_THEMES.map((theme) => (
+              {Object.keys(useTheme()).map((theme) => (
                 <button
-                  key={theme.name}
-                  onClick={() => setThemeColor(theme.name)}
-                  className={`w-7 h-7 rounded-full bg-${theme.name}-500 ring-offset-2 transition-shadow hover:ring-2 hover:ring-gray-400 dark:hover:ring-gray-500 ${
-                    currentTheme === theme.name ? 'ring-2 ring-gray-400 dark:ring-gray-500' : ''
+                  key={theme}
+                  onClick={() => setThemeColor(theme)}
+                  className={`w-7 h-7 rounded-full bg-${theme}-500 ring-offset-2 transition-shadow hover:ring-2 hover:ring-gray-400 dark:hover:ring-gray-500 ${
+                    currentTheme === theme ? 'ring-2 ring-gray-400 dark:ring-gray-500' : ''
                   }`}
-                  title={t(`theme.colors.${theme.name}`)}
+                  title={t(`theme.colors.${theme}`)}
                 />
               ))}
             </div>
